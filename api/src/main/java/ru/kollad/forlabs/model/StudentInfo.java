@@ -3,9 +3,15 @@ package ru.kollad.forlabs.model;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
 
+import java.io.Serializable;
 import java.util.Locale;
 
-public class StudentInfo {
+import ru.kollad.forlabs.api.exceptions.UnsupportedForlabsException;
+
+/**
+ * Provides storage for student info.
+ */
+public class StudentInfo implements Serializable {
 	private String studentName;
 	private String studentPhotoUrl;
 	private String groupName;
@@ -17,8 +23,18 @@ public class StudentInfo {
 	private int currentCourse;
 	private int totalCourseCount;
 
-	public StudentInfo(Document doc) {
-		Elements elements = doc.getElementsByClass("dropup").get(0).child(0).children();
+	/**
+	 * Constructor for document.
+	 * @param doc Document.
+	 */
+	public StudentInfo(Document doc) throws UnsupportedForlabsException {
+		// get needed elements
+		Elements elements = doc.getElementsByClass("dropup");
+		if (elements.size() == 0)
+			throw new UnsupportedForlabsException();
+
+		// fill student info
+		elements = elements.get(0).child(0).children();
 		studentPhotoUrl = elements.get(0).attr("src");
 		studentName = elements.get(1).text();
 
@@ -40,39 +56,30 @@ public class StudentInfo {
 	public String getStudentName() {
 		return studentName;
 	}
-
 	public String getStudentPhotoUrl() {
 		return studentPhotoUrl;
 	}
-
 	public String getGroupName() {
 		return groupName;
 	}
-
 	public String getDirectionName() {
 		return directionName;
 	}
-
 	public String getProfileName() {
 		return profileName;
 	}
-
 	public String getQualificationName() {
 		return qualificationName;
 	}
-
 	public String getStudyFormName() {
 		return studyFormName;
 	}
-
 	public int getAdmissionYear() {
 		return admissionYear;
 	}
-
 	public int getCurrentCourse() {
 		return currentCourse;
 	}
-
 	public int getTotalCourseCount() {
 		return totalCourseCount;
 	}

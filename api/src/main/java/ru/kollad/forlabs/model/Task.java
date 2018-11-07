@@ -8,9 +8,11 @@ import org.jsoup.parser.Parser;
 import org.jsoup.select.Elements;
 
 import ru.kollad.forlabs.api.API;
+import ru.kollad.forlabs.api.exceptions.OldCookiesException;
 import ru.kollad.forlabs.api.exceptions.UnsupportedForlabsException;
 
 import java.io.IOException;
+import java.io.Serializable;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.text.ParseException;
@@ -20,8 +22,13 @@ import java.util.Date;
 import java.util.List;
 import java.util.Scanner;
 
-public class Task {
+/**
+ * Represents a task.
+ */
+public class Task implements Serializable {
+	/** URL for fetching attachments */
 	private static final String ATTACHMENT_URL = "https://forlabs.ru/studies/${studyId}/tasks/${id}";
+	/** URL for fetching messages */
 	private static final String MESSAGES_URL = "https://forlabs.ru/studies/${studyId}/tasks/${id}/responses";
 
 	private int id;
@@ -39,7 +46,10 @@ public class Task {
 	private List<Attachment> attachments;
 	private List<Message> messages;
 
-
+	/**
+	 * Constructor for JSON.
+	 * @param json JSON.
+	 */
 	public Task(JSONObject json) throws ParseException, JSONException {
 		id = json.optInt("id", 0);
 		name = json.optString("name", "");
@@ -59,57 +69,64 @@ public class Task {
 	public int getId() {
 		return id;
 	}
-
 	public int getStudyId() {
 		return studyId;
 	}
-
 	public int getStatus() {
 		return status;
 	}
-
 	public String getName() {
 		return name;
 	}
-
 	public String getContent() {
 		return content;
 	}
-
 	public String getInstructions() {
 		return instructions;
 	}
-
 	public double getCost() {
 		return cost;
 	}
-
 	public Date getCreatedAt() {
 		return createdAt;
 	}
-
 	public Date getUpdatedAt() {
 		return updatedAt;
 	}
-
 	public Date getDeletedAt() {
 		return deletedAt;
 	}
-
 	public Assignment getAssignment() {
 		return assignment;
 	}
-
 	public List<Attachment> getAttachments() {
 		return attachments;
 	}
+	public List<Message> getMessages() {
+		return messages;
+	}
 
-	public List<Attachment> fetchAttachments(Parser p, Cookies cookies) throws IOException, UnsupportedForlabsException, JSONException {
+	/**
+	 * Fetch some attachments.
+	 * @param p Parser for parsing HTMLs.
+	 * @param cookies Cookies for getting new one.
+	 * @return List of attachments.
+	 */
+	public List<Attachment> fetchAttachments(Parser p, Cookies cookies) throws IOException,
+			UnsupportedForlabsException, JSONException, OldCookiesException {
+		// setup connection
 		HttpURLConnection con = (HttpURLConnection)
 				new URL(createAttachmentUrl()).openConnection();
+		con.setInstanceFollowRedirects(false);
 		con.setDoInput(true);
-		cookies.putTo(con);
 		con.addRequestProperty("User-Agent", API.USER_AGENT);
+		cookies.putTo(con);
+
+		// if it's redirection, throw exception
+		if (con.getResponseCode() == 302)
+			throw new OldCookiesException();
+
+		// read the page
 		StringBuilder response = new StringBuilder();
 		Scanner sc = new Scanner(con.getInputStream(), "utf-8");
 		while (sc.hasNextLine()) {
@@ -117,22 +134,28 @@ public class Task {
 			response.append("\n");
 		}
 		sc.close();
+
+		// get some fresh cookies
 		cookies.replaceBy(con);
 
+		// parse the page
 		Document doc = p.parseInput(response.toString(), con.getURL().toString());
 		Elements elements = doc.getElementsByClass("container-fluid");
 		if (elements.size() == 0)
 			throw new UnsupportedForlabsException();
 
+		// init reader
 		sc = new Scanner(elements.get(0).child(0).childNode(0).toString());
 		sc.nextLine();
 		sc.nextLine();
 
+		// get json
 		String jsonStr = sc.nextLine();
 		sc.close();
 		JSONArray jsonArr = new JSONObject(jsonStr.substring(jsonStr.indexOf('{'), jsonStr.lastIndexOf(';')))
 				.getJSONArray("attachments");
 
+		// parse json to array list
 		attachments = new ArrayList<>();
 		for (int i = 0; i < jsonArr.length(); i++)
 			attachments.add(new Attachment(jsonArr.getJSONObject(i)));
@@ -140,24 +163,38 @@ public class Task {
 		return attachments;
 	}
 
-	public List<Message> getMessages() {
-		return messages;
-	}
-
-	public List<Message> fetchMessages(Parser p, Cookies cookies) throws IOException, ParseException, JSONException {
+	/**
+	 * Fetch some messages.
+	 * @param p Parser for parsing HTMLs.
+	 * @param cookies Cookies for getting new one.
+	 * @return List of messages.
+	 */
+	public List<Message> fetchMessages(Parser p, Cookies cookies) throws IOException, ParseException,
+			JSONException, OldCookiesException {
+		// setup connection
 		HttpURLConnection con = (HttpURLConnection)
 				new URL(MESSAGES_URL.replace("${studyId}", Integer.toString(studyId))
 						.replace("${id}", Integer.toString(id))).openConnection();
+		con.setInstanceFollowRedirects(false);
 		con.setDoInput(true);
-		cookies.putTo(con);
 		con.addRequestProperty("User-Agent", API.USER_AGENT);
+		cookies.putTo(con);
+
+		// if it's redirection, throw exception
+		if (con.getResponseCode() == 302)
+			throw new OldCookiesException();
+
+		// read the page
 		StringBuilder response = new StringBuilder();
 		Scanner sc = new Scanner(con.getInputStream(), "utf-8");
 		while (sc.hasNextLine())
 			response.append(sc.nextLine());
 		sc.close();
+
+		// getting the fresh cookies
 		cookies.replaceBy(con);
 
+		// read all messages
 		JSONArray mesArr = new JSONArray(response.toString());
 		messages = new ArrayList<>();
 		for (int i = 0; i < mesArr.length(); i++)
@@ -166,26 +203,41 @@ public class Task {
 		return messages;
 	}
 
+	/**
+	 * Sets new assignments.
+	 * @param assignment Assignment.
+	 */
 	public void setAssignment(Assignment assignment) {
 		this.assignment = assignment;
 	}
 
+	/**
+	 * Creates an attachments URL.
+	 * @return URL.
+	 */
 	public String createAttachmentUrl() {
 		return ATTACHMENT_URL.replace("${studyId}", Integer.toString(studyId))
 				.replace("${id}", Integer.toString(id));
 	}
 
+	/**
+	 * Creates a messages URL.
+	 * @return URL.
+	 */
 	public String createMessageUrl() {
 		return MESSAGES_URL.replace("${studyId}", Integer.toString(studyId))
 				.replace("${id}", Integer.toString(id));
 	}
 
-	public static class Assignment {
+	/**
+	 * Represents an assignment.
+	 */
+	public static class Assignment implements Serializable {
 		public static final int STATUS_DEBT = 1;
 		public static final int STATUS_SENT = 2;
 		public static final int STATUS_SUCCESS = 3;
 		public static final int STATUS_GOT_ANSWER = 6;
-		public static final int STATUS_HAS_ANSWER = 7;
+		public static final int STATUS_HAS_QUESTIONS = 7;
 		public static final int STATUS_DEFAULT = 0;
 
 		private int id;
@@ -196,6 +248,10 @@ public class Task {
 		private Date updatedAt;
 		private Assessment assessment;
 
+		/**
+		 * Constructor for JSON.
+		 * @param json JSON.
+		 */
 		public Assignment(JSONObject json) throws ParseException, JSONException {
 			id = json.optInt("id", 0);
 			taskId = json.optInt("task_id", 0);
@@ -212,29 +268,27 @@ public class Task {
 		public int getId() {
 			return id;
 		}
-
 		public int getTaskId() {
 			return taskId;
 		}
-
 		public int getStatus() {
 			return status;
 		}
-
 		public Date getLastRepliedAt() {
 			return lastRepliedAt;
 		}
-
 		public Date getUpdatedAt() {
 			return updatedAt;
 		}
-
 		public Assessment getAssessment() {
 			return assessment;
 		}
 	}
 
-	public static class Assessment {
+	/**
+	 * Represents an assessment.
+	 */
+	public static class Assessment implements Serializable {
 		private int id;
 		private int taskId;
 		private int type;
@@ -248,6 +302,10 @@ public class Task {
 
 		private Date updatedAt;
 
+		/**
+		 * Constructor for JSON.
+		 * @param json JSON.
+		 */
 		public Assessment(JSONObject json) throws ParseException, JSONException {
 			id = json.optInt("id", 0);
 			type = json.optInt("type", 0);
@@ -267,39 +325,30 @@ public class Task {
 		public int getId() {
 			return id;
 		}
-
 		public int getTaskId() {
 			return taskId;
 		}
-
 		public int getType() {
 			return type;
 		}
-
 		public double getCredits() {
 			return credits;
 		}
-
 		public String getComment() {
 			return comment;
 		}
-
 		public String getCause() {
 			return cause;
 		}
-
 		public int getStatus() {
 			return status;
 		}
-
 		public Date getCreatedAt() {
 			return createdAt;
 		}
-
 		public Date getLastRepliedAt() {
 			return lastRepliedAt;
 		}
-
 		public Date getUpdatedAt() {
 			return updatedAt;
 		}

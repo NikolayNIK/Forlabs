@@ -3,18 +3,26 @@ package ru.kollad.forlabs.model;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.Serializable;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
-public class Attendance {
+/**
+ * Represents attendance on the lesson.
+ */
+public class Attendance implements Serializable {
 	private int id;
 	private Date date;
 	private double cost;
 	private String comment;
 	private boolean isPresent;
 
+	/**
+	 * Constructor for JSON.
+	 * @param json JSON.
+	 */
 	public Attendance(JSONObject json) throws ParseException, JSONException {
 		id = json.optInt("id", 0);
 		date = new SimpleDateFormat("yyyy-MM-dd").parse(json.optString("date", "1970-01-01"));
@@ -26,19 +34,15 @@ public class Attendance {
 	public int getId() {
 		return id;
 	}
-
 	public Date getDate() {
 		return date;
 	}
-
 	public double getCost() {
 		return cost;
 	}
-
 	public String getComment() {
 		return comment;
 	}
-
 	public boolean isPresent() {
 		return isPresent;
 	}
@@ -47,7 +51,6 @@ public class Attendance {
 	public String toString() {
 		return String.format(Locale.getDefault(), "%d: %s %s", id, isPresent ? "был" : "не был", date.toString());
 	}
-
 	@Override
 	public boolean equals(Object obj) {
 		if (!(obj instanceof Attendance)) return false;
@@ -55,7 +58,6 @@ public class Attendance {
 		Attendance a2 = (Attendance) obj;
 		return id == a2.id;
 	}
-
 	@Override
 	public int hashCode() {
 		return id ^ date.hashCode() ^ (int) cost ^ comment.hashCode() ^ (isPresent ? 1 : 0);

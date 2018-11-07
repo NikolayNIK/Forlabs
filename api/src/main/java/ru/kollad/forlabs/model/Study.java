@@ -9,9 +9,11 @@ import org.jsoup.parser.Parser;
 import org.jsoup.select.Elements;
 
 import ru.kollad.forlabs.api.API;
+import ru.kollad.forlabs.api.exceptions.OldCookiesException;
 import ru.kollad.forlabs.api.exceptions.UnsupportedForlabsException;
 
 import java.io.IOException;
+import java.io.Serializable;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.text.ParseException;
@@ -20,12 +22,17 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Scanner;
 
-public class Study {
+/**
+ * Represents a study.
+ */
+public class Study implements Serializable {
+	/** URL for fetching info */
 	private static final String FETCH_URL = "https://forlabs.ru/studies/${id}";
 
-	public static final int NORMAL = 0;
-	public static final int DEBT = -1;
-	public static final int CERTIFIED = 1;
+	/** Statuses */
+	public static final int STATUS_NORMAL = 0;
+	public static final int STATUS_DEBT = -1;
+	public static final int STATUS_CERTIFIED = 1;
 
 	private int id;
 	private List<Integer> lecturersId;
@@ -44,6 +51,10 @@ public class Study {
 
 	private List<ScheduleItem> scheduleItems;
 
+	/**
+	 * Constructor for page element.
+	 * @param html Page element.
+	 */
 	public Study(Element html) {
 		Elements elements = html.child(0).children();
 
@@ -57,14 +68,28 @@ public class Study {
 		simpleTeacherName = elements.get(1).text();
 		block = elements.get(1).children();
 		if (block.size() == 2)
-			status = "аттестован".equals(block.get(1).attr("title")) ? CERTIFIED : DEBT;
+			status = "аттестован".equals(block.get(1).attr("title")) ? STATUS_CERTIFIED : STATUS_DEBT;
 	}
 
-	public Study fetch(Parser p, Cookies cookies) throws IOException, UnsupportedForlabsException, ParseException, JSONException {
+	/**
+	 * Fetch some info about study.
+	 * @param p Parser for parsing HTMLs.
+	 * @param cookies Cookies for updating.
+	 * @return Study, but with more info!
+	 */
+	public Study fetch(Parser p, Cookies cookies) throws IOException, UnsupportedForlabsException, ParseException, JSONException, OldCookiesException {
+		// setup connection
 		HttpURLConnection con = (HttpURLConnection) new URL(FETCH_URL.replace("${id}", Integer.toString(id))).openConnection();
-		con.addRequestProperty("User-Agent", API.USER_AGENT);
+		con.setInstanceFollowRedirects(false);
 		con.setDoInput(true);
+		con.addRequestProperty("User-Agent", API.USER_AGENT);
 		cookies.putTo(con);
+
+		// if it's redirection, throw exception
+		if (con.getResponseCode() == 302)
+			throw new OldCookiesException();
+
+		// read the page
 		Scanner sc = new Scanner(con.getInputStream(), "utf-8");
 		StringBuilder response = new StringBuilder();
 		while (sc.hasNextLine()) {
@@ -72,19 +97,25 @@ public class Study {
 			response.append("\n");
 		}
 		sc.close();
+
+		// get some fresh cookies
 		cookies.replaceBy(con);
 
+		// parse document
 		Document doc = p.parseInput(response.toString(), con.getURL().toString());
 
+		// get teacher's name
 		Elements elements = doc.getElementsByClass("dl-horizontal");
 		if (elements.size() == 0)
 			throw new UnsupportedForlabsException();
 		teacherName = elements.get(0).child(6).text();
 
+		// get secret container
 		elements = doc.getElementsByClass("container-fluid");
 		if (elements.size() == 0)
 			throw new UnsupportedForlabsException();
 
+		// init reader
 		sc = new Scanner(elements.get(0).child(0).childNode(0).toString());
 		sc.nextLine();
 
@@ -102,6 +133,7 @@ public class Study {
 		lecturerId = json.optInt("lecturer3_id", 0);
 		if (lecturerId != 0) lecturersId.add(lecturerId);
 
+		// parse tasks
 		tasks = new ArrayList<>();
 		JSONArray jsonArr = json.getJSONArray("tasks");
 		for (int i = 0; i < jsonArr.length(); i++)
@@ -162,6 +194,7 @@ public class Study {
 		for (int i = 0; i < jsonArr.length(); i++)
 			scheduleItems.add(new ScheduleItem(jsonArr.getJSONObject(i)));
 
+		// close the stream
 		sc.close();
 
 		return this;
@@ -170,47 +203,36 @@ public class Study {
 	public int getId() {
 		return id;
 	}
-
 	public List<Integer> getLecturersId() {
 		return lecturersId;
 	}
-
 	public String getName() {
 		return name;
 	}
-
 	public double getPoints() {
 		return points;
 	}
-
 	public int getGrade() {
 		return grade;
 	}
-
 	public float getAttendPercent() {
 		return attendPercent;
 	}
-
 	public List<Attendance> getAttendances() {
 		return attendances;
 	}
-
 	public String getTeacherName() {
 		return teacherName;
 	}
-
 	public String getSimpleTeacherName() {
 		return simpleTeacherName;
 	}
-
 	public int getStatus() {
 		return status;
 	}
-
 	public List<Task> getTasks() {
 		return tasks;
 	}
-
 	public List<ScheduleItem> getScheduleItems() {
 		return scheduleItems;
 	}
