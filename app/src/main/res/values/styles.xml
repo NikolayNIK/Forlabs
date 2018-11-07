@@ -4,4 +4,17 @@
 		<item name="colorAccent">@color/accent</item>
 	</style>
 
+	<style name="AppTheme.NoActionBar">
+		<item name="windowNoTitle">true</item>
+		<item name="windowActionBar">false</item>
+	</style>
+
+	<style name="AppTheme.NoActionBar.Fullscreen" />
+
+	<style name="AppTheme.NoActionBar.Fullscreen.Logo" parent="Theme.AppCompat" >
+		<item name="colorAccent">@android:color/white</item>
+		<item name="windowNoTitle">true</item>
+		<item name="windowActionBar">false</item>
+	</style>
+
 </resources>

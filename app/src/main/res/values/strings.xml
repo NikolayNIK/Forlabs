@@ -1,3 +1,11 @@
 <resources>
+
 	<string name="app_name">Forlabs</string>
+
+	<string name="hint_auth_email">E-mail Address</string>
+	<string name="hint_auth_password">Password</string>
+
+	<string name="button_auth_log_in">Log In</string>
+	<string name="button_auth_forgot_password">Forgot password?</string>
+
 </resources>
