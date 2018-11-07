@@ -8,13 +8,15 @@ import java.util.List;
 
 public class Studies {
 
-    private List<Study> studies;
+	private List<Study> studies;
 
-    public Studies(Elements elements) {
-        studies = new ArrayList<>();
-        for (Element e: elements)
-            studies.add(new Study(e));
-    }
+	public Studies(Elements elements) {
+		studies = new ArrayList<>();
+		for (Element e : elements)
+			studies.add(new Study(e));
+	}
 
-    public List<Study> getStudies() { return studies; }
+	public List<Study> getStudies() {
+		return studies;
+	}
 }
