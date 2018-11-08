@@ -4,10 +4,9 @@ import android.os.AsyncTask;
 import android.util.Log;
 
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.ObjectInputStream;
 
 import ru.kollad.forlabs.model.Cookies;
+import ru.kollad.forlabs.util.SerializableUtil;
 
 /**
  * Created by NikolayNIK on 08.11.2018.
@@ -24,12 +23,7 @@ public class CheckCookiesTask extends AsyncTask<File, Void, Cookies> {
 	protected Cookies doInBackground(File... files) {
 		Cookies cookies = null;
 		try {
-			ObjectInputStream stream = new ObjectInputStream(new FileInputStream(files[0]));
-			try { // Try-with-resources requires API level 19 (current min is 17)
-				cookies = (Cookies) stream.readObject();
-			} finally {
-				stream.close();
-			}
+			cookies = (Cookies) SerializableUtil.read(files[0]);
 		} catch (Exception e) {
 			Log.d("Forlabs", "Exception eating cookie", e);
 		}
