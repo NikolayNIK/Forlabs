@@ -20,9 +20,15 @@ import ru.kollad.forlabs.R;
  */
 abstract class MainFragment extends Fragment implements Toolbar.OnMenuItemClickListener {
 
+	private Toolbar toolbar;
+
 	@Nullable
 	protected MainActivity getMainActivity() {
 		return (MainActivity) getActivity();
+	}
+
+	public Toolbar getToolbar() {
+		return toolbar;
 	}
 
 	@Override
@@ -36,7 +42,7 @@ abstract class MainFragment extends Fragment implements Toolbar.OnMenuItemClickL
 	public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
 		super.onViewCreated(view, savedInstanceState);
 
-		Toolbar toolbar = view.findViewById(R.id.toolbar);
+		toolbar = view.findViewById(R.id.toolbar);
 		if (toolbar != null && getActivity() != null) {
 			onCreateOptionsMenu(toolbar.getMenu(), getActivity().getMenuInflater());
 			toolbar.setOnMenuItemClickListener(this);
