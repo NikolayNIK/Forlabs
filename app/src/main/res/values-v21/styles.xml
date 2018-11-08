@@ -6,12 +6,4 @@
 		<item name="android:windowTranslucentStatus">true</item>
 	</style>
 
-	<style name="AppTheme.NoActionBar.Fullscreen.Logo" parent="Theme.AppCompat">
-		<item name="colorAccent">@android:color/white</item>
-		<item name="windowNoTitle">true</item>
-		<item name="windowActionBar">false</item>
-		<item name="android:windowTranslucentNavigation">true</item>
-		<item name="android:windowTranslucentStatus">true</item>
-	</style>
-
 </resources>
