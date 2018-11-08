@@ -4,7 +4,6 @@
 	<style name="AppTheme.NoActionBar.Logo">
 		<item name="android:windowTranslucentNavigation">true</item>
 		<item name="android:windowTranslucentStatus">true</item>
-		<item name="android:windowBackground">@drawable/background_logo</item>
 	</style>
 
 </resources>

@@ -12,14 +12,16 @@
 		android:theme="@style/AppTheme">
 		<activity
 			android:name=".app.AuthActivity"
-			android:theme="@style/AppTheme.NoActionBar.Fullscreen.Logo">
+			android:theme="@style/AppTheme.NoActionBar.Logo">
 			<intent-filter>
 				<action android:name="android.intent.action.MAIN" />
 
 				<category android:name="android.intent.category.LAUNCHER" />
 			</intent-filter>
 		</activity>
-		<activity android:name=".app.MainActivity" />
+		<activity
+			android:name=".app.MainActivity"
+			android:theme="@style/AppTheme.NoActionBar.Fullscreen" />
 	</application>
 
 </manifest>

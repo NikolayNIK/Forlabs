@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+	<group android:checkableBehavior="single">
+
+		<item
+			android:id="@+id/item_dashboard"
+			android:icon="@drawable/ic_dashboard_daynight_24dp"
+			android:title="@string/item_dashboard" />
+
+		<item
+			android:id="@+id/item_schedule"
+			android:icon="@drawable/ic_schedule_daynight_24dp"
+			android:title="@string/item_schedule" />
+
+		<item
+			android:id="@+id/item_studies"
+			android:icon="@drawable/ic_studies_daynight_24dp"
+			android:title="@string/item_studies" />
+
+	</group>
+
+	<item android:title="@string/item_account">
+
+		<menu>
+
+			<item
+				android:id="@+id/item_account_settings"
+				android:icon="@drawable/ic_settings_daynight_24dp"
+				android:title="@string/item_account_settings" />
+
+			<item
+				android:id="@+id/item_account_logout"
+				android:icon="@drawable/ic_logout_daynight_24dp"
+				android:title="@string/item_account_logout" />
+
+		</menu>
+
+	</item>
+
+</menu>

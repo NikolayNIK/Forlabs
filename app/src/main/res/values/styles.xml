@@ -11,6 +11,6 @@
 
 	<style name="AppTheme.NoActionBar.Fullscreen" />
 
-	<style name="AppTheme.NoActionBar.Fullscreen.Logo" />
+	<style name="AppTheme.NoActionBar.Logo" />
 
 </resources>
