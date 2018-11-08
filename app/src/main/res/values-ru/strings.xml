@@ -1,0 +1,18 @@
+<resources>
+
+	<string name="hint_auth_email">Адрес E-mail</string>
+	<string name="hint_auth_password">Пароль</string>
+
+	<string name="error_auth_incorrect_credentials">Имя пользователя и пароль не совпадают</string>
+
+	<string name="button_auth_log_in">Войти</string>
+	<string name="button_auth_forgot_password">Забыли пароль?</string>
+
+	<string name="item_dashboard">Обзор</string>
+	<string name="item_schedule">Расписание</string>
+	<string name="item_studies">Моя учёба</string>
+	<string name="item_account">Аккаунт</string>
+	<string name="item_account_settings">Настройки</string>
+	<string name="item_account_logout">Выйти</string>
+
+</resources>
