@@ -19,7 +19,6 @@ import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
 import java.text.ParseException;
 import java.util.List;
 import java.util.Random;
@@ -35,6 +34,8 @@ public class API {
 	private static final String LOGIN_URL = "https://forlabs.ru/login";
 	/** Mask - Login. */
 	private static final String LOGIN_FORM_MASK = "_token=${token}&email=${email}&password=${password}&remember=on";
+	/** URL - Logout */
+	private static final String LOGOUT_URL = "https://forlabs.ru/logout";
 	/** URL - Studies. */
 	private static final String STUDIES_URL = "https://forlabs.ru/studies";
 	/** URL - Upload. */
@@ -43,6 +44,8 @@ public class API {
 	private static final String UPLOAD_MASK = "?flowChunkNumber=1&flowChunkSize=1048576&" +
 			"flowCurrentChunkSize=${size}&flowTotalSize=${size}&flowIdentifier=${size}-${filename2}&" +
 			"flowFilename=${filename}&flowRelativePath=${filename}&flowTotalChunks=1";
+	/** URL - Dashboard */
+	private static final String DASHBOARD_URL = "https://forlabs.ru/dashboard";
 
 	/** Parser. For parsing HTML pages. */
 	private static Parser p = Parser.htmlParser();
@@ -85,7 +88,7 @@ public class API {
 	 * @param email E-mail.
 	 * @param password Password.
 	 */
-	public void login(String email, String password) throws IOException, UnsupportedForlabsException, IncorrectCredentialsException {
+	public StudentInfo login(String email, String password) throws IOException, UnsupportedForlabsException, IncorrectCredentialsException {
 		// setup connection
 		HttpURLConnection con = (HttpURLConnection) new URL(LOGIN_URL).openConnection();
 		con.setDoInput(true);
@@ -160,6 +163,98 @@ public class API {
 
 		// get new cookies
 		cookies.replaceBy(con);
+
+		return studentInfo;
+	}
+
+	/**
+	 * Logs out.
+	 */
+	public void Logout() throws IOException, UnsupportedForlabsException {
+		// setup connection
+		HttpURLConnection con = (HttpURLConnection) new URL(DASHBOARD_URL).openConnection();
+		con.setInstanceFollowRedirects(false);
+		con.setDoInput(true);
+		con.addRequestProperty("User-Agent", USER_AGENT);
+		cookies.putTo(con);
+
+		// if it's redirection, that means we already logged out
+		if (con.getResponseCode() == 302)
+			return;
+
+		// download dashboard
+		Scanner sc = new Scanner(con.getInputStream(), "utf-8");
+		StringBuilder response = new StringBuilder();
+		while (sc.hasNextLine()) {
+			response.append(sc.nextLine());
+			response.append("\n");
+		}
+		sc.close();
+
+		// parse that thing
+		Document doc = p.parseInput(response.toString(), DASHBOARD_URL);
+
+		// get elements with token
+		Elements elements = doc.body().getElementsByAttributeValue("name", "_token");
+		if (elements.size() == 0) {
+			throw new UnsupportedForlabsException();
+		}
+		String token = elements.get(0).attr("value");
+
+		// setup connection
+		con = (HttpURLConnection) new URL(LOGOUT_URL).openConnection();
+		con.setInstanceFollowRedirects(false);
+		con.setRequestMethod("POST");
+		con.setDoInput(true);
+		con.setDoOutput(true);
+		con.addRequestProperty("User-Agent", USER_AGENT);
+		cookies.putTo(con);
+
+		// post login form
+		OutputStream os = con.getOutputStream();
+		os.write(("_token=" + token).getBytes());
+		os.close();
+
+		// if redirection wasn't occurred, throw some exceptions
+		if (con.getResponseCode() != 302)
+			throw new UnsupportedForlabsException();
+
+		// clear cookies
+		cookies.clear();
+	}
+
+	/**
+	 * Fetch some info from dashboard.
+	 * @return Student info.
+	 */
+	public StudentInfo fetchDashboard() throws IOException, OldCookiesException, UnsupportedForlabsException {
+		// setup connection
+		HttpURLConnection con = (HttpURLConnection) new URL(DASHBOARD_URL).openConnection();
+		con.setInstanceFollowRedirects(false);
+		con.setDoInput(true);
+		con.addRequestProperty("User-Agent", USER_AGENT);
+		cookies.putTo(con);
+
+		// if it's redirection, throw exception
+		if (con.getResponseCode() == 302)
+			throw new OldCookiesException();
+
+		// download dashboard
+		Scanner sc = new Scanner(con.getInputStream(), "utf-8");
+		StringBuilder response = new StringBuilder();
+		while (sc.hasNextLine()) {
+			response.append(sc.nextLine());
+			response.append("\n");
+		}
+		sc.close();
+
+		// parse dashboard and fill infos
+		studentInfo = new StudentInfo(p.parseInput(response.toString(), DASHBOARD_URL));
+
+		// get new cookies
+		cookies.replaceBy(con);
+
+		return studentInfo;
 	}
 
 	/**

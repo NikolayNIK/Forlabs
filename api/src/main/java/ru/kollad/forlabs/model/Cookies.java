@@ -92,6 +92,13 @@ public class Cookies implements Serializable {
 		}
 	}
 
+	/**
+	 * Clears all the cookies. Good bye, cookies!
+	 */
+	public void clear() {
+		cookies.clear();
+	}
+
 	@Override
 	public String toString() {
 		return String.format(Locale.getDefault(), "%d in cookie jar.", cookies.size());
