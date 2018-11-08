@@ -5,6 +5,8 @@
 	<string name="hint_auth_email">E-mail Address</string>
 	<string name="hint_auth_password">Password</string>
 
+	<string name="error_auth_incorrect_credentials">Username and password do not match</string>
+
 	<string name="button_auth_log_in">Log In</string>
 	<string name="button_auth_forgot_password">Forgot password?</string>
 
