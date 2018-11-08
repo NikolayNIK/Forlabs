@@ -4,6 +4,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.Serializable;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -11,13 +12,20 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
-public class Message {
+/**
+ * Represents a message from the task.
+ */
+public class Message implements Serializable {
 	private int id;
 	private String userName;
 	private String message;
 	private Date createdAt;
 	private List<Attachment> attachments;
 
+	/**
+	 * Constructor for JSON.
+	 * @param json JSON.
+	 */
 	public Message(JSONObject json) throws ParseException, JSONException {
 		id = json.optInt("id", 0);
 		message = json.optString("message", "");
@@ -33,19 +41,15 @@ public class Message {
 	public int getId() {
 		return id;
 	}
-
 	public String getUserName() {
 		return userName;
 	}
-
 	public String getMessage() {
 		return message;
 	}
-
 	public Date getCreatedAt() {
 		return createdAt;
 	}
-
 	public List<Attachment> getAttachments() {
 		return attachments;
 	}
@@ -54,7 +58,6 @@ public class Message {
 	public String toString() {
 		return String.format(Locale.getDefault(), "%s: %s (%d attachments)", userName, message, attachments.size());
 	}
-
 	@Override
 	public boolean equals(Object obj) {
 		if (!(obj instanceof Message)) return false;
@@ -62,7 +65,6 @@ public class Message {
 		Message m2 = (Message) obj;
 		return id == m2.id;
 	}
-
 	@Override
 	public int hashCode() {
 		return id ^ userName.hashCode() ^ message.hashCode() ^ createdAt.hashCode() ^ attachments.hashCode();
