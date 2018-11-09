@@ -52,7 +52,9 @@ public class MainActivity extends AppCompatActivity implements
 		if (savedInstanceState == null) {
 			state = 0;
 			navigation.getMenu().findItem(R.id.item_dashboard).setChecked(true);
-			replace(MainDashboardFragment.newInstance(studentInfo));
+			getSupportFragmentManager().beginTransaction()
+					.replace(R.id.container, MainDashboardFragment.newInstance(studentInfo))
+					.commit();
 		} else {
 			state = savedInstanceState.getInt("state");
 			switch (state) {
