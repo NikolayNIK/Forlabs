@@ -81,7 +81,7 @@ public class AuthActivity extends AppCompatActivity implements Observer<Integer>
 		switch (state) {
 			case 0:
 				form(GONE);
-				progress(GONE);
+				progress(VISIBLE);
 				break;
 			case 1:
 				form(VISIBLE);
@@ -98,7 +98,7 @@ public class AuthActivity extends AppCompatActivity implements Observer<Integer>
 				model.getState().setValue(1);
 				break;
 			case 4:
-				proceed(model.getCookies(), model.getStudentInfo());
+				proceed(model.getStudentInfo());
 				break;
 		}
 	}
@@ -114,7 +114,7 @@ public class AuthActivity extends AppCompatActivity implements Observer<Integer>
 		progress.setVisibility(visibility);
 	}
 
-	private void proceed(Cookies cookies, StudentInfo studentInfo) {
+	private void proceed(StudentInfo studentInfo) {
 		startActivity(new Intent(this, MainActivity.class)
 				.putExtra(MainActivity.EXTRA_STUDENT_INFO, studentInfo));
 		finish();

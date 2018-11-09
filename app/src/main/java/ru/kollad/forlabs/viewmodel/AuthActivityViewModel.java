@@ -5,10 +5,12 @@ import android.content.Context;
 import java.io.File;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 import ru.kollad.forlabs.model.Cookies;
 import ru.kollad.forlabs.model.StudentInfo;
+import ru.kollad.forlabs.tasks.CheckCookiesTask;
 import ru.kollad.forlabs.tasks.LogInTask;
 import ru.kollad.forlabs.tasks.ReadSerializableTask;
 import ru.kollad.forlabs.util.Keys;
@@ -17,7 +19,7 @@ import ru.kollad.forlabs.util.Keys;
  * Created by NikolayNIK on 08.11.2018.
  */
 public class AuthActivityViewModel extends ViewModel implements
-		ReadSerializableTask.OnPostExecuteListener,
+		CheckCookiesTask.OnPostExecuteListener,
 		LogInTask.Callback {
 
 	/**
@@ -30,16 +32,11 @@ public class AuthActivityViewModel extends ViewModel implements
 	 */
 	private final MutableLiveData<Integer> state = new MutableLiveData<>();
 
-	private Cookies cookies;
 	private StudentInfo studentInfo;
 	private Throwable cause;
 
 	public MutableLiveData<Integer> getState() {
 		return state;
-	}
-
-	public Cookies getCookies() {
-		return cookies;
 	}
 
 	public StudentInfo getStudentInfo() {
@@ -54,7 +51,7 @@ public class AuthActivityViewModel extends ViewModel implements
 		File file = Keys.getCookiesFile(context);
 		if (file.exists()) {
 			state.setValue(0);
-			new ReadSerializableTask(this).execute(file, Keys.getStudentInfoFile(context));
+			new CheckCookiesTask(this).execute(file);
 		} else {
 			state.setValue(1);
 		}
@@ -66,15 +63,13 @@ public class AuthActivityViewModel extends ViewModel implements
 	}
 
 	@Override
-	public void onPostExecute(ReadSerializableTask task, @NonNull Object[] result) {
-		cookies = (Cookies) result[0];
-		studentInfo = (StudentInfo) result[1];
-		state.setValue(cookies == null ? 1 : 4);
+	public void onPostExecute(CheckCookiesTask task, @Nullable StudentInfo studentInfo) {
+		this.studentInfo = studentInfo;
+		this.state.setValue(studentInfo == null ? 1 : 4);
 	}
 
 	@Override
 	public void onLogInSuccess(LogInTask task, Cookies cookies, StudentInfo studentInfo) {
-		this.cookies = cookies;
 		this.studentInfo = studentInfo;
 		this.state.setValue(4);
 	}
