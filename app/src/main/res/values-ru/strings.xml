@@ -8,6 +8,7 @@
 	<string name="button_auth_log_in">Войти</string>
 	<string name="button_auth_forgot_password">Забыли пароль?</string>
 
+	<string name="text_logout_wait">Пожалуйста, подождите…</string>
 	<string name="text_dashboard_direction">Направление:</string>
 	<string name="text_dashboard_profile">Профиль:</string>
 	<string name="text_dashboard_qualification">Квалицикация:</string>

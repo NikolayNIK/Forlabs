@@ -127,8 +127,10 @@ public class MainActivity extends AppCompatActivity implements
 				drawerLayout.closeDrawers();
 				return true;
 			case R.id.item_other_logout:
-
 				drawerLayout.closeDrawers();
+				getSupportFragmentManager().beginTransaction()
+						.add(new MainLogOutFragment(), null)
+						.commit();
 				return true;
 			default:
 				return false;
