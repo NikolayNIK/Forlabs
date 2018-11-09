@@ -128,6 +128,7 @@ public class MainActivity extends AppCompatActivity implements
 
 	private void replace(Fragment fragment) {
 		getSupportFragmentManager().beginTransaction()
+				.setCustomAnimations(R.anim.transition_enter, R.anim.transition_exit)
 				.replace(R.id.container, fragment)
 				.commit();
 	}
