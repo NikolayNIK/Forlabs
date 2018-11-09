@@ -8,6 +8,14 @@
 	<string name="button_auth_log_in">Войти</string>
 	<string name="button_auth_forgot_password">Забыли пароль?</string>
 
+	<string name="text_dashboard_direction">Направление:</string>
+	<string name="text_dashboard_profile">Профиль:</string>
+	<string name="text_dashboard_qualification">Квалицикация:</string>
+	<string name="text_dashboard_form">Форма обучения:</string>
+	<string name="text_dashboard_year">Год поступления:</string>
+	<string name="text_dashboard_course">Текущий курс:</string>
+	<string name="text_dashboard_course_content">%d курс</string>
+
 	<string name="item_dashboard">Обзор</string>
 	<string name="item_schedule">Расписание</string>
 	<string name="item_studies">Моя учёба</string>

@@ -10,6 +10,15 @@
 	<string name="button_auth_log_in">Log In</string>
 	<string name="button_auth_forgot_password">Forgot password?</string>
 
+	<string name="text_dashboard_direction">Direction:</string>
+	<string name="text_dashboard_profile">Profile:</string>
+	<string name="text_dashboard_qualification">Qualification:</string>
+	<string name="text_dashboard_form">Study form:</string>
+	<string name="text_dashboard_year">Admission year:</string>
+	<string name="text_dashboard_year_content" translatable="false">%d</string>
+	<string name="text_dashboard_course">Current course:</string>
+	<string name="text_dashboard_course_content">%d course</string>
+
 	<string name="item_dashboard">Dashboard</string>
 	<string name="item_schedule">Schedule</string>
 	<string name="item_studies">Studies</string>
