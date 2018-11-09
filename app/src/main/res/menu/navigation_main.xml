@@ -20,19 +20,29 @@
 
 	</group>
 
-	<item android:title="@string/item_account">
+	<item android:title="@string/item_other">
 
 		<menu>
 
 			<item
-				android:id="@+id/item_account_settings"
+				android:id="@+id/item_other_settings"
 				android:icon="@drawable/ic_settings_daynight_24dp"
-				android:title="@string/item_account_settings" />
+				android:title="@string/item_other_settings" />
 
 			<item
-				android:id="@+id/item_account_logout"
+				android:id="@+id/item_other_about"
+				android:icon="@drawable/ic_info_daynight_24dp"
+				android:title="@string/item_other_about" />
+
+			<item
+				android:id="@+id/item_other_report"
+				android:icon="@drawable/ic_report_daynight_24dp"
+				android:title="@string/item_other_report" />
+
+			<item
+				android:id="@+id/item_other_logout"
 				android:icon="@drawable/ic_logout_daynight_24dp"
-				android:title="@string/item_account_logout" />
+				android:title="@string/item_other_logout" />
 
 		</menu>
 

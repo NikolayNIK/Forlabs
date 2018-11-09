@@ -1,5 +1,7 @@
 package ru.kollad.forlabs.app;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -22,6 +24,9 @@ public class MainActivity extends AppCompatActivity implements
 		NavigationView.OnNavigationItemSelectedListener {
 
 	static final String EXTRA_STUDENT_INFO = "studentInfo";
+
+	private static final Uri URI_ABOUT = Uri.parse("https://kollad.ru");
+	private static final Uri URI_REPORT = Uri.parse("https://github.com/NikolayNIK/Rettel/issues/new");
 
 	private DrawerLayout drawerLayout;
 	private StudentInfo studentInfo;
@@ -109,12 +114,20 @@ public class MainActivity extends AppCompatActivity implements
 				replace(new MainStudiesFragment());
 				drawerLayout.closeDrawers();
 				return true;
-			case R.id.item_account_settings:
+			case R.id.item_other_settings:
 				// TODO Account settings
 				drawerLayout.closeDrawers();
 				return true;
-			case R.id.item_account_logout:
-				// TODO Account logout
+			case R.id.item_other_about:
+				startActivity(new Intent(Intent.ACTION_VIEW, URI_ABOUT));
+				drawerLayout.closeDrawers();
+				return true;
+			case R.id.item_other_report:
+				startActivity(new Intent(Intent.ACTION_VIEW, URI_REPORT));
+				drawerLayout.closeDrawers();
+				return true;
+			case R.id.item_other_logout:
+
 				drawerLayout.closeDrawers();
 				return true;
 			default:

@@ -19,8 +19,10 @@
 	<string name="item_dashboard">Обзор</string>
 	<string name="item_schedule">Расписание</string>
 	<string name="item_studies">Моя учёба</string>
-	<string name="item_account">Аккаунт</string>
-	<string name="item_account_settings">Настройки</string>
-	<string name="item_account_logout">Выйти</string>
+	<string name="item_other">Другое</string>
+	<string name="item_other_settings">Настройки</string>
+	<string name="item_other_about">О программе</string>
+	<string name="item_other_report">Сообщить об ошибке</string>
+	<string name="item_other_logout">Выйти</string>
 
 </resources>
