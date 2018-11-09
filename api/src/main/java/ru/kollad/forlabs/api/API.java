@@ -170,7 +170,7 @@ public class API {
 	/**
 	 * Logs out.
 	 */
-	public void Logout() throws IOException, UnsupportedForlabsException {
+	public void logout() throws IOException, UnsupportedForlabsException {
 		// setup connection
 		HttpURLConnection con = (HttpURLConnection) new URL(DASHBOARD_URL).openConnection();
 		con.setInstanceFollowRedirects(false);
