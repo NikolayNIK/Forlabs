@@ -14,7 +14,6 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import ru.kollad.forlabs.R;
 import ru.kollad.forlabs.api.exceptions.IncorrectCredentialsException;
-import ru.kollad.forlabs.model.Cookies;
 import ru.kollad.forlabs.model.StudentInfo;
 import ru.kollad.forlabs.viewmodel.AuthActivityViewModel;
 
