@@ -10,6 +10,9 @@ import java.util.Locale;
  * Represents cookie jar.
  */
 public class Cookies implements Serializable {
+
+	public static final long serialVersionUID = -4474745657772237605L;
+
 	/** It's cookie jar. Do NOT touch it rawly. */
 	private List<String> cookies;
 
