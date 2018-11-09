@@ -53,15 +53,12 @@ public class MainActivity extends AppCompatActivity implements
 			switch (state) {
 				case 0:
 					navigation.getMenu().findItem(R.id.item_dashboard).setChecked(true);
-					replace(MainDashboardFragment.newInstance(studentInfo));
 					break;
 				case 1:
 					navigation.getMenu().findItem(R.id.item_schedule).setChecked(true);
-					replace(new MainScheduleFragment());
 					break;
 				case 2:
 					navigation.getMenu().findItem(R.id.item_studies).setChecked(true);
-					replace(new MainStudiesFragment());
 					break;
 			}
 		}
