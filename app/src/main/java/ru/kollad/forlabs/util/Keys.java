@@ -2,6 +2,7 @@ package ru.kollad.forlabs.util;
 
 import android.content.Context;
 import android.os.Build;
+import android.util.Log;
 
 import java.io.File;
 
@@ -22,5 +23,17 @@ public class Keys {
 
 	public static File getStudentInfoFile(Context context) {
 		return new File(getDir(context), "studentInfo");
+	}
+
+	public static File getScheduleDirectory(Context context) {
+		File dir = context.getExternalCacheDir();
+		if (dir == null || !dir.isDirectory()) dir = context.getCacheDir();
+		dir = new File(dir, "schedule");
+		if (!dir.isDirectory() && !dir.mkdirs()) Log.e("Forlabs", "Unable to create schedule directory. Something went totally wrong!");
+		return dir;
+	}
+
+	public static File getScheduleIndexFile(Context context) {
+		return new File(getScheduleDirectory(context), "index.json");
 	}
 }

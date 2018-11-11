@@ -2,6 +2,8 @@
 
 	<string name="app_name" translatable="false">Forlabs</string>
 
+	<string name="title_schedule">Schedule</string>
+
 	<string name="hint_auth_email">E-mail Address</string>
 	<string name="hint_auth_password">Password</string>
 
@@ -19,6 +21,9 @@
 	<string name="text_dashboard_year_content" translatable="false">%d</string>
 	<string name="text_dashboard_course">Current course:</string>
 	<string name="text_dashboard_course_content">%d course</string>
+	<string name="text_schedule_course">Course:</string>
+	<string name="text_schedule_stream">Group:</string>
+	<string name="text_schedule_week">Week:</string>
 
 	<string name="item_dashboard">Dashboard</string>
 	<string name="item_schedule">Schedule</string>
@@ -28,5 +33,22 @@
 	<string name="item_other_about">About</string>
 	<string name="item_other_report">Report problem</string>
 	<string name="item_other_logout">Log out</string>
+
+	<string name="spinner_schedule_choose">Choose…</string>
+
+	<string-array name="weeks">
+		<item>Upper</item>
+		<item>Lower</item>
+	</string-array>
+
+	<string-array name="days">
+		<item>Monday</item>
+		<item>Tuesday</item>
+		<item>Wednesday</item>
+		<item>Thursday</item>
+		<item>Friday</item>
+		<item>Saturday</item>
+		<item>Sunday</item>
+	</string-array>
 
 </resources>

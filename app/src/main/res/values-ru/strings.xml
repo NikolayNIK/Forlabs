@@ -1,5 +1,7 @@
 <resources>
 
+	<string name="title_schedule">Расписание</string>
+
 	<string name="hint_auth_email">Адрес E-mail</string>
 	<string name="hint_auth_password">Пароль</string>
 
@@ -16,6 +18,9 @@
 	<string name="text_dashboard_year">Год поступления:</string>
 	<string name="text_dashboard_course">Текущий курс:</string>
 	<string name="text_dashboard_course_content">%d курс</string>
+	<string name="text_schedule_course">Курс:</string>
+	<string name="text_schedule_stream">Поток:</string>
+	<string name="text_schedule_week">Неделя:</string>
 
 	<string name="item_dashboard">Обзор</string>
 	<string name="item_schedule">Расписание</string>
@@ -25,5 +30,22 @@
 	<string name="item_other_about">О программе</string>
 	<string name="item_other_report">Сообщить об ошибке</string>
 	<string name="item_other_logout">Выйти</string>
+
+	<string name="spinner_schedule_choose">Выберите…</string>
+
+	<string-array name="weeks">
+		<item>Верхняя</item>
+		<item>Нижняя</item>
+	</string-array>
+
+	<string-array name="days">
+		<item>Понедельник</item>
+		<item>Вторник</item>
+		<item>Среда</item>
+		<item>Четверг</item>
+		<item>Пятница</item>
+		<item>Суббота</item>
+		<item>Воскресенье</item>
+	</string-array>
 
 </resources>

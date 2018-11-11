@@ -108,7 +108,7 @@ public class MainActivity extends AppCompatActivity implements
 				return true;
 			case R.id.item_schedule:
 				state = 1;
-				replace(new MainScheduleFragment());
+				replace(MainScheduleFragment.newInstance(studentInfo));
 				drawerLayout.closeDrawers();
 				return true;
 			case R.id.item_studies:
