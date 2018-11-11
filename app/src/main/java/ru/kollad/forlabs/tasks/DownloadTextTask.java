@@ -16,39 +16,44 @@ import java.net.URL;
  */
 public abstract class DownloadTextTask<T> extends AsyncTask<Object, Void, T> {
 
+	private static final long CACHE_INVALIDATION_TIME_MILLIS = 60 * 60 * 1000;
+
 	@Override
 	protected T doInBackground(Object... args) {
 		try {
+			File file = (File) args[1];
 			StringBuilder sb = new StringBuilder();
 
-			try {
-				int length;
-				byte[] buffer = new byte[(int) (Runtime.getRuntime().freeMemory() / 16)];
-				InputStream input = new URL((String) args[0]).openStream();
+			if (System.currentTimeMillis() - file.lastModified() >= CACHE_INVALIDATION_TIME_MILLIS) {
 				try {
-					OutputStream output = new FileOutputStream((File) args[1]);
+					int length;
+					byte[] buffer = new byte[(int) (Runtime.getRuntime().freeMemory() / 16)];
+					InputStream input = new URL((String) args[0]).openStream();
 					try {
-						while ((length = input.read(buffer)) > 0) {
-							output.write(buffer, 0, length);
-							sb.append(new String(buffer, 0, length));
+						OutputStream output = new FileOutputStream(file);
+						try {
+							while ((length = input.read(buffer)) > 0) {
+								output.write(buffer, 0, length);
+								sb.append(new String(buffer, 0, length));
+							}
+						} catch (Exception e) {
+							output.close();
+							throw e;
 						}
-					} catch (Exception e) {
 						output.close();
+					} catch (Exception e) {
+						input.close();
 						throw e;
 					}
-					output.close();
-				} catch (Exception e) {
 					input.close();
-					throw e;
+				} catch (Exception e) {
+					Log.i("Forlabs", "Unable to download " + args[0], e);
 				}
-				input.close();
-			} catch (Exception e) {
-				Log.i("Forlabs", "Unable to download " + args[0], e);
 			}
 
 			if (sb.length() == 0) {
 				String line;
-				BufferedReader reader = new BufferedReader(new FileReader((File) args[1]));
+				BufferedReader reader = new BufferedReader(new FileReader(file));
 				while ((line = reader.readLine()) != null)
 					sb.append(line);
 				reader.close();
