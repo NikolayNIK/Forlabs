@@ -7,6 +7,7 @@ import java.io.File;
 
 import androidx.annotation.Nullable;
 import ru.kollad.forlabs.api.API;
+import ru.kollad.forlabs.api.exceptions.OldCookiesException;
 import ru.kollad.forlabs.model.Cookies;
 import ru.kollad.forlabs.model.StudentInfo;
 import ru.kollad.forlabs.util.SerializableUtil;
@@ -30,10 +31,18 @@ public class CheckCookiesTask extends AsyncTask<File, Void, StudentInfo> {
 			API api = new API(cookies);
 			StudentInfo studentInfo = api.fetchDashboard();
 			SerializableUtil.write(files[0], api.getCookies());
+			SerializableUtil.write(files[1], studentInfo);
 			return studentInfo;
-		} catch (Exception e) {
-			Log.d("Forlabs", "Exception reading cookies", e);
+		} catch (OldCookiesException e) {
 			return null;
+		} catch (Exception e) {
+			Log.d("Forlabs", "Exception checking cookies", e);
+			try {
+				return (StudentInfo) SerializableUtil.read(files[1]);
+			} catch (Exception e1) {
+				Log.e("Forlabs", "Exception reading cached StudentInfo", e);
+				return null;
+			}
 		}
 	}
 

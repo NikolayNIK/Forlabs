@@ -4,7 +4,6 @@ import android.content.Context;
 
 import java.io.File;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
@@ -12,7 +11,6 @@ import ru.kollad.forlabs.model.Cookies;
 import ru.kollad.forlabs.model.StudentInfo;
 import ru.kollad.forlabs.tasks.CheckCookiesTask;
 import ru.kollad.forlabs.tasks.LogInTask;
-import ru.kollad.forlabs.tasks.ReadSerializableTask;
 import ru.kollad.forlabs.util.Keys;
 
 /**
@@ -51,7 +49,7 @@ public class AuthActivityViewModel extends ViewModel implements
 		File file = Keys.getCookiesFile(context);
 		if (file.exists()) {
 			state.setValue(0);
-			new CheckCookiesTask(this).execute(file);
+			new CheckCookiesTask(this).execute(file, Keys.getStudentInfoFile(context));
 		} else {
 			state.setValue(1);
 		}
