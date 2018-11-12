@@ -3,6 +3,7 @@
 	<string name="app_name" translatable="false">Forlabs</string>
 
 	<string name="title_schedule">Schedule</string>
+	<string name="title_studies">Studies</string>
 
 	<string name="hint_auth_email">E-mail Address</string>
 	<string name="hint_auth_password">Password</string>
@@ -24,6 +25,7 @@
 	<string name="text_schedule_course">Course:</string>
 	<string name="text_schedule_stream">Group:</string>
 	<string name="text_schedule_week">Week:</string>
+	<string name="text_score" translatable="false">%.1f</string>
 
 	<string name="item_dashboard">Dashboard</string>
 	<string name="item_schedule">Schedule</string>

@@ -25,6 +25,10 @@ public class Keys {
 		return new File(getDir(context), "studentInfo");
 	}
 
+	public static File getStudiesFile(Context context) {
+		return new File(getDir(context), "studies");
+	}
+
 	public static File getScheduleDirectory(Context context) {
 		File dir = context.getExternalCacheDir();
 		if (dir == null || !dir.isDirectory()) dir = context.getCacheDir();

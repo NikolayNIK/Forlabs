@@ -1,6 +1,7 @@
 <resources>
 
 	<string name="title_schedule">Расписание</string>
+	<string name="title_studies">Моя учёба</string>
 
 	<string name="hint_auth_email">Адрес E-mail</string>
 	<string name="hint_auth_password">Пароль</string>
