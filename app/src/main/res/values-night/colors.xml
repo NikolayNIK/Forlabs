@@ -2,5 +2,6 @@
 <resources>
 
 	<color name="background">#303030</color>
+	<color name="background_alt">#393939</color>
 
 </resources>

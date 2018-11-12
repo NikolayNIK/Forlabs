@@ -45,7 +45,7 @@
 					<LinearLayout
 						android:layout_width="match_parent"
 						android:layout_height="wrap_content"
-						android:background="@color/accent12"
+						android:background="@color/background_alt"
 						android:padding="8dp">
 
 						<TextView
@@ -94,7 +94,7 @@
 					<LinearLayout
 						android:layout_width="match_parent"
 						android:layout_height="wrap_content"
-						android:background="@color/accent12"
+						android:background="@color/background_alt"
 						android:padding="8dp">
 
 						<TextView
@@ -143,7 +143,7 @@
 					<LinearLayout
 						android:layout_width="match_parent"
 						android:layout_height="wrap_content"
-						android:background="@color/accent12"
+						android:background="@color/background_alt"
 						android:padding="8dp">
 
 						<TextView
