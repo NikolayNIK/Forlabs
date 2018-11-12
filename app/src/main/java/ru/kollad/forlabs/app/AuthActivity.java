@@ -80,7 +80,7 @@ public class AuthActivity extends AppCompatActivity implements Observer<Integer>
 		switch (state) {
 			case 0:
 				form(GONE);
-				progress(VISIBLE);
+				progress(GONE);
 				break;
 			case 1:
 				form(VISIBLE);
