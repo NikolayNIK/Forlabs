@@ -8,10 +8,6 @@ import org.jsoup.nodes.Element;
 import org.jsoup.parser.Parser;
 import org.jsoup.select.Elements;
 
-import ru.kollad.forlabs.api.API;
-import ru.kollad.forlabs.api.exceptions.OldCookiesException;
-import ru.kollad.forlabs.api.exceptions.UnsupportedForlabsException;
-
 import java.io.IOException;
 import java.io.Serializable;
 import java.net.HttpURLConnection;
@@ -22,14 +18,24 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Scanner;
 
+import ru.kollad.forlabs.api.API;
+import ru.kollad.forlabs.api.exceptions.OldCookiesException;
+import ru.kollad.forlabs.api.exceptions.UnsupportedForlabsException;
+
 /**
  * Represents a study.
  */
 public class Study implements Serializable {
-	/** URL for fetching info */
+	/**
+	 * URL for fetching info
+	 */
 	private static final String FETCH_URL = "https://forlabs.ru/studies/${id}";
 
-	/** Statuses */
+	private static final long serialVersionUID = 7171310035332698041L;
+
+	/**
+	 * Statuses
+	 */
 	public static final int STATUS_NORMAL = 0;
 	public static final int STATUS_DEBT = -1;
 	public static final int STATUS_CERTIFIED = 1;
@@ -38,7 +44,7 @@ public class Study implements Serializable {
 	private List<Integer> lecturersId;
 	private String name;
 
-	private double points;
+	private float points;
 	private int grade;
 	private float attendPercent;
 	private List<Attendance> attendances;
@@ -53,6 +59,7 @@ public class Study implements Serializable {
 
 	/**
 	 * Constructor for page element.
+	 *
 	 * @param html Page element.
 	 */
 	public Study(Element html) {
@@ -73,7 +80,8 @@ public class Study implements Serializable {
 
 	/**
 	 * Fetch some info about study.
-	 * @param p Parser for parsing HTMLs.
+	 *
+	 * @param p       Parser for parsing HTMLs.
 	 * @param cookies Cookies for updating.
 	 * @return Study, but with more info!
 	 */
@@ -147,7 +155,7 @@ public class Study implements Serializable {
 		json = new JSONObject(jsonStr.substring(jsonStr.indexOf('{'), jsonStr.lastIndexOf(';')));
 
 		// fill score fields
-		points = json.optDouble("credits", 0);
+		points = (float) json.optDouble("credits", 0);
 		grade = json.optInt("grade");
 
 		// skip assessments
@@ -203,36 +211,47 @@ public class Study implements Serializable {
 	public int getId() {
 		return id;
 	}
+
 	public List<Integer> getLecturersId() {
 		return lecturersId;
 	}
+
 	public String getName() {
 		return name;
 	}
-	public double getPoints() {
+
+	public float getPoints() {
 		return points;
 	}
+
 	public int getGrade() {
 		return grade;
 	}
+
 	public float getAttendPercent() {
 		return attendPercent;
 	}
+
 	public List<Attendance> getAttendances() {
 		return attendances;
 	}
+
 	public String getTeacherName() {
 		return teacherName;
 	}
+
 	public String getSimpleTeacherName() {
 		return simpleTeacherName;
 	}
+
 	public int getStatus() {
 		return status;
 	}
+
 	public List<Task> getTasks() {
 		return tasks;
 	}
+
 	public List<ScheduleItem> getScheduleItems() {
 		return scheduleItems;
 	}
