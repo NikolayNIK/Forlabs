@@ -33,7 +33,7 @@
 	<string name="text_schedule_course">Course:</string>
 	<string name="text_schedule_stream">Group:</string>
 	<string name="text_schedule_week">Week:</string>
-	<string name="text_score" translatable="false">%.1f</string>
+	<string name="text_score" translatable="false">%.2f</string>
 	<string name="text_report_crash">Looks like unexpected error has occurred in the application. Could you help us to resolve this issue?</string>
 	<string name="text_report_crash_title">Application crash</string>
 
