@@ -11,6 +11,7 @@
 		android:supportsRtl="true"
 		android:theme="@style/AppTheme"
 		android:usesCleartextTraffic="true">
+
 		<activity
 			android:name=".app.AuthActivity"
 			android:theme="@style/AppTheme.NoActionBar.Logo">
@@ -19,6 +20,19 @@
 
 				<category android:name="android.intent.category.LAUNCHER" />
 			</intent-filter>
+
+			<intent-filter>
+				<action android:name="ru.kollad.forlabs.OPEN_DASHBOARD" />
+				<action android:name="ru.kollad.forlabs.OPEN_SCHEDULE" />
+				<action android:name="ru.kollad.forlabs.OPEN_STUDIES" />
+
+				<category android:name="android.intent.category.DEFAULT" />
+			</intent-filter>
+
+			<meta-data
+				android:name="android.app.shortcuts"
+				android:resource="@xml/shortcuts" />
+
 		</activity>
 
 		<activity
@@ -33,6 +47,7 @@
 				<action android:name="cat.ereza.customactivityoncrash.ERROR" />
 			</intent-filter>
 		</activity>
+
 	</application>
 
 </manifest>

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shortcuts xmlns:android="http://schemas.android.com/apk/res/android">
+
+	<shortcut
+		android:icon="@drawable/ic_studies_daynight_24dp"
+		android:shortcutId="studies"
+		android:shortcutLongLabel="@string/shortcut_studies_long"
+		android:shortcutShortLabel="@string/shortcut_studies_short">
+		<intent
+			android:action="ru.kollad.forlabs.OPEN_STUDIES"
+			android:targetClass="ru.kollad.forlabs.app.AuthActivity"
+			android:targetPackage="ru.kollad.forlabs" />
+	</shortcut>
+
+	<shortcut
+		android:icon="@drawable/ic_schedule_daynight_24dp"
+		android:shortcutId="schedule"
+		android:shortcutLongLabel="@string/shortcut_schedule_long"
+		android:shortcutShortLabel="@string/shortcut_schedule_short">
+		<intent
+			android:action="ru.kollad.forlabs.OPEN_SCHEDULE"
+			android:targetClass="ru.kollad.forlabs.app.AuthActivity"
+			android:targetPackage="ru.kollad.forlabs" />
+	</shortcut>
+
+	<shortcut
+		android:icon="@drawable/ic_dashboard_daynight_24dp"
+		android:shortcutId="dashboard"
+		android:shortcutLongLabel="@string/shortcut_dashboard_long"
+		android:shortcutShortLabel="@string/shortcut_dashboard_short">
+		<intent
+			android:action="ru.kollad.forlabs.OPEN_DASHBOARD"
+			android:targetClass="ru.kollad.forlabs.app.AuthActivity"
+			android:targetPackage="ru.kollad.forlabs" />
+	</shortcut>
+
+</shortcuts>

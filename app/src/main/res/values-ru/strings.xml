@@ -46,6 +46,13 @@
 
 	<string name="toast_report_success">Сообщение об ошибке отправлено. Спасибо за вашу помощь!</string>
 
+	<string name="shortcut_dashboard_long">Обзор</string>
+	<string name="shortcut_dashboard_short">Обзор</string>
+	<string name="shortcut_schedule_long">Расписание</string>
+	<string name="shortcut_schedule_short">Расписание</string>
+	<string name="shortcut_studies_long">Моя учёба</string>
+	<string name="shortcut_studies_short">Учёба</string>
+
 	<string-array name="weeks">
 		<item>Верхняя</item>
 		<item>Нижняя</item>

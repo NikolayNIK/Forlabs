@@ -17,6 +17,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import ru.kollad.forlabs.R;
 import ru.kollad.forlabs.model.StudentInfo;
 
@@ -24,6 +25,7 @@ public class MainActivity extends AppCompatActivity implements
 		NavigationView.OnNavigationItemSelectedListener {
 
 	static final String EXTRA_STUDENT_INFO = "studentInfo";
+	static final String EXTRA_START_STATE = "state";
 
 	private static final Uri URI_ABOUT = Uri.parse("https://kollad.ru");
 	private static final Uri URI_REPORT = Uri.parse("https://github.com/NikolayNIK/Rettel/issues/new");
@@ -50,11 +52,23 @@ public class MainActivity extends AppCompatActivity implements
 		((TextView) header.findViewById(R.id.text_name)).setText(studentInfo.getStudentName());
 
 		if (savedInstanceState == null) {
-			state = 0;
-			navigation.getMenu().findItem(R.id.item_dashboard).setChecked(true);
-			getSupportFragmentManager().beginTransaction()
-					.replace(R.id.container, MainDashboardFragment.newInstance(studentInfo))
-					.commit();
+			state = getIntent().getIntExtra(EXTRA_START_STATE, 0);
+			FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+			switch (state) {
+				case 0:
+					navigation.getMenu().findItem(R.id.item_dashboard).setChecked(true);
+					transaction.replace(R.id.container, MainDashboardFragment.newInstance(studentInfo));
+					break;
+				case 1:
+					navigation.getMenu().findItem(R.id.item_schedule).setChecked(true);
+					transaction.replace(R.id.container, MainScheduleFragment.newInstance(studentInfo));
+					break;
+				case 2:
+					navigation.getMenu().findItem(R.id.item_studies).setChecked(true);
+					transaction.replace(R.id.container, new MainStudiesFragment());
+					break;
+			}
+			transaction.commit();
 		} else {
 			state = savedInstanceState.getInt("state");
 			switch (state) {

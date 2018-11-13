@@ -114,8 +114,23 @@ public class AuthActivity extends AppCompatActivity implements Observer<Integer>
 	}
 
 	private void proceed(StudentInfo studentInfo) {
-		startActivity(new Intent(this, MainActivity.class)
-				.putExtra(MainActivity.EXTRA_STUDENT_INFO, studentInfo));
+		Intent intent = new Intent(this, MainActivity.class);
+		intent.putExtra(MainActivity.EXTRA_STUDENT_INFO, studentInfo);
+		if (getIntent().getAction() != null) {
+			switch (getIntent().getAction()) {
+				case "ru.kollad.forlabs.OPEN_DASHBOARD":
+					intent.putExtra(MainActivity.EXTRA_START_STATE, 0);
+					break;
+				case "ru.kollad.forlabs.OPEN_SCHEDULE":
+					intent.putExtra(MainActivity.EXTRA_START_STATE, 1);
+					break;
+				case "ru.kollad.forlabs.OPEN_STUDIES":
+					intent.putExtra(MainActivity.EXTRA_START_STATE, 2);
+					break;
+			}
+		}
+
+		startActivity(intent);
 		finish();
 	}
 }

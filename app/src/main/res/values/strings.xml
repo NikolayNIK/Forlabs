@@ -50,6 +50,13 @@
 
 	<string name="toast_report_success">Report has been sent. Thanks for your help!</string>
 
+	<string name="shortcut_dashboard_long">Dashboard</string>
+	<string name="shortcut_dashboard_short">Dashboard</string>
+	<string name="shortcut_schedule_long">Schedule</string>
+	<string name="shortcut_schedule_short">Schedule</string>
+	<string name="shortcut_studies_long">My Studies</string>
+	<string name="shortcut_studies_short">Studies</string>
+
 	<string-array name="weeks">
 		<item>Upper</item>
 		<item>Lower</item>
