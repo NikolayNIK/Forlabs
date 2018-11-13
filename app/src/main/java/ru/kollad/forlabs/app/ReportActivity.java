@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -43,6 +44,11 @@ public class ReportActivity extends AppCompatActivity implements TextWatcher {
 			inputMessage.setHint(getString(R.string.hint_report_message));
 			buttonSend.setEnabled(false);
 			findViewById(R.id.text_crash).setVisibility(View.GONE);
+
+			if (getSupportActionBar() != null) {
+				getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+				getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_back_daynight_24dp);
+			}
 		} else {
 			editTitle.setText(R.string.text_report_crash_title);
 			editTitle.setEnabled(false);
@@ -58,6 +64,16 @@ public class ReportActivity extends AppCompatActivity implements TextWatcher {
 						.commit();
 			}
 		});
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		if (item.getItemId() == android.R.id.home) {
+			finish();
+			return true;
+		}
+
+		return false;
 	}
 
 	@Override
