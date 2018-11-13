@@ -4,14 +4,22 @@
 
 	<string name="title_schedule">Schedule</string>
 	<string name="title_studies">Studies</string>
+	<string name="title_report">Report problem</string>
 
 	<string name="hint_auth_email">E-mail Address</string>
 	<string name="hint_auth_password">Password</string>
+	<string name="hint_report_email">E-mail (unnecessary)</string>
+	<string name="hint_report_title">Title</string>
+	<string name="hint_report_message">Message</string>
+	<string name="hint_report_message_unnecessary">Message (unnecessary)</string>
 
 	<string name="error_auth_incorrect_credentials">Username and password do not match</string>
 
 	<string name="button_auth_log_in">Log In</string>
 	<string name="button_auth_forgot_password">Forgot password?</string>
+	<string name="button_report_send">Send</string>
+
+	<string name="check_report_stacktrace">Attach stack-trace</string>
 
 	<string name="text_logout_wait">Please, wait…</string>
 	<string name="text_dashboard_direction">Direction:</string>
@@ -26,6 +34,8 @@
 	<string name="text_schedule_stream">Group:</string>
 	<string name="text_schedule_week">Week:</string>
 	<string name="text_score" translatable="false">%.1f</string>
+	<string name="text_report_crash">Looks like unexpected error has occurred in the application. Could you help us to resolve this issue?</string>
+	<string name="text_report_crash_title">Application crash</string>
 
 	<string name="item_dashboard">Dashboard</string>
 	<string name="item_schedule">Schedule</string>
@@ -37,6 +47,8 @@
 	<string name="item_other_logout">Log out</string>
 
 	<string name="spinner_schedule_choose">Choose…</string>
+
+	<string name="toast_report_success">Report has been sent. Thanks for your help!</string>
 
 	<string-array name="weeks">
 		<item>Upper</item>

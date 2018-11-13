@@ -125,7 +125,7 @@ public class MainActivity extends AppCompatActivity implements
 				drawerLayout.closeDrawers();
 				return true;
 			case R.id.item_other_report:
-				startActivity(new Intent(Intent.ACTION_VIEW, URI_REPORT));
+				startActivity(new Intent(this, ReportActivity.class));
 				drawerLayout.closeDrawers();
 				return true;
 			case R.id.item_other_logout:

@@ -2,14 +2,22 @@
 
 	<string name="title_schedule">Расписание</string>
 	<string name="title_studies">Моя учёба</string>
+	<string name="title_report">Сообщить о проблеме</string>
 
 	<string name="hint_auth_email">Адрес E-mail</string>
 	<string name="hint_auth_password">Пароль</string>
+	<string name="hint_report_email">Электронная почта (необязательно)</string>
+	<string name="hint_report_title">Заголовок</string>
+	<string name="hint_report_message">Сообщение</string>
+	<string name="hint_report_message_unnecessary">Сообщение (необязательно)</string>
 
 	<string name="error_auth_incorrect_credentials">Имя пользователя и пароль не совпадают</string>
 
 	<string name="button_auth_log_in">Войти</string>
 	<string name="button_auth_forgot_password">Забыли пароль?</string>
+	<string name="button_report_send">Отправить</string>
+
+	<string name="check_report_stacktrace">Приложить журналы</string>
 
 	<string name="text_logout_wait">Пожалуйста, подождите…</string>
 	<string name="text_dashboard_direction">Направление:</string>
@@ -22,6 +30,8 @@
 	<string name="text_schedule_course">Курс:</string>
 	<string name="text_schedule_stream">Поток:</string>
 	<string name="text_schedule_week">Неделя:</string>
+	<string name="text_report_crash">Похоже, в приложении произошла непредвиденная ошибка. Не могли бы вы помочь нам решить эту проблему?</string>
+	<string name="text_report_crash_title">Ошибка приложения</string>
 
 	<string name="item_dashboard">Обзор</string>
 	<string name="item_schedule">Расписание</string>
@@ -29,10 +39,12 @@
 	<string name="item_other">Другое</string>
 	<string name="item_other_settings">Настройки</string>
 	<string name="item_other_about">О программе</string>
-	<string name="item_other_report">Сообщить об ошибке</string>
+	<string name="item_other_report">Сообщить о проблеме</string>
 	<string name="item_other_logout">Выйти</string>
 
 	<string name="spinner_schedule_choose">Выберите…</string>
+
+	<string name="toast_report_success">Сообщение об ошибке отправлено. Спасибо за вашу помощь!</string>
 
 	<string-array name="weeks">
 		<item>Верхняя</item>
