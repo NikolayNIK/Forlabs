@@ -35,6 +35,9 @@ public class GetStudiesTask extends AsyncTask<File, Void, Studies> implements Co
 					File cookiesFile = files[0];
 					API api = new API((Cookies) SerializableUtil.read(cookiesFile));
 					Studies studies = api.getStudies();
+					for (Study study : studies)
+						api.fetchStudy(study);
+
 					Collections.sort(studies, this);
 
 					SerializableUtil.write(cookiesFile, api.getCookies());
