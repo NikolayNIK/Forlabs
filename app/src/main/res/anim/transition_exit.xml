@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<set android:duration="@android:integer/config_mediumAnimTime" xmlns:android="http://schemas.android.com/apk/res/android">
+<set xmlns:android="http://schemas.android.com/apk/res/android">
 
-	<alpha android:toAlpha="0" />
+	<alpha
+		android:duration="@android:integer/config_longAnimTime"
+		android:toAlpha="0" />
 
 </set>
