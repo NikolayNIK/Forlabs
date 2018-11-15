@@ -54,8 +54,9 @@
 						android:layout_height="wrap_content"
 						android:layout_marginStart="16dp"
 						android:text="@string/text_dashboard_direction"
-						app:layout_constraintBaseline_toBaselineOf="@+id/text_direction"
-						app:layout_constraintStart_toStartOf="parent" />
+						app:layout_constraintBottom_toBottomOf="@+id/text_direction"
+						app:layout_constraintStart_toStartOf="parent"
+						app:layout_constraintTop_toTopOf="@+id/text_direction" />
 
 					<TextView
 						android:id="@+id/text_direction"
@@ -79,8 +80,9 @@
 						android:layout_height="wrap_content"
 						android:layout_marginStart="16dp"
 						android:text="@string/text_dashboard_profile"
-						app:layout_constraintBaseline_toBaselineOf="@+id/text_qualification"
-						app:layout_constraintStart_toStartOf="parent" />
+						app:layout_constraintBottom_toBottomOf="@+id/text_qualification"
+						app:layout_constraintStart_toStartOf="parent"
+						app:layout_constraintTop_toTopOf="@+id/text_qualification" />
 
 					<TextView
 						android:id="@+id/text_profile"
@@ -103,8 +105,9 @@
 						android:layout_height="wrap_content"
 						android:layout_marginStart="16dp"
 						android:text="@string/text_dashboard_qualification"
-						app:layout_constraintBaseline_toBaselineOf="@+id/text_profile"
-						app:layout_constraintStart_toStartOf="parent" />
+						app:layout_constraintBottom_toBottomOf="@+id/text_profile"
+						app:layout_constraintStart_toStartOf="parent"
+						app:layout_constraintTop_toTopOf="@+id/text_profile" />
 
 					<TextView
 						android:id="@+id/text_qualification"
@@ -128,8 +131,9 @@
 						android:layout_height="wrap_content"
 						android:layout_marginStart="16dp"
 						android:text="@string/text_dashboard_form"
-						app:layout_constraintBaseline_toBaselineOf="@+id/text_form"
-						app:layout_constraintStart_toStartOf="parent" />
+						app:layout_constraintBottom_toBottomOf="@+id/text_form"
+						app:layout_constraintStart_toStartOf="parent"
+						app:layout_constraintTop_toTopOf="@+id/text_form" />
 
 					<TextView
 						android:id="@+id/text_form"
@@ -153,9 +157,10 @@
 						android:layout_height="wrap_content"
 						android:layout_marginStart="16dp"
 						android:text="@string/text_dashboard_year"
-						app:layout_constraintBaseline_toBaselineOf="@+id/text_year"
+						app:layout_constraintBottom_toBottomOf="@+id/text_year"
 						app:layout_constraintHorizontal_chainStyle="packed"
-						app:layout_constraintStart_toStartOf="parent" />
+						app:layout_constraintStart_toStartOf="parent"
+						app:layout_constraintTop_toTopOf="@+id/text_year" />
 
 					<TextView
 						android:id="@+id/text_year"
@@ -178,8 +183,9 @@
 						android:layout_height="wrap_content"
 						android:layout_marginStart="16dp"
 						android:text="@string/text_dashboard_course"
-						app:layout_constraintBaseline_toBaselineOf="@+id/text_course"
-						app:layout_constraintStart_toStartOf="parent" />
+						app:layout_constraintBottom_toBottomOf="@+id/text_course"
+						app:layout_constraintStart_toStartOf="parent"
+						app:layout_constraintTop_toTopOf="@+id/text_course" />
 
 
 					<TextView
