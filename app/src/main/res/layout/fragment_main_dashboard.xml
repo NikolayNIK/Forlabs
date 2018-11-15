@@ -40,22 +40,20 @@
 					android:id="@+id/table_dashboard"
 					android:layout_width="match_parent"
 					android:layout_height="wrap_content"
-					android:orientation="vertical">
+					android:orientation="vertical"
+					android:padding="8dp">
 
 					<LinearLayout
 						android:layout_width="match_parent"
 						android:layout_height="wrap_content"
-						android:background="@color/background_alt"
+						android:layout_marginTop="8dp"
 						android:padding="8dp">
 
 						<TextView
 							android:layout_width="128dp"
 							android:layout_height="wrap_content"
 							android:layout_marginEnd="4dp"
-							android:gravity="end|top"
-							android:text="@string/text_dashboard_direction"
-							android:textColor="?android:attr/textColorPrimary"
-							android:textStyle="bold" />
+							android:text="@string/text_dashboard_direction" />
 
 						<TextView
 							android:id="@+id/text_direction"
@@ -76,10 +74,7 @@
 							android:layout_width="128dp"
 							android:layout_height="wrap_content"
 							android:layout_marginEnd="4dp"
-							android:gravity="end|top"
-							android:text="@string/text_dashboard_profile"
-							android:textColor="?android:attr/textColorPrimary"
-							android:textStyle="bold" />
+							android:text="@string/text_dashboard_profile" />
 
 						<TextView
 							android:id="@+id/text_profile"
@@ -94,17 +89,13 @@
 					<LinearLayout
 						android:layout_width="match_parent"
 						android:layout_height="wrap_content"
-						android:background="@color/background_alt"
 						android:padding="8dp">
 
 						<TextView
 							android:layout_width="128dp"
 							android:layout_height="wrap_content"
 							android:layout_marginEnd="4dp"
-							android:gravity="end|center_vertical"
-							android:text="@string/text_dashboard_qualification"
-							android:textColor="?android:attr/textColorPrimary"
-							android:textStyle="bold" />
+							android:text="@string/text_dashboard_qualification" />
 
 						<TextView
 							android:id="@+id/text_qualification"
@@ -125,10 +116,7 @@
 							android:layout_width="128dp"
 							android:layout_height="wrap_content"
 							android:layout_marginEnd="4dp"
-							android:gravity="end|center_vertical"
-							android:text="@string/text_dashboard_form"
-							android:textColor="?android:attr/textColorPrimary"
-							android:textStyle="bold" />
+							android:text="@string/text_dashboard_form" />
 
 						<TextView
 							android:id="@+id/text_form"
@@ -143,17 +131,13 @@
 					<LinearLayout
 						android:layout_width="match_parent"
 						android:layout_height="wrap_content"
-						android:background="@color/background_alt"
 						android:padding="8dp">
 
 						<TextView
 							android:layout_width="128dp"
 							android:layout_height="wrap_content"
 							android:layout_marginEnd="4dp"
-							android:gravity="end|center_vertical"
-							android:text="@string/text_dashboard_year"
-							android:textColor="?android:attr/textColorPrimary"
-							android:textStyle="bold" />
+							android:text="@string/text_dashboard_year" />
 
 						<TextView
 							android:id="@+id/text_year"
@@ -174,32 +158,25 @@
 							android:layout_width="128dp"
 							android:layout_height="wrap_content"
 							android:layout_marginEnd="4dp"
-							android:gravity="end|center_vertical"
-							android:text="@string/text_dashboard_course"
-							android:textColor="?android:attr/textColorPrimary"
-							android:textStyle="bold" />
+							android:text="@string/text_dashboard_course" />
 
-						<LinearLayout
-							android:layout_width="match_parent"
+
+						<TextView
+							android:id="@+id/text_course"
+							android:layout_width="wrap_content"
 							android:layout_height="wrap_content"
 							android:layout_marginStart="4dp"
-							android:orientation="vertical"
-							tools:text="Дворник">
+							android:layout_marginEnd="8dp"
+							android:textColor="?android:attr/textColorPrimary"
+							tools:text="Дворник" />
 
-							<TextView
-								android:id="@+id/text_course"
-								android:layout_width="wrap_content"
-								android:layout_height="wrap_content"
-								android:textColor="?android:attr/textColorPrimary" />
-
-							<ProgressBar
-								android:id="@+id/progress_course"
-								style="@style/Widget.AppCompat.ProgressBar.Horizontal"
-								android:layout_width="match_parent"
-								android:layout_height="wrap_content"
-								android:layout_gravity="bottom" />
-
-						</LinearLayout>
+						<ProgressBar
+							android:id="@+id/progress_course"
+							style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+							android:layout_width="0dp"
+							android:layout_height="wrap_content"
+							android:layout_gravity="bottom"
+							android:layout_weight="1" />
 
 					</LinearLayout>
 
