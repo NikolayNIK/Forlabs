@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+	<item name="match_parent" type="dimen">-1</item>
+
+	<dimen name="card_width">@dimen/match_parent</dimen>
+
+</resources>

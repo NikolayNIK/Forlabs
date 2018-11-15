@@ -8,8 +8,9 @@
 	android:padding="16dp">
 
 	<androidx.cardview.widget.CardView
-		android:layout_width="match_parent"
+		android:layout_width="@dimen/card_width"
 		android:layout_height="wrap_content"
+		android:layout_gravity="center_horizontal"
 		app:cardCornerRadius="8dp"
 		app:cardUseCompatPadding="true">
 
