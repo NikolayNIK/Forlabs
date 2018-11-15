@@ -25,7 +25,11 @@ public class LogOutTask extends AsyncTask<File, Void, Boolean> {
 		try {
 			API api = new API((Cookies) SerializableUtil.read(files[0]));
 			api.logout();
-			return files[0].delete();
+
+			boolean result = true;
+			for (File file : files)
+				result &= file.delete();
+			return result;
 		} catch (Exception e) {
 			Log.d("Forlabs", "Could not log out", e);
 			return false;

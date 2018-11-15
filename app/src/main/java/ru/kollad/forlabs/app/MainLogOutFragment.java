@@ -34,7 +34,7 @@ public class MainLogOutFragment extends DialogFragment implements LogOutTask.OnP
 
 		if (task == null) {
 			task = new LogOutTask(this);
-			task.execute(Keys.getCookiesFile(context));
+			task.execute(Keys.getCookiesFile(context), Keys.getStudiesFile(context));
 		}
 	}
 
