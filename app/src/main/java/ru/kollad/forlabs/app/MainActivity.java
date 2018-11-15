@@ -13,6 +13,7 @@ import com.bumptech.glide.request.RequestOptions;
 import com.google.android.material.navigation.NavigationView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -29,6 +30,7 @@ public class MainActivity extends AppCompatActivity implements
 
 	private static final Uri URI_ABOUT = Uri.parse("https://kollad.ru");
 
+	@Nullable
 	private DrawerLayout drawerLayout;
 	private StudentInfo studentInfo;
 	private int state;
@@ -88,7 +90,7 @@ public class MainActivity extends AppCompatActivity implements
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
 			case android.R.id.home:
-				drawerLayout.openDrawer(GravityCompat.START);
+				openDrawer();
 				return true;
 			default:
 				return super.onOptionsItemSelected(item);
@@ -97,7 +99,7 @@ public class MainActivity extends AppCompatActivity implements
 
 	@Override
 	public void onBackPressed() {
-		if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
+		if (drawerLayout != null && drawerLayout.isDrawerOpen(GravityCompat.START)) {
 			drawerLayout.closeDrawer(GravityCompat.START);
 			return;
 		}
@@ -117,32 +119,32 @@ public class MainActivity extends AppCompatActivity implements
 			case R.id.item_dashboard:
 				state = 0;
 				replace(MainDashboardFragment.newInstance(studentInfo));
-				drawerLayout.closeDrawers();
+				closeDrawer();
 				return true;
 			case R.id.item_schedule:
 				state = 1;
 				replace(MainScheduleFragment.newInstance(studentInfo));
-				drawerLayout.closeDrawers();
+				closeDrawer();
 				return true;
 			case R.id.item_studies:
 				state = 2;
 				replace(new MainStudiesFragment());
-				drawerLayout.closeDrawers();
+				closeDrawer();
 				return true;
 			case R.id.item_other_settings:
 				// TODO Account settings
-				drawerLayout.closeDrawers();
+				closeDrawer();
 				return true;
 			case R.id.item_other_about:
 				startActivity(new Intent(Intent.ACTION_VIEW, URI_ABOUT));
-				drawerLayout.closeDrawers();
+				closeDrawer();
 				return true;
 			case R.id.item_other_report:
 				startActivity(new Intent(this, ReportActivity.class));
-				drawerLayout.closeDrawers();
+				closeDrawer();
 				return true;
 			case R.id.item_other_logout:
-				drawerLayout.closeDrawers();
+				closeDrawer();
 				getSupportFragmentManager().beginTransaction()
 						.add(new MainLogOutFragment(), null)
 						.commit();
@@ -153,7 +155,13 @@ public class MainActivity extends AppCompatActivity implements
 	}
 
 	void openDrawer() {
-		drawerLayout.openDrawer(GravityCompat.START);
+		if (drawerLayout != null)
+			drawerLayout.openDrawer(GravityCompat.START);
+	}
+
+	private void closeDrawer() {
+		if (drawerLayout != null)
+			drawerLayout.closeDrawers();
 	}
 
 	private void replace(Fragment fragment) {

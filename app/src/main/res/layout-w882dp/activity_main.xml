@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	xmlns:tools="http://schemas.android.com/tools"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	android:fitsSystemWindows="true"
+	tools:context=".app.MainActivity">
+
+	<View
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:fitsSystemWindows="true"
+		android:background="#40000000" />
+
+	<LinearLayout
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		android:orientation="horizontal">
+
+		<com.google.android.material.navigation.NavigationView
+			android:id="@+id/navigation"
+			android:layout_width="wrap_content"
+			android:layout_height="match_parent"
+			app:headerLayout="@layout/activity_main_header"
+			app:itemBackground="@drawable/background_navigation"
+			app:itemIconTint="@color/navigation_foreground"
+			app:itemTextColor="@color/navigation_foreground"
+			app:menu="@menu/navigation_main" />
+
+		<FrameLayout
+			android:id="@+id/container"
+			android:layout_width="match_parent"
+			android:layout_height="match_parent"
+			android:background="?android:attr/windowBackground"/>
+
+	</LinearLayout>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

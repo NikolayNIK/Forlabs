@@ -1,39 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-	xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
 	xmlns:tools="http://schemas.android.com/tools"
 	android:layout_width="match_parent"
 	android:layout_height="wrap_content"
 	android:fitsSystemWindows="true"
+	android:orientation="horizontal"
 	tools:ignore="UseCompoundDrawables">
 
 	<ImageView
 		android:id="@+id/image_avatar"
 		android:layout_width="48dp"
 		android:layout_height="48dp"
+		android:layout_gravity="center_vertical"
 		android:layout_marginStart="16dp"
-		android:layout_marginTop="8dp"
 		android:adjustViewBounds="true"
-		app:layout_constraintBottom_toBottomOf="parent"
-		app:layout_constraintStart_toStartOf="parent"
-		app:layout_constraintTop_toTopOf="parent"
 		tools:ignore="ContentDescription"
 		tools:src="@color/accent" />
 
 	<TextView
 		android:id="@+id/text_name"
-		android:layout_width="0dp"
-		android:layout_height="wrap_content"
+		android:layout_width="match_parent"
+		android:layout_height="?attr/actionBarSize"
 		android:layout_gravity="center_vertical"
+		android:gravity="center_vertical"
 		android:layout_marginStart="8dp"
 		android:layout_marginEnd="8dp"
 		android:ellipsize="marquee"
 		android:singleLine="true"
 		android:textAppearance="@style/TextAppearance.AppCompat.Body2"
-		app:layout_constraintBottom_toBottomOf="@+id/image_avatar"
-		app:layout_constraintEnd_toEndOf="parent"
-		app:layout_constraintStart_toEndOf="@+id/image_avatar"
-		app:layout_constraintTop_toTopOf="@+id/image_avatar"
 		tools:text="Your very long name could be here" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>
