@@ -28,7 +28,6 @@ public class MainActivity extends AppCompatActivity implements
 	static final String EXTRA_START_STATE = "state";
 
 	private static final Uri URI_ABOUT = Uri.parse("https://kollad.ru");
-	private static final Uri URI_REPORT = Uri.parse("https://github.com/NikolayNIK/Rettel/issues/new");
 
 	private DrawerLayout drawerLayout;
 	private StudentInfo studentInfo;
