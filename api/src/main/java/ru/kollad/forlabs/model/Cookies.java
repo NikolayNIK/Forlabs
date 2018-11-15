@@ -9,19 +9,15 @@ import java.util.Locale;
 /**
  * Represents cookie jar.
  */
-public class Cookies implements Serializable {
+public class Cookies extends ArrayList<String> implements Serializable {
 
-	public static final long serialVersionUID = -4474745657772237605L;
-
-	/** It's cookie jar. Do NOT touch it rawly. */
-	private List<String> cookies;
+	private static final long serialVersionUID = 919870098686270412L;
 
 	/**
 	 * Creates cookie jar from connection.
 	 * @param con Http connection.
 	 */
 	public Cookies(HttpURLConnection con) {
-		cookies = new ArrayList<>();
 		getFrom(con);
 	}
 
@@ -29,14 +25,14 @@ public class Cookies implements Serializable {
 	 * Gets cookies from connection.
 	 * @param con Http connection.
 	 */
-	public void getFrom(HttpURLConnection con) {
+	private void getFrom(HttpURLConnection con) {
 		// trying to get new cookies
 		List<String> cList = con.getHeaderFields().get("Set-Cookie");
 		if (cList == null) return;
 
 		// add new cookies!
 		for (String cookie : cList)
-			cookies.add(cookie.substring(0, cookie.indexOf(';')));
+			add(cookie.substring(0, cookie.indexOf(';')));
 	}
 
 	/**
@@ -45,7 +41,7 @@ public class Cookies implements Serializable {
 	 * @return Cookie.
 	 */
 	public String get(String key) {
-		for (String cookie : cookies)
+		for (String cookie : this)
 			if (cookie.startsWith(key))
 				return cookie.substring(cookie.indexOf('=') + 1);
 		return null;
@@ -57,7 +53,7 @@ public class Cookies implements Serializable {
 	 */
 	public void putTo(HttpURLConnection con) {
 		StringBuilder cookieString = new StringBuilder();
-		for (String cookie : cookies) {
+		for (String cookie : this) {
 			cookieString.append(cookie);
 			cookieString.append("; ");
 		}
@@ -69,7 +65,7 @@ public class Cookies implements Serializable {
 	 * @param con Http connection.
 	 */
 	public void replaceAllBy(HttpURLConnection con) {
-		cookies.clear();
+		clear();
 		getFrom(con);
 	}
 
@@ -85,29 +81,13 @@ public class Cookies implements Serializable {
 		// for each cookie...
 		for (String cookie : cList) {
 			// remove existing cookie
-			for (int i = cookies.size() - 1; i >= 0; i--)
-				if (cookies.get(i).startsWith(cookie.substring(0, cookie.indexOf('=') + 1))) {
-					cookies.remove(i);
+			for (int i = size() - 1; i >= 0; i--)
+				if (get(i).startsWith(cookie.substring(0, cookie.indexOf('=') + 1))) {
+					remove(i);
 					break;
 				}
 			// add new one
-			cookies.add(cookie.substring(0, cookie.indexOf(';')));
+			add(cookie.substring(0, cookie.indexOf(';')));
 		}
-	}
-
-	/**
-	 * Clears all the cookies. Good bye, cookies!
-	 */
-	public void clear() {
-		cookies.clear();
-	}
-
-	@Override
-	public String toString() {
-		return String.format(Locale.getDefault(), "%d in cookie jar.", cookies.size());
-	}
-	@Override
-	public int hashCode() {
-		return cookies.hashCode();
 	}
 }
