@@ -30,6 +30,12 @@
 	<string name="text_schedule_course">Курс:</string>
 	<string name="text_schedule_stream">Поток:</string>
 	<string name="text_schedule_week">Неделя:</string>
+	<string name="text_study_overview_score">Баллы:</string>
+	<string name="text_study_overview_attendance">Посещаемость:</string>
+	<string name="text_study_overview_status">Статус:</string>
+	<string name="text_study_overview_status_certified">Аттестован(а)</string>
+	<string name="text_study_overview_status_debt">Долг</string>
+	<string name="text_study_overview_teacher">Преподаватель:</string>
 	<string name="text_report_crash">Похоже, в приложении произошла непредвиденная ошибка. Не могли бы вы помочь нам решить эту проблему?</string>
 	<string name="text_report_crash_title">Ошибка приложения</string>
 
