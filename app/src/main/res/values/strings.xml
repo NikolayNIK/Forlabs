@@ -57,6 +57,12 @@
 	<string name="shortcut_studies_long">My Studies</string>
 	<string name="shortcut_studies_short">Studies</string>
 
+	<string name="tab_study_overview">Overview</string>
+	<string name="tab_study_tasks">Tasks></string>
+	<string name="tab_study_tests">Tests</string>
+	<string name="tab_study_attendance">Attendance</string>
+	<string name="tab_study_performance">Performance</string>
+
 	<string-array name="weeks">
 		<item>Upper</item>
 		<item>Lower</item>

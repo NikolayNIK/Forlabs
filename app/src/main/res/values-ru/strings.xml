@@ -53,6 +53,12 @@
 	<string name="shortcut_studies_long">Моя учёба</string>
 	<string name="shortcut_studies_short">Учёба</string>
 
+	<string name="tab_study_overview">Обзор</string>
+	<string name="tab_study_tasks">Задания</string>
+	<string name="tab_study_tests">Тесты</string>
+	<string name="tab_study_attendance">Посещаемость</string>
+	<string name="tab_study_performance">Успеваемость</string>
+
 	<string-array name="weeks">
 		<item>Верхняя</item>
 		<item>Нижняя</item>

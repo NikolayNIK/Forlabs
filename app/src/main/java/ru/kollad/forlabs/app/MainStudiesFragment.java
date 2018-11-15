@@ -1,5 +1,6 @@
 package ru.kollad.forlabs.app;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -59,6 +60,7 @@ public class MainStudiesFragment extends MainFragment implements Observer<Studie
 
 	@Override
 	public void onClickItemStudy(StudiesAdapter adapter, Study item) {
-		// TODO
+		startActivity(new Intent(getContext(), StudyActivity.class)
+				.putExtra(StudyActivity.EXTRA_STUDY, item));
 	}
 }
