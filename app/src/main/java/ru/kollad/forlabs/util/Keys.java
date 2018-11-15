@@ -13,27 +13,33 @@ public class Keys {
 
 	// TODO Put SharedPreferences keys here
 
-	private static File getDir(Context context) {
+	private static File getDataDir(Context context) {
 		return Build.VERSION.SDK_INT >= 21 ? context.getNoBackupFilesDir() : context.getFilesDir();
 	}
 
+	private static File getCacheDir(Context context) {
+		File dir = context.getExternalCacheDir();
+		if (dir == null || !dir.isDirectory())
+			return context.getCacheDir();
+		return dir;
+	}
+
 	public static File getCookiesFile(Context context) {
-		return new File(getDir(context), "cookies");
+		return new File(getDataDir(context), "cookies");
 	}
 
 	public static File getStudentInfoFile(Context context) {
-		return new File(getDir(context), "studentInfo");
+		return new File(getCacheDir(context), "studentInfo");
 	}
 
 	public static File getStudiesFile(Context context) {
-		return new File(getDir(context), "studies");
+		return new File(getCacheDir(context), "studies");
 	}
 
 	public static File getScheduleDirectory(Context context) {
-		File dir = context.getExternalCacheDir();
-		if (dir == null || !dir.isDirectory()) dir = context.getCacheDir();
-		dir = new File(dir, "schedule");
-		if (!dir.isDirectory() && !dir.mkdirs()) Log.e("Forlabs", "Unable to create schedule directory. Something went totally wrong!");
+		File dir = new File(getCacheDir(context), "schedule");
+		if (!dir.isDirectory() && !dir.mkdirs())
+			Log.e("Forlabs", "Unable to create schedule directory. Something went totally wrong!");
 		return dir;
 	}
 
