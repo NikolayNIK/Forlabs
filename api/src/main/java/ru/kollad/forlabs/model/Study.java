@@ -163,17 +163,20 @@ public class Study implements Serializable {
 
 		// get task assignments
 		jsonStr = sc.nextLine();
-		json = new JSONObject(jsonStr.substring(jsonStr.indexOf('{'), jsonStr.lastIndexOf(';')));
+		jsonStr = jsonStr.substring(jsonStr.indexOf('=') + 2, jsonStr.lastIndexOf(';'));
+		if (jsonStr.startsWith("{")) {
+			json = new JSONObject(jsonStr);
 
-		// fill assessments
-		Iterator<String> keys = json.keys();
-		while (keys.hasNext()) {
-			Task.Assignment ta = new Task.Assignment(json.getJSONObject(keys.next()));
-			for (Task t : tasks)
-				if (t.getId() == ta.getTaskId()) {
-					t.setAssignment(ta);
-					break;
-				}
+			// fill assessments
+			Iterator<String> keys = json.keys();
+			while (keys.hasNext()) {
+				Task.Assignment ta = new Task.Assignment(json.getJSONObject(keys.next()));
+				for (Task t : tasks)
+					if (t.getId() == ta.getTaskId()) {
+						t.setAssignment(ta);
+						break;
+					}
+			}
 		}
 
 		// skip attend percent (we will calculate it)
