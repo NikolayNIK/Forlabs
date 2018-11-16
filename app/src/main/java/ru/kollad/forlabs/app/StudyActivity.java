@@ -79,7 +79,7 @@ public class StudyActivity extends AppCompatActivity implements Observer<Study> 
 
 		private final StudyFragment[] fragments = new StudyFragment[]{
 				new StudyOverviewFragment(),
-				new StudyFragment(),
+				new StudyTasksFragment(),
 				new StudyFragment(),
 				new StudyFragment(),
 				new StudyFragment()

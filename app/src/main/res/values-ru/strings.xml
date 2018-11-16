@@ -67,6 +67,13 @@
 	<string name="tab_study_attendance">Посещаемость</string>
 	<string name="tab_study_performance">Успеваемость</string>
 
+	<string-array name="task_statuses">
+		<item>В очереди</item>
+		<item>Долг</item>
+		<item>Текущее</item>
+		<item>Завершено</item>
+	</string-array>
+
 	<string-array name="weeks">
 		<item>Верхняя</item>
 		<item>Нижняя</item>
