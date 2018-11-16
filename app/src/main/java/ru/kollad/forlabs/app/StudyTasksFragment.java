@@ -1,6 +1,7 @@
 package ru.kollad.forlabs.app;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +17,62 @@ import ru.kollad.forlabs.model.Task;
  * Created by NikolayNIK on 16.11.2018.
  */
 public class StudyTasksFragment extends StudyFragment {
+
+	private int getStatusResource(Task task) {
+		Task.Assignment assignment = task.getAssignment();
+		switch (task.getStatus()) {
+			case 1:
+				if (assignment != null) {
+					switch (assignment.getStatus()) {
+						case 2:
+							return R.string.text_study_tasks_status_sent;
+						case 3:
+							return R.string.text_study_tasks_status_accepted;
+						case 6:
+							return R.string.text_study_tasks_status_teacher_answered;
+						case 7:
+							return R.string.text_study_tasks_status_teacher_questions;
+					}
+				}
+
+				return R.string.text_study_tasks_status_queued;
+			case 2:
+				if (assignment != null) {
+					switch (assignment.getStatus()) {
+						case 2:
+							return R.string.text_study_tasks_status_sent;
+						case 3:
+							return R.string.text_study_tasks_status_accepted;
+						case 6:
+							return R.string.text_study_tasks_status_teacher_answered;
+						case 7:
+							return R.string.text_study_tasks_status_teacher_questions;
+					}
+				}
+
+				return R.string.text_study_tasks_status_current;
+			case 3:
+				if (assignment != null) {
+					switch (assignment.getStatus()) {
+						case 1:
+							return R.string.text_study_tasks_status_debt;
+						case 2:
+							return R.string.text_study_tasks_status_sent;
+						case 3:
+							return R.string.text_study_tasks_status_done;
+						case 6:
+							return R.string.text_study_tasks_status_teacher_answered;
+						case 7:
+							return R.string.text_study_tasks_status_teacher_questions;
+					}
+				}
+
+				return R.string.text_study_tasks_status_done;
+		}
+
+		Log.w("Forlabs", "Unknown task status: " + task.getStatus());
+		return 0;
+	}
 
 	@Nullable
 	@Override
@@ -42,7 +99,7 @@ public class StudyTasksFragment extends StudyFragment {
 				for (Task task : study.getTasks()) {
 					View viewTask = getLayoutInflater().inflate(R.layout.fragment_study_tasks_item, layoutTasks, false);
 					((TextView) viewTask.findViewById(R.id.text_name)).setText(task.getName());
-					((TextView) viewTask.findViewById(R.id.text_status)).setText(getResources().getStringArray(R.array.task_statuses)[task.getAssignment() == null ? task.getStatus() : task.getAssignment().getStatus()]); // TODO
+					((TextView) viewTask.findViewById(R.id.text_status)).setText(getStatusResource(task));
 					((TextView) viewTask.findViewById(R.id.text_score)).setText(task.getAssignment() == null || task.getAssignment().getAssessment() == null ?
 							getString(R.string.text_study_tasks_cost, task.getCost()) :
 							getString(R.string.text_study_tasks_score, task.getAssignment().getAssessment().getCredits(), task.getCost()));

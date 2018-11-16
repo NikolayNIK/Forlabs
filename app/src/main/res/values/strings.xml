@@ -46,6 +46,14 @@
 	<string name="text_study_tasks_score" translatable="false">%.2f/%.2f</string>
 	<string name="text_study_tasks_cost" translatable="false">-/%.2f</string>
 	<string name="text_study_tasks_empty">No tasks</string>
+	<string name="text_study_tasks_status_queued">Queued</string>
+	<string name="text_study_tasks_status_current">Current</string>
+	<string name="text_study_tasks_status_done">Done</string>
+	<string name="text_study_tasks_status_sent">Sent for checking</string>
+	<string name="text_study_tasks_status_accepted">Accepted</string>
+	<string name="text_study_tasks_status_teacher_answered">Answered</string>
+	<string name="text_study_tasks_status_teacher_questions">Questions</string>
+	<string name="text_study_tasks_status_debt">Debt</string>
 	<string name="text_report_crash">Looks like unexpected error has occurred in the application. Could you help us to resolve this issue?</string>
 	<string name="text_report_crash_title">Application crash</string>
 
@@ -74,13 +82,6 @@
 	<string name="tab_study_tests">Tests</string>
 	<string name="tab_study_attendance">Attendance</string>
 	<string name="tab_study_performance">Performance</string>
-
-	<string-array name="task_statuses">
-		<item>Queued</item>
-		<item>Current</item>
-		<item>Debt</item>
-		<item>Done</item>
-	</string-array>
 
 	<string-array name="weeks">
 		<item>Upper</item>

@@ -39,6 +39,14 @@
 	<string name="text_study_overview_teacher">Преподаватель:</string>
 	<string name="text_study_overview_schedule">Расписание</string>
 	<string name="text_study_tasks_empty">Заданий нет</string>
+	<string name="text_study_tasks_status_queued">В очереди</string>
+	<string name="text_study_tasks_status_current">Текущее</string>
+	<string name="text_study_tasks_status_done">Завершено</string>
+	<string name="text_study_tasks_status_sent">Отправлено</string>
+	<string name="text_study_tasks_status_accepted">Принято</string>
+	<string name="text_study_tasks_status_teacher_answered">Получен ответ</string>
+	<string name="text_study_tasks_status_teacher_questions">Устный вопрос</string>
+	<string name="text_study_tasks_status_debt">Долг</string>
 	<string name="text_report_crash">Похоже, в приложении произошла непредвиденная ошибка. Не могли бы вы помочь нам решить эту проблему?</string>
 	<string name="text_report_crash_title">Ошибка приложения</string>
 
@@ -67,13 +75,6 @@
 	<string name="tab_study_tests">Тесты</string>
 	<string name="tab_study_attendance">Посещаемость</string>
 	<string name="tab_study_performance">Успеваемость</string>
-
-	<string-array name="task_statuses">
-		<item>В очереди</item>
-		<item>Долг</item>
-		<item>Текущее</item>
-		<item>Завершено</item>
-	</string-array>
 
 	<string-array name="weeks">
 		<item>Верхняя</item>
