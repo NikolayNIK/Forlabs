@@ -13,6 +13,8 @@ import ru.kollad.forlabs.model.Study;
  */
 public class StudyFragment extends Fragment {
 
+	private static final String KEY_STUDY = "study";
+
 	private Study study;
 
 	StudyFragment setStudy(Study study) {
@@ -24,7 +26,17 @@ public class StudyFragment extends Fragment {
 	@Override
 	public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
 		super.onViewCreated(view, savedInstanceState);
+
+		if (savedInstanceState != null)
+			study = (Study) savedInstanceState.getSerializable(KEY_STUDY);
+
 		onStudyChanged(view, study);
+	}
+
+	@Override
+	public void onSaveInstanceState(@NonNull Bundle outState) {
+		super.onSaveInstanceState(outState);
+		outState.putSerializable(KEY_STUDY, study);
 	}
 
 	private void onStudyChanged() {
