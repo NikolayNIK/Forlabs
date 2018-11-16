@@ -13,4 +13,9 @@
 
 	<style name="AppTheme.NoActionBar.Logo" />
 
+	<style name="Toolbar" parent="Widget.AppCompat.ActionBar">
+		<item name="layout_scrollFlags">scroll|enterAlways|snap</item>
+		<item name="navigationIcon">@drawable/ic_menu_daynight_24dp</item>
+	</style>
+
 </resources>
