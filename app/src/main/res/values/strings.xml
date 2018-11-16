@@ -42,6 +42,7 @@
 	<string name="text_study_overview_status_certified">Certified</string>
 	<string name="text_study_overview_status_debt">Debt</string>
 	<string name="text_study_overview_teacher">Teacher:</string>
+	<string name="text_study_overview_schedule">Schedule</string>
 	<string name="text_report_crash">Looks like unexpected error has occurred in the application. Could you help us to resolve this issue?</string>
 	<string name="text_report_crash_title">Application crash</string>
 

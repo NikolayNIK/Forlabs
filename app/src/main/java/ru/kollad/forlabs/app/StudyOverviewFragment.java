@@ -11,6 +11,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import ru.kollad.forlabs.R;
+import ru.kollad.forlabs.model.ScheduleItem;
 import ru.kollad.forlabs.model.Study;
 
 /**
@@ -27,8 +28,10 @@ public class StudyOverviewFragment extends StudyFragment {
 	@Override
 	protected void onStudyChanged(@NonNull View view, @Nullable Study study) {
 		View cardOverview = view.findViewById(R.id.card_overview);
+		View cardSchedule = view.findViewById(R.id.card_schedule);
 		if (study == null) {
 			cardOverview.setVisibility(View.GONE);
+			cardSchedule.setVisibility(View.GONE);
 		} else {
 			int attendance = Math.round(study.getAttendPercent());
 
@@ -58,6 +61,18 @@ public class StudyOverviewFragment extends StudyFragment {
 			}
 
 			((TextView) view.findViewById(R.id.text_teacher)).setText(study.getSimpleTeacherName());
+
+
+			cardSchedule.setVisibility(View.VISIBLE);
+			ViewGroup layoutSchedule = cardSchedule.findViewById(R.id.layout_schedule);
+			for (ScheduleItem item : study.getScheduleItems()) {
+				View viewDay = getLayoutInflater().inflate(R.layout.fragment_study_overview_schedule, layoutSchedule, false);
+				((TextView) viewDay.findViewById(R.id.text_day)).setText(item.getDayName());
+				((TextView) viewDay.findViewById(R.id.text_time)).setText(item.getTime());
+				((TextView) viewDay.findViewById(R.id.text_room)).setText(item.getRoom().getName());
+
+				layoutSchedule.addView(viewDay);
+			}
 		}
 	}
 }
