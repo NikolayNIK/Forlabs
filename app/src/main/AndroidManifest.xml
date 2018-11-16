@@ -38,8 +38,7 @@
 			android:theme="@style/AppTheme.NoActionBar.Fullscreen" />
 		<activity
 			android:name=".app.ReportActivity"
-			android:label="@string/title_report"
-			android:process=":error_activity">
+			android:label="@string/title_report">
 			<intent-filter>
 				<action android:name="cat.ereza.customactivityoncrash.ERROR" />
 			</intent-filter>
