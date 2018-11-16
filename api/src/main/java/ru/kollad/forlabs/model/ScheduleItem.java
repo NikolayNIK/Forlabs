@@ -61,7 +61,7 @@ public class ScheduleItem implements Serializable {
 	/**
 	 * Represents a room where study goes.
 	 */
-	public class Room {
+	public class Room implements Serializable {
 		private int id;
 		private String code;
 		private String name;
