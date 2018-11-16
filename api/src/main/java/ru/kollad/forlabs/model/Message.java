@@ -29,7 +29,7 @@ public class Message implements Serializable {
 	public Message(JSONObject json) throws ParseException, JSONException {
 		id = json.optInt("id", 0);
 		message = json.optString("message", "");
-		createdAt = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").parse(json.optString("created_at", "1970-01-01 00:00:00"));
+		if (!json.isNull("created_at")) createdAt = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").parse(json.optString("created_at", "1970-01-01 00:00:00"));
 		userName = json.getJSONObject("user").optString("name", "<unknown>");
 
 		attachments = new ArrayList<>();

@@ -61,9 +61,9 @@ public class Task implements Serializable {
 		status = pivot.optInt("status", 0);
 
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-		createdAt = sdf.parse(json.optString("created_at", "1970-01-01 00:00:00"));
-		updatedAt = sdf.parse(json.optString("updated_at", "1970-01-01 00:00:00"));
-		deletedAt = sdf.parse(json.optString("deleted_at", "1970-01-01 00:00:00"));
+		if (!json.isNull("created_at")) createdAt = sdf.parse(json.optString("created_at", "1970-01-01 00:00:00"));
+		if (!json.isNull("updated_at")) updatedAt = sdf.parse(json.optString("updated_at", "1970-01-01 00:00:00"));
+		if (!json.isNull("deleted_at")) deletedAt = sdf.parse(json.optString("deleted_at", "1970-01-01 00:00:00"));
 	}
 
 	public int getId() {
@@ -258,8 +258,8 @@ public class Task implements Serializable {
 			status = json.optInt("status", 0);
 
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
-			lastRepliedAt = sdf.parse(json.optString("last_replied_at", "1970-01-01 00:00:00"));
-			updatedAt = sdf.parse(json.optString("updated_at", "1970-01-01 00:00:00"));
+			if (!json.isNull("last_replied_at")) lastRepliedAt = sdf.parse(json.optString("last_replied_at", "1970-01-01 00:00:00"));
+			if (!json.isNull("updated_at")) updatedAt = sdf.parse(json.optString("updated_at", "1970-01-01 00:00:00"));
 
 			if (!json.isNull("assessment"))
 				assessment = new Assessment(json.getJSONObject("assessment"));
@@ -312,13 +312,13 @@ public class Task implements Serializable {
 			credits = json.optDouble("credits", 0);
 			comment = json.optString("comment", "");
 			cause = json.optString("cause", "");
-			createdAt = new SimpleDateFormat("yyyy-MM-dd").parse(json.optString("date", "1970-01-01"));
+			if (!json.isNull("date")) createdAt = new SimpleDateFormat("yyyy-MM-dd").parse(json.optString("date", "1970-01-01"));
 
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
 			JSONObject creditable = json.getJSONObject("creditable");
 			taskId = creditable.optInt("task_id", 0);
-			lastRepliedAt = sdf.parse(creditable.optString("last_replied_at", "1970-01-01 00:00:00"));
-			updatedAt = sdf.parse(creditable.optString("updated_at", "1970-01-01 00:00:00"));
+			if (!creditable.isNull("last_replied_at")) lastRepliedAt = sdf.parse(creditable.optString("last_replied_at", "1970-01-01 00:00:00"));
+			if (!creditable.isNull("updated_at")) updatedAt = sdf.parse(creditable.optString("updated_at", "1970-01-01 00:00:00"));
 			status = creditable.optInt("status", 0);
 		}
 
