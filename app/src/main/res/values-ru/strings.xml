@@ -32,6 +32,7 @@
 	<string name="text_schedule_week">Неделя:</string>
 	<string name="text_study_overview_score">Баллы:</string>
 	<string name="text_study_overview_attendance">Посещаемость:</string>
+	<string name="text_study_overview_attendance_no">Не ведётся</string>
 	<string name="text_study_overview_status">Статус:</string>
 	<string name="text_study_overview_status_certified">Аттестован(а)</string>
 	<string name="text_study_overview_status_debt">Долг</string>

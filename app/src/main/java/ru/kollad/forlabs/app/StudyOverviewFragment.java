@@ -34,8 +34,17 @@ public class StudyOverviewFragment extends StudyFragment {
 
 			cardOverview.setVisibility(View.VISIBLE);
 			((TextView) cardOverview.findViewById(R.id.text_score)).setText(getString(R.string.text_score, study.getPoints()));
-			((TextView) cardOverview.findViewById(R.id.text_attendance)).setText(getString(R.string.text_attendance, attendance));
-			((ProgressBar)cardOverview.findViewById(R.id.progress_attendance)).setProgress(attendance);
+
+			TextView textAttendance = cardOverview.findViewById(R.id.text_attendance);
+			ProgressBar progressAttendance = cardOverview.findViewById(R.id.progress_attendance);
+			if (study.getAttendances().isEmpty()) {
+				textAttendance.setText(R.string.text_study_overview_attendance_no);
+				progressAttendance.setVisibility(View.GONE);
+			} else {
+				textAttendance.setText(getString(R.string.text_attendance, attendance));
+				progressAttendance.setProgress(attendance);
+			}
+
 			if (study.getStatus() == Study.STATUS_NORMAL) {
 				cardOverview.findViewById(R.id.text_status).setVisibility(View.GONE);
 				cardOverview.findViewById(R.id.text_status_title).setVisibility(View.GONE);
