@@ -4,15 +4,18 @@
 	xmlns:tools="http://schemas.android.com/tools"
 	android:layout_width="match_parent"
 	android:layout_height="wrap_content"
-	android:minHeight="?android:attr/listPreferredItemHeight"
-	tools:layout_marginEnd="16dp"
-	tools:layout_marginStart="16dp">
+	android:background="?attr/selectableItemBackground"
+	android:clickable="true"
+	android:focusable="true"
+	android:minHeight="?android:attr/listPreferredItemHeightSmall">
 
 	<TextView
 		android:id="@+id/text_name"
-		android:layout_width="wrap_content"
-		android:layout_height="17dp"
+		android:layout_width="0dp"
+		android:layout_height="wrap_content"
+		android:layout_marginStart="16dp"
 		android:layout_marginTop="8dp"
+		android:layout_marginEnd="8dp"
 		android:layout_marginBottom="8dp"
 		android:textColor="?android:attr/textColorPrimary"
 		app:layout_constraintBottom_toBottomOf="parent"
@@ -24,26 +27,30 @@
 		tools:text="1. Калькулятор" />
 
 	<TextView
-		android:id="@+id/text_score"
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:layout_marginEnd="8dp"
-		android:layout_marginBottom="8dp"
-		app:layout_constraintBottom_toBottomOf="parent"
-		app:layout_constraintEnd_toEndOf="parent"
-		app:layout_constraintTop_toBottomOf="@+id/text_status"
-		tools:text="69/0" />
-
-	<TextView
 		android:id="@+id/text_status"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
 		android:layout_marginTop="8dp"
+		android:ems="6"
+		android:gravity="center"
+		android:textColor="?android:attr/textColorPrimary"
 		app:layout_constraintBottom_toTopOf="@+id/text_score"
 		app:layout_constraintEnd_toEndOf="parent"
 		app:layout_constraintHorizontal_bias="0.5"
 		app:layout_constraintStart_toEndOf="@+id/text_name"
 		app:layout_constraintTop_toTopOf="parent"
 		tools:text="Завершено" />
+
+	<TextView
+		android:id="@+id/text_score"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_marginBottom="8dp"
+		android:textColor="?android:attr/textColorPrimary"
+		app:layout_constraintBottom_toBottomOf="parent"
+		app:layout_constraintEnd_toEndOf="@+id/text_status"
+		app:layout_constraintStart_toStartOf="@+id/text_status"
+		app:layout_constraintTop_toBottomOf="@+id/text_status"
+		tools:text="69/0" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
