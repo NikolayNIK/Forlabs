@@ -17,22 +17,22 @@ public class StudyFragment extends Fragment {
 
 	StudyFragment setStudy(Study study) {
 		this.study = study;
-		this.onStudyReady();
+		this.onStudyChanged();
 		return this;
 	}
 
 	@Override
 	public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
 		super.onViewCreated(view, savedInstanceState);
-		onStudyReady(view, study);
+		onStudyChanged(view, study);
 	}
 
-	private void onStudyReady() {
+	private void onStudyChanged() {
 		View view = getView();
-		if (view != null) onStudyReady(view, study);
+		if (view != null) onStudyChanged(view, study);
 	}
 
-	protected void onStudyReady(@NonNull View view, @Nullable Study study) {
+	protected void onStudyChanged(@NonNull View view, @Nullable Study study) {
 
 	}
 }

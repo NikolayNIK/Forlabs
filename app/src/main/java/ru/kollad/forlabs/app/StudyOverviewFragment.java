@@ -24,7 +24,7 @@ public class StudyOverviewFragment extends StudyFragment {
 	}
 
 	@Override
-	protected void onStudyReady(@NonNull View view, @Nullable Study study) {
+	protected void onStudyChanged(@NonNull View view, @Nullable Study study) {
 		View cardOverview = view.findViewById(R.id.card_overview);
 		if (study == null) {
 			cardOverview.setVisibility(View.GONE);
