@@ -2,7 +2,7 @@
 <shortcuts xmlns:android="http://schemas.android.com/apk/res/android">
 
 	<shortcut
-		android:icon="@drawable/ic_studies_daynight_24dp"
+		android:icon="@mipmap/ic_shortcut_studies"
 		android:shortcutId="studies"
 		android:shortcutLongLabel="@string/shortcut_studies_long"
 		android:shortcutShortLabel="@string/shortcut_studies_short">
@@ -13,7 +13,7 @@
 	</shortcut>
 
 	<shortcut
-		android:icon="@drawable/ic_schedule_daynight_24dp"
+		android:icon="@mipmap/ic_shortcut_schedule"
 		android:shortcutId="schedule"
 		android:shortcutLongLabel="@string/shortcut_schedule_long"
 		android:shortcutShortLabel="@string/shortcut_schedule_short">
@@ -24,7 +24,7 @@
 	</shortcut>
 
 	<shortcut
-		android:icon="@drawable/ic_dashboard_daynight_24dp"
+		android:icon="@mipmap/ic_shortcut_dashboard"
 		android:shortcutId="dashboard"
 		android:shortcutLongLabel="@string/shortcut_dashboard_long"
 		android:shortcutShortLabel="@string/shortcut_dashboard_short">
