@@ -78,11 +78,11 @@
 				android:layout_height="wrap_content"
 				android:layout_marginStart="8dp"
 				android:layout_marginEnd="16dp"
+				android:max="100"
 				app:layout_constraintBottom_toBottomOf="@+id/text_attendance_title"
 				app:layout_constraintEnd_toEndOf="parent"
 				app:layout_constraintStart_toEndOf="@+id/text_attendance"
 				app:layout_constraintTop_toTopOf="@+id/text_attendance_title"
-				tools:max="100"
 				tools:progress="69" />
 
 			<TextView

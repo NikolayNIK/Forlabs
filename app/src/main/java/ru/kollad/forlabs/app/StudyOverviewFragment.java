@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -29,10 +30,12 @@ public class StudyOverviewFragment extends StudyFragment {
 		if (study == null) {
 			cardOverview.setVisibility(View.GONE);
 		} else {
-			cardOverview.setVisibility(View.VISIBLE);
+			int attendance = Math.round(study.getAttendPercent());
 
+			cardOverview.setVisibility(View.VISIBLE);
 			((TextView) cardOverview.findViewById(R.id.text_score)).setText(getString(R.string.text_score, study.getPoints()));
-			((TextView) cardOverview.findViewById(R.id.text_attendance)).setText(getString(R.string.text_attendance, Math.round(study.getAttendPercent())));
+			((TextView) cardOverview.findViewById(R.id.text_attendance)).setText(getString(R.string.text_attendance, attendance));
+			((ProgressBar)cardOverview.findViewById(R.id.progress_attendance)).setProgress(attendance);
 			if (study.getStatus() == Study.STATUS_NORMAL) {
 				cardOverview.findViewById(R.id.text_status).setVisibility(View.GONE);
 				cardOverview.findViewById(R.id.text_status_title).setVisibility(View.GONE);
