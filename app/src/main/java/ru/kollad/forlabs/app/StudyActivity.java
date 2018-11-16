@@ -32,6 +32,8 @@ public class StudyActivity extends AppCompatActivity implements Observer<Study> 
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 		getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_back_daynight_24dp);
 
+		setupTabs();
+
 		StudyActivityViewModel model = ViewModelProviders.of(this).get(StudyActivityViewModel.class);
 		model.getStudy().observe(this, this);
 		Study study;
@@ -44,7 +46,6 @@ public class StudyActivity extends AppCompatActivity implements Observer<Study> 
 		}
 
 		setTitle(study.getName());
-		setupTabs();
 	}
 
 	@Override
