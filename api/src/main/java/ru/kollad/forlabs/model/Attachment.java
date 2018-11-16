@@ -6,20 +6,22 @@ import org.json.JSONObject;
 import java.io.Serializable;
 import java.util.Locale;
 
+import androidx.annotation.NonNull;
+
 /**
  * Represents an attachment.
  */
 public class Attachment implements Serializable {
-	private int id;
-	private int type;
-	private int status;
-	private String uuid;
-	private String fileName;
-	private String mimeType;
-	private long fileSize;
-	private String humanFileSize;
-	private String url;
-	private String previewUrl;
+	private final int id;
+	private final int type;
+	private final int status;
+	private final String uuid;
+	private final String fileName;
+	private final String mimeType;
+	private final long fileSize;
+	private final String humanFileSize;
+	private final String url;
+	private final String previewUrl;
 
 	/**
 	 * Constructor for JSON.
@@ -89,6 +91,7 @@ public class Attachment implements Serializable {
 		return previewUrl.startsWith("/") ? "https://forlabs.ru" + previewUrl : previewUrl;
 	}
 
+	@NonNull
 	@Override
 	public String toString() {
 		return String.format(Locale.getDefault(), "%d: %s", id, fileName);

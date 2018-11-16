@@ -9,13 +9,13 @@ import java.io.Serializable;
  * Represents the schedule item for study.
  */
 public class ScheduleItem implements Serializable {
-	private int id;
-	private int day;
-	private int position;
-	private int type;
-	private int status;
-	private String dayName;
-	private String time;
+	private final int id;
+	private final int day;
+	private final int position;
+	private final int type;
+	private final int status;
+	private final String dayName;
+	private final String time;
 	private Room room;
 
 	/**
@@ -62,10 +62,10 @@ public class ScheduleItem implements Serializable {
 	 * Represents a room where study goes.
 	 */
 	public class Room implements Serializable {
-		private int id;
-		private String code;
-		private String name;
-		private String address;
+		private final int id;
+		private final String code;
+		private final String name;
+		private final String address;
 
 		/**
 		 * Constructor for JSON.

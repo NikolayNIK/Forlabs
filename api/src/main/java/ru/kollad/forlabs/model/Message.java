@@ -12,15 +12,17 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
+import androidx.annotation.NonNull;
+
 /**
  * Represents a message from the task.
  */
 public class Message implements Serializable {
-	private int id;
-	private String userName;
-	private String message;
+	private final int id;
+	private final String userName;
+	private final String message;
 	private Date createdAt;
-	private List<Attachment> attachments;
+	private final List<Attachment> attachments;
 
 	/**
 	 * Constructor for JSON.
@@ -54,6 +56,7 @@ public class Message implements Serializable {
 		return attachments;
 	}
 
+	@NonNull
 	@Override
 	public String toString() {
 		return String.format(Locale.getDefault(), "%s: %s (%d attachments)", userName, message, attachments.size());

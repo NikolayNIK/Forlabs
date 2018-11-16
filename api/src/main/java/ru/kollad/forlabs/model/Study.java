@@ -40,9 +40,9 @@ public class Study implements Serializable {
 	public static final int STATUS_DEBT = -1;
 	public static final int STATUS_CERTIFIED = 1;
 
-	private int id;
+	private final int id;
 	private List<Integer> lecturersId;
-	private String name;
+	private final String name;
 
 	private float points;
 	private int grade;
@@ -50,7 +50,7 @@ public class Study implements Serializable {
 	private List<Attendance> attendances;
 
 	private String teacherName;
-	private String simpleTeacherName;
+	private final String simpleTeacherName;
 	private int status;
 
 	private List<Task> tasks;

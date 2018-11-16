@@ -6,6 +6,7 @@ import org.jsoup.select.Elements;
 import java.io.Serializable;
 import java.util.Locale;
 
+import androidx.annotation.NonNull;
 import ru.kollad.forlabs.api.exceptions.UnsupportedForlabsException;
 
 /**
@@ -84,6 +85,7 @@ public class StudentInfo implements Serializable {
 		return totalCourseCount;
 	}
 
+	@NonNull
 	@Override
 	public String toString() {
 		return String.format(Locale.getDefault(), "%s. %s, %s, %s, %s, %s (from %d). %d / %d", studentName, groupName,

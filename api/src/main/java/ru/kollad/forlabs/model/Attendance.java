@@ -9,15 +9,17 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
+import androidx.annotation.NonNull;
+
 /**
  * Represents attendance on the lesson.
  */
 public class Attendance implements Serializable {
-	private int id;
-	private Date date;
-	private double cost;
-	private String comment;
-	private boolean isPresent;
+	private final int id;
+	private final Date date;
+	private final double cost;
+	private final String comment;
+	private final boolean isPresent;
 
 	/**
 	 * Constructor for JSON.
@@ -47,6 +49,7 @@ public class Attendance implements Serializable {
 		return isPresent;
 	}
 
+	@NonNull
 	@Override
 	public String toString() {
 		return String.format(Locale.getDefault(), "%d: %s %s", id, isPresent ? "был" : "не был", date.toString());

@@ -31,13 +31,13 @@ public class Task implements Serializable {
 	/** URL for fetching messages */
 	private static final String MESSAGES_URL = "https://forlabs.ru/studies/${studyId}/tasks/${id}/responses";
 
-	private int id;
-	private int studyId;
-	private int status;
-	private String name;
-	private String content;
-	private String instructions;
-	private double cost;
+	private final int id;
+	private final int studyId;
+	private final int status;
+	private final String name;
+	private final String content;
+	private final String instructions;
+	private final double cost;
 	private Date createdAt;
 	private Date updatedAt;
 	private Date deletedAt;
@@ -240,9 +240,9 @@ public class Task implements Serializable {
 		public static final int STATUS_HAS_QUESTIONS = 7;
 		public static final int STATUS_DEFAULT = 0;
 
-		private int id;
-		private int taskId;
-		private int status;
+		private final int id;
+		private final int taskId;
+		private final int status;
 
 		private Date lastRepliedAt;
 		private Date updatedAt;
@@ -289,14 +289,14 @@ public class Task implements Serializable {
 	 * Represents an assessment.
 	 */
 	public static class Assessment implements Serializable {
-		private int id;
-		private int taskId;
-		private int type;
-		private double credits;
-		private String comment;
+		private final int id;
+		private final int taskId;
+		private final int type;
+		private final double credits;
+		private final String comment;
 
-		private String cause;
-		private int status;
+		private final String cause;
+		private final int status;
 		private Date createdAt;
 		private Date lastRepliedAt;
 

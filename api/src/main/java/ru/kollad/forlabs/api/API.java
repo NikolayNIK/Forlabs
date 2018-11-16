@@ -48,7 +48,7 @@ public class API {
 	private static final String DASHBOARD_URL = "https://forlabs.ru/dashboard";
 
 	/** Parser. For parsing HTML pages. */
-	private static Parser p = Parser.htmlParser();
+	private static final Parser p = Parser.htmlParser();
 	/** Cookie Jar. Take one if you dare. */
 	private Cookies cookies;
 	/** Object for student info. */
@@ -321,8 +321,7 @@ public class API {
 	 * @return Same study, but with info inside!
 	 */
 	public Study fetchStudy(Study study) throws IOException, UnsupportedForlabsException, ParseException, JSONException, OldCookiesException {
-		study.fetch(p, cookies);
-		return study;
+		return study.fetch(p, cookies);
 	}
 
 	/**
@@ -431,10 +430,10 @@ public class API {
 		cookies.putTo(con);
 
 		// create random multipart divider
-		String multipartDivider = "----------------";
+		StringBuilder multipartDivider = new StringBuilder("----------------");
 		Random r = new Random();
 		for (int i = 0; i < 16; i++)
-			multipartDivider += Integer.toHexString(r.nextInt(16));
+			multipartDivider.append(Integer.toHexString(r.nextInt(16)));
 		con.addRequestProperty("Content-Type", "multipart/form-data; boundary=" + multipartDivider);
 
 		// open output stream
