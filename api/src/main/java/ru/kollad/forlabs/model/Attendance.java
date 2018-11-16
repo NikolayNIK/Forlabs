@@ -27,7 +27,7 @@ public class Attendance implements Serializable {
 	 */
 	public Attendance(JSONObject json) throws ParseException, JSONException {
 		id = json.optInt("id", 0);
-		date = new SimpleDateFormat("yyyy-MM-dd").parse(json.optString("date", "1970-01-01"));
+		date = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).parse(json.optString("date", "1970-01-01"));
 		cost = json.optDouble("cost", 0);
 		comment = json.optString("comment", "");
 		isPresent = json.getJSONObject("pivot").optInt("is_present", 0) == 1;

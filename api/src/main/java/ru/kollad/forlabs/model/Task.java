@@ -20,6 +20,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 import java.util.Scanner;
 
 /**
@@ -60,7 +61,7 @@ public class Task implements Serializable {
 		cost = pivot.optDouble("cost", 0);
 		status = pivot.optInt("status", 0);
 
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
 		if (!json.isNull("created_at")) createdAt = sdf.parse(json.optString("created_at", "1970-01-01 00:00:00"));
 		if (!json.isNull("updated_at")) updatedAt = sdf.parse(json.optString("updated_at", "1970-01-01 00:00:00"));
 		if (!json.isNull("deleted_at")) deletedAt = sdf.parse(json.optString("deleted_at", "1970-01-01 00:00:00"));
@@ -257,7 +258,7 @@ public class Task implements Serializable {
 			taskId = json.optInt("task_id", 0);
 			status = json.optInt("status", 0);
 
-			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss", Locale.getDefault());
 			if (!json.isNull("last_replied_at")) lastRepliedAt = sdf.parse(json.optString("last_replied_at", "1970-01-01 00:00:00"));
 			if (!json.isNull("updated_at")) updatedAt = sdf.parse(json.optString("updated_at", "1970-01-01 00:00:00"));
 
@@ -312,9 +313,9 @@ public class Task implements Serializable {
 			credits = json.optDouble("credits", 0);
 			comment = json.optString("comment", "");
 			cause = json.optString("cause", "");
-			if (!json.isNull("date")) createdAt = new SimpleDateFormat("yyyy-MM-dd").parse(json.optString("date", "1970-01-01"));
+			if (!json.isNull("date")) createdAt = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).parse(json.optString("date", "1970-01-01"));
 
-			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss", Locale.getDefault());
 			JSONObject creditable = json.getJSONObject("creditable");
 			taskId = creditable.optInt("task_id", 0);
 			if (!creditable.isNull("last_replied_at")) lastRepliedAt = sdf.parse(creditable.optString("last_replied_at", "1970-01-01 00:00:00"));
