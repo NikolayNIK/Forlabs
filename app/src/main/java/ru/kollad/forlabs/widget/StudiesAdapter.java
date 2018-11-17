@@ -62,11 +62,11 @@ public class StudiesAdapter extends RecyclerView.Adapter<StudiesAdapter.ViewHold
 				break;
 			case Study.STATUS_CERTIFIED:
 				holder.imageStatus.setVisibility(View.VISIBLE);
-				holder.imageStatus.setImageResource(R.drawable.ic_thumb_up_24dp);
+				holder.imageStatus.setImageResource(R.drawable.ic_thumb_up_accent_24dp);
 				break;
 			case Study.STATUS_DEBT:
 				holder.imageStatus.setVisibility(View.VISIBLE);
-				holder.imageStatus.setImageResource(R.drawable.ic_warning_24dp);
+				holder.imageStatus.setImageResource(R.drawable.ic_warning_accent_24dp);
 				break;
 		}
 	}

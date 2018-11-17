@@ -54,10 +54,10 @@ public class StudyOverviewFragment extends StudyFragment {
 				cardOverview.findViewById(R.id.image_status).setVisibility(View.GONE);
 			} else if (study.getStatus() == Study.STATUS_CERTIFIED) {
 				((TextView) cardOverview.findViewById(R.id.text_status)).setText(getString(R.string.text_study_overview_status_certified));
-				((ImageView) cardOverview.findViewById(R.id.image_status)).setImageResource(R.drawable.ic_thumb_up_24dp);
+				((ImageView) cardOverview.findViewById(R.id.image_status)).setImageResource(R.drawable.ic_thumb_up_accent_24dp);
 			} else {
 				((TextView) cardOverview.findViewById(R.id.text_status)).setText(getString(R.string.text_study_overview_status_debt));
-				((ImageView) cardOverview.findViewById(R.id.image_status)).setImageResource(R.drawable.ic_warning_24dp);
+				((ImageView) cardOverview.findViewById(R.id.image_status)).setImageResource(R.drawable.ic_warning_accent_24dp);
 			}
 
 			((TextView) view.findViewById(R.id.text_teacher)).setText(study.getSimpleTeacherName());

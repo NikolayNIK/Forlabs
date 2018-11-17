@@ -134,7 +134,7 @@
 					app:layout_constraintEnd_toEndOf="parent"
 					app:layout_constraintTop_toTopOf="@+id/text_status"
 					tools:ignore="ContentDescription"
-					tools:src="@drawable/ic_warning_24dp" />
+					tools:src="@drawable/ic_warning_accent_24dp" />
 
 				<TextView
 					android:id="@+id/text_teacher_title"
