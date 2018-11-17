@@ -1,5 +1,6 @@
 package ru.kollad.forlabs.app;
 
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.util.Log;
@@ -26,6 +27,9 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import ru.kollad.forlabs.R;
 import ru.kollad.forlabs.model.StudentInfo;
+import ru.kollad.forlabs.model.Studies;
+import ru.kollad.forlabs.util.Keys;
+import ru.kollad.forlabs.util.SerializableUtil;
 import ru.kollad.forlabs.viewmodel.MainScheduleFragmentViewModel;
 
 /**
@@ -106,10 +110,13 @@ public class MainScheduleFragment extends MainFragment implements Observer<JSONA
 								String key = keys.next();
 								JSONObject itemJson = dayJson.optJSONObject(key);
 								if (itemJson != null) {
+									String name = itemJson.optString("study");
+
 									View viewItem = getActivity().getLayoutInflater().inflate(R.layout.fragment_main_schedule_day_item, groupItems, false);
+									viewItem.setOnClickListener(new OnStudyClickListener(name));
 									((TextView) viewItem.findViewById(R.id.text_time_start)).setText(key.substring(0, 5));
 									((TextView) viewItem.findViewById(R.id.text_time_end)).setText(key.substring(6));
-									((TextView) viewItem.findViewById(R.id.text_name)).setText(itemJson.optString("study"));
+									((TextView) viewItem.findViewById(R.id.text_name)).setText(name);
 									((TextView) viewItem.findViewById(R.id.text_room)).setText(itemJson.optString("room"));
 									((TextView) viewItem.findViewById(R.id.text_lecturer)).setText(itemJson.optString("lecturer"));
 
@@ -269,5 +276,23 @@ public class MainScheduleFragment extends MainFragment implements Observer<JSONA
 
 	private void clearSchedule() {
 		containerSchedule.removeViews(1, containerSchedule.getChildCount() - 1);
+	}
+
+	private class OnStudyClickListener implements View.OnClickListener {
+
+		private final String name;
+
+		private OnStudyClickListener(String name) {
+			this.name = name;
+		}
+
+		@Override
+		public void onClick(View v) {
+			try { // Hope for the best
+				startActivity(new Intent(getContext(), StudyActivity.class).putExtra(StudyActivity.EXTRA_STUDY, ((Studies) SerializableUtil.read(Keys.getStudiesFile(getContext()))).find(name)));
+			} catch (Exception e) {
+				Log.w("Forlabs", "Unable to open StudyActivity", e);
+			}
+		}
 	}
 }
