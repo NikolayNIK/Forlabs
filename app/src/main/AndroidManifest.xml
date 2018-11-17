@@ -13,6 +13,7 @@
 		android:theme="@style/AppTheme"
 		android:usesCleartextTraffic="true"
 		tools:ignore="UnusedAttribute">
+
 		<activity
 			android:name=".app.AuthActivity"
 			android:theme="@style/AppTheme.NoActionBar.Logo">
@@ -32,10 +33,13 @@
 			<meta-data
 				android:name="android.app.shortcuts"
 				android:resource="@xml/shortcuts" />
+
 		</activity>
+
 		<activity
 			android:name=".app.MainActivity"
 			android:theme="@style/AppTheme.NoActionBar.Fullscreen" />
+
 		<activity
 			android:name=".app.ReportActivity"
 			android:label="@string/title_report">
@@ -43,9 +47,15 @@
 				<action android:name="cat.ereza.customactivityoncrash.ERROR" />
 			</intent-filter>
 		</activity>
+
 		<activity
 			android:name=".app.StudyActivity"
 			android:theme="@style/AppTheme.NoActionBar" />
+
+		<activity
+			android:name=".app.TaskActivity"
+			android:theme="@style/AppTheme.NoActionBar" />
+
 	</application>
 
 </manifest>

@@ -1,5 +1,6 @@
 package ru.kollad.forlabs.app;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -98,6 +99,7 @@ public class StudyTasksFragment extends StudyFragment {
 				ViewGroup layoutTasks = cardTasks.findViewById(R.id.layout_tasks);
 				for (Task task : study.getTasks()) {
 					View viewTask = getLayoutInflater().inflate(R.layout.fragment_study_tasks_item, layoutTasks, false);
+					viewTask.setOnClickListener(new OnTaskClickListener(task));
 					((TextView) viewTask.findViewById(R.id.text_name)).setText(task.getName());
 					((TextView) viewTask.findViewById(R.id.text_status)).setText(getStatusResource(task));
 					((TextView) viewTask.findViewById(R.id.text_score)).setText(task.getAssignment() == null || task.getAssignment().getAssessment() == null ?
@@ -106,6 +108,25 @@ public class StudyTasksFragment extends StudyFragment {
 
 					layoutTasks.addView(viewTask);
 				}
+			}
+		}
+	}
+
+	private class OnTaskClickListener implements View.OnClickListener {
+
+		private final Task task;
+
+		private OnTaskClickListener(Task task) {
+			this.task = task;
+		}
+
+		@Override
+		public void onClick(View v) {
+			try {
+				startActivity(new Intent(getContext(), TaskActivity.class)
+						.putExtra(TaskActivity.EXTRA_TASK, task));
+			} catch (Exception e) {
+				Log.w("Forlabs", "Unable to start TaskActivity", e);
 			}
 		}
 	}
