@@ -172,7 +172,7 @@ public class Task implements Serializable {
 	 * @param cookies Cookies for getting new one.
 	 * @return List of messages.
 	 */
-	public List<Message> fetchMessages(Parser p, Cookies cookies) throws IOException, ParseException,
+	public List<Message> fetchMessages(Cookies cookies) throws IOException, ParseException,
 			JSONException, OldCookiesException {
 		// setup connection
 		HttpURLConnection con = (HttpURLConnection)
