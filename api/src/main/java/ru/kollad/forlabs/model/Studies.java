@@ -11,12 +11,24 @@ import java.util.ArrayList;
  */
 public class Studies extends ArrayList<Study> implements Serializable {
 
+	private static final long serialVersionUID = -7890043171358234840L;
+
 	/**
 	 * Constructor for elements.
+	 *
 	 * @param elements Elements of the page.
 	 */
 	public Studies(Elements elements) {
 		for (Element e : elements)
 			add(new Study(e));
+	}
+
+	private Study find(String name) {
+		for (Study study : this) {
+			if (name.equals(study.getName()))
+				return study;
+		}
+
+		return null;
 	}
 }
