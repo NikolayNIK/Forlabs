@@ -36,6 +36,7 @@ public class Task implements Serializable {
 	private final int studyId;
 	private final int status;
 	private final String name;
+	private int sort;
 	private final String content;
 	private final String instructions;
 	private final double cost;
@@ -153,8 +154,9 @@ public class Task implements Serializable {
 		// get json
 		String jsonStr = sc.nextLine();
 		sc.close();
-		JSONArray jsonArr = new JSONObject(jsonStr.substring(jsonStr.indexOf('{'), jsonStr.lastIndexOf(';')))
-				.getJSONArray("attachments");
+		JSONObject task = new JSONObject(jsonStr.substring(jsonStr.indexOf('{'), jsonStr.lastIndexOf(';')));
+		sort = task.optInt("sort", 0);
+		JSONArray jsonArr = task.getJSONArray("attachments");
 
 		// parse json to array list
 		attachments = new ArrayList<>();
