@@ -60,7 +60,7 @@ public class TaskActivity extends AppCompatActivity {
 	public class PagerAdapter extends FragmentStatePagerAdapter {
 
 		private final Fragment[] fragments = new Fragment[]{
-				new Fragment(),
+				TaskDescriptionFragment.newInstance(task),
 				new Fragment(),
 		};
 

@@ -84,6 +84,8 @@
 	<string name="tab_study_tests">Tests</string>
 	<string name="tab_study_attendance">Attendance</string>
 	<string name="tab_study_performance">Performance</string>
+	<string name="tab_task_description">Description</string>
+	<string name="tab_task_answer">Answer</string>
 
 	<string-array name="weeks">
 		<item>Upper</item>

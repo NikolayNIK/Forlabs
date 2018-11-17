@@ -76,6 +76,8 @@
 	<string name="tab_study_tests">Тесты</string>
 	<string name="tab_study_attendance">Посещаемость</string>
 	<string name="tab_study_performance">Успеваемость</string>
+	<string name="tab_task_description">Описание</string>
+	<string name="tab_task_answer">Отклик</string>
 
 	<string-array name="weeks">
 		<item>Верхняя</item>
