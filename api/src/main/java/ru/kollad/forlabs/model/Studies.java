@@ -23,7 +23,7 @@ public class Studies extends ArrayList<Study> implements Serializable {
 			add(new Study(e));
 	}
 
-	private Study find(String name) {
+	public Study find(String name) {
 		for (Study study : this) {
 			if (name.equals(study.getName()))
 				return study;
