@@ -47,6 +47,7 @@
 	<string name="text_study_tasks_status_teacher_answered">Получен ответ</string>
 	<string name="text_study_tasks_status_teacher_questions">Устный вопрос</string>
 	<string name="text_study_tasks_status_debt">Долг</string>
+	<string name="text_study_attendance_empty">Преподаватель не ведёт учёт посещаемости</string>
 	<string name="text_report_crash">Похоже, в приложении произошла непредвиденная ошибка. Не могли бы вы помочь нам решить эту проблему?</string>
 	<string name="text_report_crash_title">Ошибка приложения</string>
 
@@ -89,6 +90,21 @@
 		<item>Пятница</item>
 		<item>Суббота</item>
 		<item>Воскресенье</item>
+	</string-array>
+
+	<string-array name="months">
+		<item>января</item>
+		<item>февраля</item>
+		<item>марта</item>
+		<item>апреля</item>
+		<item>мая</item>
+		<item>июня</item>
+		<item>июля</item>
+		<item>августа</item>
+		<item>сентября</item>
+		<item>октября</item>
+		<item>ноября</item>
+		<item>декабря</item>
 	</string-array>
 
 </resources>

@@ -54,6 +54,8 @@
 	<string name="text_study_tasks_status_teacher_answered">Answered</string>
 	<string name="text_study_tasks_status_teacher_questions">Questions</string>
 	<string name="text_study_tasks_status_debt">Debt</string>
+	<string name="text_study_attendance_empty">Teacher does not log attendance</string>
+	<string name="text_study_attendance_date" translatable="false">%d %s %d</string>
 	<string name="text_report_crash">Looks like unexpected error has occurred in the application. Could you help us to resolve this issue?</string>
 	<string name="text_report_crash_title">Application crash</string>
 
@@ -96,6 +98,21 @@
 		<item>Friday</item>
 		<item>Saturday</item>
 		<item>Sunday</item>
+	</string-array>
+
+	<string-array name="months">
+		<item>of January</item>
+		<item>of February</item>
+		<item>of March</item>
+		<item>of April</item>
+		<item>of May</item>
+		<item>of June</item>
+		<item>of July</item>
+		<item>of August</item>
+		<item>of September</item>
+		<item>of October</item>
+		<item>of November</item>
+		<item>of December</item>
 	</string-array>
 
 </resources>

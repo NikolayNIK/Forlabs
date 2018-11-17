@@ -81,7 +81,7 @@ public class StudyActivity extends AppCompatActivity implements Observer<Study> 
 				new StudyOverviewFragment(),
 				new StudyTasksFragment(),
 				new StudyFragment(),
-				new StudyFragment(),
+				new StudyAttendanceFragment(),
 				new StudyFragment()
 		};
 
