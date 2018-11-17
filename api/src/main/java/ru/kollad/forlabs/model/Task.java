@@ -36,6 +36,7 @@ public class Task implements Serializable {
 	private final int studyId;
 	private final int status;
 	private final String name;
+	private int sort;
 	private final String content;
 	private final String instructions;
 	private final double cost;
@@ -78,6 +79,9 @@ public class Task implements Serializable {
 	}
 	public String getName() {
 		return name;
+	}
+	public int getSort() {
+		return sort;
 	}
 	public String getContent() {
 		return content;
@@ -153,8 +157,9 @@ public class Task implements Serializable {
 		// get json
 		String jsonStr = sc.nextLine();
 		sc.close();
-		JSONArray jsonArr = new JSONObject(jsonStr.substring(jsonStr.indexOf('{'), jsonStr.lastIndexOf(';')))
-				.getJSONArray("attachments");
+		JSONObject task = new JSONObject(jsonStr.substring(jsonStr.indexOf('{'), jsonStr.lastIndexOf(';')));
+		sort = task.optInt("sort", 0);
+		JSONArray jsonArr = task.getJSONArray("attachments");
 
 		// parse json to array list
 		attachments = new ArrayList<>();
@@ -166,11 +171,10 @@ public class Task implements Serializable {
 
 	/**
 	 * Fetch some messages.
-	 * @param p Parser for parsing HTMLs.
 	 * @param cookies Cookies for getting new one.
 	 * @return List of messages.
 	 */
-	public List<Message> fetchMessages(Parser p, Cookies cookies) throws IOException, ParseException,
+	public List<Message> fetchMessages(Cookies cookies) throws IOException, ParseException,
 			JSONException, OldCookiesException {
 		// setup connection
 		HttpURLConnection con = (HttpURLConnection)

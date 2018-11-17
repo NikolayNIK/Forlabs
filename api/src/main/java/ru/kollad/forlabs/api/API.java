@@ -340,7 +340,7 @@ public class API {
 	 */
 	public List<Message> getTaskMessages(Task task) throws IOException, ParseException,
 			JSONException, OldCookiesException {
-		return task.fetchMessages(p, cookies);
+		return task.fetchMessages(cookies);
 	}
 
 	/**
