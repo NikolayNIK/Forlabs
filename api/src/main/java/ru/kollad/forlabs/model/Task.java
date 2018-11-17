@@ -80,6 +80,9 @@ public class Task implements Serializable {
 	public String getName() {
 		return name;
 	}
+	public int getSort() {
+		return sort;
+	}
 	public String getContent() {
 		return content;
 	}
@@ -168,7 +171,6 @@ public class Task implements Serializable {
 
 	/**
 	 * Fetch some messages.
-	 * @param p Parser for parsing HTMLs.
 	 * @param cookies Cookies for getting new one.
 	 * @return List of messages.
 	 */
