@@ -8,6 +8,7 @@
 
 	<string name="hint_auth_email">E-mail Address</string>
 	<string name="hint_auth_password">Password</string>
+	<string name="hint_task_message">Response</string>
 	<string name="hint_report_email">E-mail (unnecessary)</string>
 	<string name="hint_report_title">Title</string>
 	<string name="hint_report_message">Message</string>
@@ -17,6 +18,8 @@
 
 	<string name="button_auth_log_in">Log In</string>
 	<string name="button_auth_forgot_password">Forgot password?</string>
+	<string name="button_task_attach">Attach file</string>
+	<string name="button_task_send">Send</string>
 	<string name="button_report_send">Send</string>
 
 	<string name="check_report_stacktrace">Attach stack-trace</string>

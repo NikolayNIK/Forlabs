@@ -6,6 +6,7 @@
 
 	<string name="hint_auth_email">Адрес E-mail</string>
 	<string name="hint_auth_password">Пароль</string>
+	<string name="hint_task_message">Отклик</string>
 	<string name="hint_report_email">Электронная почта (необязательно)</string>
 	<string name="hint_report_title">Заголовок</string>
 	<string name="hint_report_message">Сообщение</string>
@@ -15,6 +16,8 @@
 
 	<string name="button_auth_log_in">Войти</string>
 	<string name="button_auth_forgot_password">Забыли пароль?</string>
+	<string name="button_task_attach">Прикрепить файл</string>
+	<string name="button_task_send">Отправить</string>
 	<string name="button_report_send">Отправить</string>
 
 	<string name="check_report_stacktrace">Приложить журналы</string>
