@@ -73,6 +73,8 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
 		holder.textTime.setText(item.getCreatedAt().toString());
 		holder.textMessage.setText(item.getMessage());
 		holder.textMessage.setVisibility(TextUtils.isEmpty(item.getMessage()) ? View.GONE : View.VISIBLE);
+		Glide.with(context).load(item.getAvatarURL()).apply(new RequestOptions().circleCrop())
+				.into(holder.imageAvatar);
 
 		RequestOptions requestOptions = new RequestOptions().circleCrop();
 		for (Attachment attachment : item.getAttachments()) {
@@ -101,12 +103,14 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
 
 	static class ViewHolder extends RecyclerView.ViewHolder {
 
+		private final ImageView imageAvatar;
 		private final TextView textName, textTime, textMessage;
 		private final LinearLayout layoutAttachments;
 
 		private ViewHolder(@NonNull View itemView) {
 			super(itemView);
 
+			imageAvatar = itemView.findViewById(R.id.image_avatar);
 			textName = itemView.findViewById(R.id.text_name);
 			textTime = itemView.findViewById(R.id.text_time);
 			textMessage = itemView.findViewById(R.id.text_message);
