@@ -20,6 +20,7 @@ import androidx.annotation.NonNull;
 public class Message implements Serializable {
 	private final int id;
 	private final String userName;
+	private final String avatarURL;
 	private final String message;
 	private Date createdAt;
 	private final List<Attachment> attachments;
@@ -32,7 +33,9 @@ public class Message implements Serializable {
 		id = json.optInt("id", 0);
 		message = json.optString("message", "");
 		if (!json.isNull("created_at")) createdAt = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss", Locale.getDefault()).parse(json.optString("created_at", "1970-01-01 00:00:00"));
-		userName = json.getJSONObject("user").optString("name", "<unknown>");
+		JSONObject user = json.getJSONObject("user");
+		userName = user.optString("name", "<unknown>");
+		avatarURL = user.optString("avatar_url", "http://natribu.org/favicon.ico");
 
 		attachments = new ArrayList<>();
 		JSONArray attachmentsArr = json.getJSONArray("attachments");
@@ -45,6 +48,9 @@ public class Message implements Serializable {
 	}
 	public String getUserName() {
 		return userName;
+	}
+	public String getAvatarURL() {
+		return avatarURL;
 	}
 	public String getMessage() {
 		return message;
