@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
 	xmlns:tools="http://schemas.android.com/tools"
 	android:layout_width="match_parent"
 	android:layout_height="match_parent"
@@ -13,12 +14,12 @@
 		android:clipToPadding="false"
 		android:padding="16dp" />
 
-	<LinearLayout
+	<androidx.constraintlayout.widget.ConstraintLayout
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
+		android:animateLayoutChanges="true"
 		android:background="@color/background"
 		android:elevation="16dp"
-		android:orientation="horizontal"
 		tools:ignore="UnusedAttribute">
 
 		<EditText
@@ -27,11 +28,16 @@
 			android:layout_height="wrap_content"
 			android:layout_gravity="center_vertical"
 			android:layout_marginStart="8dp"
-			android:layout_weight="1"
 			android:hint="@string/hint_task_message"
 			android:importantForAutofill="no"
 			android:inputType="textLongMessage|textMultiLine"
-			android:minHeight="56dp" />
+			android:maxHeight="128dp"
+			android:minHeight="56dp"
+			app:layout_constraintBottom_toTopOf="@+id/layout_attachments"
+			app:layout_constraintEnd_toStartOf="@+id/button_attach"
+			app:layout_constraintHorizontal_bias="0.5"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintTop_toTopOf="parent" />
 
 		<ImageButton
 			android:id="@+id/button_attach"
@@ -39,7 +45,11 @@
 			android:layout_width="48dp"
 			android:layout_height="56dp"
 			android:contentDescription="@string/button_task_attach"
-			android:src="@drawable/ic_attach_file_daynight_24dp" />
+			android:src="@drawable/ic_attach_file_daynight_24dp"
+			app:layout_constraintEnd_toStartOf="@+id/button_send"
+			app:layout_constraintHorizontal_bias="0.5"
+			app:layout_constraintStart_toEndOf="@+id/edit_message"
+			app:layout_constraintTop_toTopOf="parent" />
 
 		<ImageButton
 			android:id="@+id/button_send"
@@ -47,8 +57,24 @@
 			android:layout_width="48dp"
 			android:layout_height="56dp"
 			android:contentDescription="@string/button_task_send"
-			android:src="@drawable/ic_send_accent_24dp" />
+			android:src="@drawable/ic_send_accent_24dp"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintHorizontal_bias="0.5"
+			app:layout_constraintStart_toEndOf="@+id/button_attach"
+			app:layout_constraintTop_toTopOf="parent" />
 
-	</LinearLayout>
+		<LinearLayout
+			android:id="@+id/layout_attachments"
+			android:layout_width="0dp"
+			android:layout_height="wrap_content"
+			android:animateLayoutChanges="true"
+			android:orientation="vertical"
+			app:layout_constraintBottom_toBottomOf="parent"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintHorizontal_bias="0.5"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintTop_toBottomOf="@+id/edit_message" />
+
+	</androidx.constraintlayout.widget.ConstraintLayout>
 
 </LinearLayout>
