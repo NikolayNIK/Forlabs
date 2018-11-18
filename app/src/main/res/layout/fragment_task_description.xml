@@ -12,6 +12,25 @@
 		android:animateLayoutChanges="true"
 		android:orientation="vertical">
 
+		<androidx.cardview.widget.CardView
+			android:id="@+id/card_title"
+			android:layout_width="@dimen/card_width"
+			android:layout_height="wrap_content"
+			android:layout_gravity="center_horizontal"
+			android:visibility="gone"
+			app:cardCornerRadius="8dp"
+			app:cardUseCompatPadding="true">
+
+			<TextView
+				android:id="@+id/text_title"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:layout_margin="16dp"
+				android:textColor="?android:attr/textColorPrimary"
+				android:textSize="18sp" />
+
+		</androidx.cardview.widget.CardView>
+
 		<WebView
 			android:id="@+id/web"
 			android:layout_width="match_parent"

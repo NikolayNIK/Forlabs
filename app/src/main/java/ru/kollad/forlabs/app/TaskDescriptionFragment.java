@@ -37,6 +37,8 @@ public class TaskDescriptionFragment extends Fragment implements Observer<List<A
 	private static final String CONTENT_PREFIX = "<style>body{color:#%s;background-color:#%s;}</style><body>";
 	private static final String CONTENT_SUFFIX = "</body>";
 
+	private Task task;
+
 	static TaskDescriptionFragment newInstance(Task task) {
 		Bundle bundle = new Bundle();
 		bundle.putSerializable(KEY_TASK, task);
@@ -57,7 +59,7 @@ public class TaskDescriptionFragment extends Fragment implements Observer<List<A
 		super.onViewCreated(view, savedInstanceState);
 
 		assert getArguments() != null;
-		Task task = (Task) getArguments().getSerializable(KEY_TASK);
+		task = (Task) getArguments().getSerializable(KEY_TASK);
 
 		assert getContext() != null;
 		assert task != null;
@@ -81,23 +83,34 @@ public class TaskDescriptionFragment extends Fragment implements Observer<List<A
 	@Override
 	public void onChanged(List<Attachment> attachments) {
 		if (getView() != null) {
-			if (attachments == null || attachments.isEmpty()) {
+			if (attachments == null) {
 				getView().findViewById(R.id.card_attachments).setVisibility(View.GONE);
+				getView().findViewById(R.id.card_title).setVisibility(View.GONE);
 			} else {
-				getView().findViewById(R.id.card_attachments).setVisibility(View.VISIBLE);
+				if (attachments.isEmpty()) {
+					getView().findViewById(R.id.card_attachments).setVisibility(View.GONE);
+				} else {
+					getView().findViewById(R.id.card_attachments).setVisibility(View.VISIBLE);
 
-				RequestOptions requestOptions = new RequestOptions().circleCrop();
-				ViewGroup layoutAttachments = getView().findViewById(R.id.layout_attachments);
-				for (Attachment attachment : attachments) {
-					View view = getLayoutInflater().inflate(R.layout.item_attachment, layoutAttachments, false);
-					view.setOnClickListener(new OnAttachmentClickListener(attachment));
-					((TextView) view.findViewById(R.id.text_name)).setText(attachment.getFileName());
-					((TextView) view.findViewById(R.id.text_size)).setText(attachment.getHumanFileSize());
-					Glide.with(this).load(attachment.getPreviewUrl()).apply(requestOptions)
-							.into(((ImageView) view.findViewById(R.id.image_thumbnail)));
+					RequestOptions requestOptions = new RequestOptions().circleCrop();
+					ViewGroup layoutAttachments = getView().findViewById(R.id.layout_attachments);
+					for (Attachment attachment : attachments) {
+						View view = getLayoutInflater().inflate(R.layout.item_attachment, layoutAttachments, false);
+						view.setOnClickListener(new OnAttachmentClickListener(attachment));
+						((TextView) view.findViewById(R.id.text_name)).setText(attachment.getFileName());
+						((TextView) view.findViewById(R.id.text_size)).setText(attachment.getHumanFileSize());
+						Glide.with(this).load(attachment.getPreviewUrl()).apply(requestOptions)
+								.into(((ImageView) view.findViewById(R.id.image_thumbnail)));
 
-					layoutAttachments.addView(view);
+						layoutAttachments.addView(view);
+					}
 				}
+
+				View cardTitle = getView().findViewById(R.id.card_title);
+				cardTitle.setVisibility(View.VISIBLE);
+
+				((TextView) cardTitle.findViewById(R.id.text_title))
+						.setText(getString(R.string.text_task_title, task.getSort(), task.getName()));
 			}
 		}
 	}

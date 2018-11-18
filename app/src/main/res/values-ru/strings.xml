@@ -48,6 +48,7 @@
 	<string name="text_study_tasks_status_teacher_questions">Устный вопрос</string>
 	<string name="text_study_tasks_status_debt">Долг</string>
 	<string name="text_study_attendance_empty">Преподаватель не ведёт учёт посещаемости</string>
+	<string name="text_task_title">Задание №%d. %s</string>
 	<string name="text_task_attachments">Прикреплённые файлы</string>
 	<string name="text_report_crash">Похоже, в приложении произошла непредвиденная ошибка. Не могли бы вы помочь нам решить эту проблему?</string>
 	<string name="text_report_crash_title">Ошибка приложения</string>
