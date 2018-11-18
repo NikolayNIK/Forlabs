@@ -2,12 +2,13 @@ package ru.kollad.forlabs.model;
 
 import org.json.JSONObject;
 
+import java.io.Serializable;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
-public class Assessment {
+public class Assessment implements Serializable {
 	public final int id;
 	public final double credits;
 	public final String comment;
