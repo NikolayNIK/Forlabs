@@ -16,9 +16,7 @@
 		<androidx.appcompat.widget.Toolbar
 			android:id="@+id/toolbar"
 			android:layout_width="match_parent"
-			android:layout_height="?attr/actionBarSize"
-			android:layout_weight="1"
-			app:layout_scrollFlags="scroll|enterAlways|snap">
+			android:layout_height="?attr/actionBarSize">
 
 		</androidx.appcompat.widget.Toolbar>
 
