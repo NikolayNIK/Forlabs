@@ -57,7 +57,7 @@
 			android:layout_width="48dp"
 			android:layout_height="56dp"
 			android:contentDescription="@string/button_task_send"
-			android:src="@drawable/ic_send_accent_24dp"
+			android:src="@drawable/ic_send_stateful_24dp"
 			app:layout_constraintEnd_toEndOf="parent"
 			app:layout_constraintHorizontal_bias="0.5"
 			app:layout_constraintStart_toEndOf="@+id/button_attach"
