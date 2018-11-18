@@ -34,7 +34,7 @@ public class Attachment implements Serializable {
 		uuid = json.optString("uuid", "");
 		fileName = json.optString("filename", "");
 		mimeType = json.optString("mime_type", "");
-		fileSize = json.optInt("size", 0);
+		fileSize = json.optLong("size", 0);
 		humanFileSize = json.optString("human_size");
 		url = json.optString("url", "");
 		previewUrl = json.optString("preview", "");

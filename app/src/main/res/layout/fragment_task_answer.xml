@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:tools="http://schemas.android.com/tools"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	android:orientation="vertical">
+
+	<androidx.recyclerview.widget.RecyclerView
+		android:id="@+id/recycler"
+		android:layout_width="match_parent"
+		android:layout_height="0dp"
+		android:layout_weight="1"
+		android:clipToPadding="false"
+		android:padding="16dp" />
+
+	<LinearLayout
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:background="@color/background"
+		android:elevation="16dp"
+		android:orientation="horizontal"
+		tools:ignore="UnusedAttribute">
+
+		<EditText
+			android:id="@+id/edit_message"
+			android:layout_width="0dp"
+			android:layout_height="wrap_content"
+			android:layout_gravity="center_vertical"
+			android:layout_marginStart="8dp"
+			android:layout_weight="1"
+			android:hint="@string/hint_task_message"
+			android:importantForAutofill="no"
+			android:inputType="textLongMessage|textMultiLine"
+			android:minHeight="56dp" />
+
+		<ImageButton
+			android:id="@+id/button_attach"
+			style="@style/Widget.AppCompat.ActionButton"
+			android:layout_width="48dp"
+			android:layout_height="56dp"
+			android:contentDescription="@string/button_task_attach"
+			android:src="@drawable/ic_attach_file_daynight_24dp" />
+
+		<ImageButton
+			android:id="@+id/button_send"
+			style="@style/Widget.AppCompat.ActionButton"
+			android:layout_width="48dp"
+			android:layout_height="56dp"
+			android:contentDescription="@string/button_task_send"
+			android:src="@drawable/ic_send_accent_24dp" />
+
+	</LinearLayout>
+
+</LinearLayout>
