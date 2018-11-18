@@ -48,6 +48,7 @@ public class Study implements Serializable {
 	private int grade;
 	private float attendPercent;
 	private List<Attendance> attendances;
+	private List<Assessment> assessments;
 
 	private String teacherName;
 	private final String simpleTeacherName;
@@ -158,8 +159,12 @@ public class Study implements Serializable {
 		points = (float) json.optDouble("credits", 0);
 		grade = json.optInt("grade");
 
-		// skip assessments
-		sc.nextLine();
+		// get assessments
+		jsonStr = sc.nextLine();
+		jsonArr = new JSONArray(jsonStr.substring(jsonStr.indexOf('['), jsonStr.lastIndexOf(';')));
+		assessments = new ArrayList<>();
+		for (int i = 0; i < jsonArr.length(); i++)
+			assessments.add(new Assessment(jsonArr.getJSONObject(i)));
 
 		// get task assignments
 		jsonStr = sc.nextLine();
@@ -237,6 +242,10 @@ public class Study implements Serializable {
 
 	public List<Attendance> getAttendances() {
 		return attendances;
+	}
+
+	public List<Assessment> getAssessments() {
+		return assessments;
 	}
 
 	public String getTeacherName() {
