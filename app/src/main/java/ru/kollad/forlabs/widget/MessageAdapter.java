@@ -14,6 +14,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 
+import java.util.Calendar;
 import java.util.List;
 import java.util.Stack;
 
@@ -70,7 +71,17 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
 	public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
 		Message item = messages.get(position);
 		holder.textName.setText(item.getUserName());
-		holder.textTime.setText(item.getCreatedAt().toString());
+
+		Calendar kostil = Calendar.getInstance();
+		kostil.setTime(item.getCreatedAt());
+
+		holder.textTime.setText(
+				context.getString(R.string.text_task_message_date,
+						kostil.get(Calendar.DAY_OF_MONTH),
+						context.getResources().getStringArray(R.array.months)[kostil.get(Calendar.MONTH)],
+						kostil.get(Calendar.YEAR),
+						kostil.get(Calendar.HOUR_OF_DAY),
+						kostil.get(Calendar.MINUTE)));
 		holder.textMessage.setText(item.getMessage());
 		holder.textMessage.setVisibility(TextUtils.isEmpty(item.getMessage()) ? View.GONE : View.VISIBLE);
 		Glide.with(context).load(item.getAvatarURL()).apply(new RequestOptions().circleCrop())
