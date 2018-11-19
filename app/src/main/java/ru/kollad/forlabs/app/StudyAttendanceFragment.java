@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -27,17 +28,24 @@ public class StudyAttendanceFragment extends StudyFragment {
 
 	@Override
 	protected void onStudyChanged(@NonNull View view, @Nullable Study study) {
+		View cardOverview = view.findViewById(R.id.card_overview);
 		View cardAttendance = view.findViewById(R.id.card_attendance);
 		View textEmpty = view.findViewById(R.id.text_empty);
 		if (study == null) {
+			cardOverview.setVisibility(View.GONE);
 			cardAttendance.setVisibility(View.GONE);
 			textEmpty.setVisibility(View.GONE);
 		} else if (study.getAttendances().isEmpty()) {
+			cardOverview.setVisibility(View.GONE);
 			cardAttendance.setVisibility(View.GONE);
 			textEmpty.setVisibility(View.VISIBLE);
 		} else {
+			cardOverview.setVisibility(View.VISIBLE);
 			cardAttendance.setVisibility(View.VISIBLE);
 			textEmpty.setVisibility(View.GONE);
+
+			((TextView) cardOverview.findViewById(R.id.text_attendance)).setText(getString(R.string.text_study_attendance_value, study.getAttendPercent()));
+			((ProgressBar) cardOverview.findViewById(R.id.progress_attendance)).setProgress(Math.min(100, Math.round(study.getAttendPercent())));
 
 			ViewGroup layoutAttendance = cardAttendance.findViewById(R.id.layout_attendance);
 			for (Attendance attendance : study.getAttendances()) {

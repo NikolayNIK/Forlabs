@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
 	xmlns:app="http://schemas.android.com/apk/res-auto"
+	xmlns:tools="http://schemas.android.com/tools"
 	android:layout_width="match_parent"
 	android:layout_height="match_parent"
 	android:animateLayoutChanges="true">
@@ -9,22 +10,63 @@
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content">
 
-		<androidx.cardview.widget.CardView
-			android:id="@+id/card_attendance"
-			android:layout_width="@dimen/card_width"
+		<LinearLayout
+			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
-			android:layout_gravity="center_horizontal"
-			android:layout_margin="16dp"
-			app:cardCornerRadius="8dp"
-			app:cardUseCompatPadding="true">
+			android:animateLayoutChanges="true"
+			android:orientation="vertical"
+			android:padding="16dp">
 
-			<LinearLayout
-				android:id="@+id/layout_attendance"
-				android:layout_width="match_parent"
+			<androidx.cardview.widget.CardView
+				android:id="@+id/card_overview"
+				android:layout_width="@dimen/card_width"
 				android:layout_height="wrap_content"
-				android:orientation="vertical" />
+				android:layout_gravity="center_horizontal"
+				app:cardCornerRadius="8dp"
+				app:cardUseCompatPadding="true">
 
-		</androidx.cardview.widget.CardView>
+				<LinearLayout
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:orientation="vertical"
+					android:padding="16dp">
+
+					<TextView
+						android:id="@+id/text_attendance"
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+						tools:text="Посещаемость: 69%" />
+
+					<ProgressBar
+						android:id="@+id/progress_attendance"
+						style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+						android:layout_width="match_parent"
+						android:layout_height="wrap_content"
+						android:max="100"
+						tools:progress="69" />
+
+				</LinearLayout>
+
+			</androidx.cardview.widget.CardView>
+
+			<androidx.cardview.widget.CardView
+				android:id="@+id/card_attendance"
+				android:layout_width="@dimen/card_width"
+				android:layout_height="wrap_content"
+				android:layout_gravity="center_horizontal"
+				app:cardCornerRadius="8dp"
+				app:cardUseCompatPadding="true">
+
+				<LinearLayout
+					android:id="@+id/layout_attendance"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:orientation="vertical" />
+
+			</androidx.cardview.widget.CardView>
+
+		</LinearLayout>
 
 	</androidx.core.widget.NestedScrollView>
 
