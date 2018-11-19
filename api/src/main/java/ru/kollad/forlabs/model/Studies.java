@@ -23,12 +23,12 @@ public class Studies extends ArrayList<Study> implements Serializable {
 			add(new Study(e));
 	}
 
-	public Study find(String name) {
+	public Study find(String name) throws Exception {
 		for (Study study : this) {
 			if (name.equals(study.getName()))
 				return study;
 		}
 
-		return null;
+		throw new Exception("Study " + name + " not found");
 	}
 }
