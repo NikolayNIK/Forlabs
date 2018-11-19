@@ -32,9 +32,15 @@ public class StudyPerformanceFragment extends StudyFragment {
 		if (study == null) {
 			cardScore.setVisibility(View.GONE);
 			cardAssessments.setVisibility(View.GONE);
+			view.findViewById(R.id.text_empty).setVisibility(View.GONE);
+		} else if (study.getAssessments().isEmpty()) {
+			cardScore.setVisibility(View.GONE);
+			cardAssessments.setVisibility(View.GONE);
+			view.findViewById(R.id.text_empty).setVisibility(View.VISIBLE);
 		} else {
 			cardScore.setVisibility(View.VISIBLE);
 			cardAssessments.setVisibility(View.VISIBLE);
+			view.findViewById(R.id.text_empty).setVisibility(View.GONE);
 
 			((TextView) cardScore.findViewById(R.id.text_score)).setText(getString(R.string.text_study_performance_score, study.getPoints()));
 			((ProgressBar) cardScore.findViewById(R.id.progress_score)).setProgress(Math.min(100, Math.round(study.getPoints())));
