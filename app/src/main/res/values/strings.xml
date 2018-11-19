@@ -60,10 +60,9 @@
 	<string name="text_study_tasks_status_debt">Debt</string>
 	<string name="text_study_exams_empty">Unimplemented</string>
 	<string name="text_study_attendance_empty">Teacher does not log attendance</string>
-	<string name="text_study_attendance_date" translatable="false">%d %s %d</string>
+	<string name="text_study_performance_score">Score: %.2f</string>
 	<string name="text_task_title">Task #%d. %s</string>
 	<string name="text_task_attachments">Attached files</string>
-	<string name="text_task_message_date" translatable="false">%d %s %d %d:%d</string>
 	<string name="text_task_attachment_size" translatable="false">%.2f %s</string>
 	<string name="text_report_crash">Looks like unexpected error has occurred in the application. Could you help us to resolve this issue?</string>
 	<string name="text_report_crash_title">Application crash</string>
@@ -95,6 +94,9 @@
 	<string name="tab_study_performance">Performance</string>
 	<string name="tab_task_description">Description</string>
 	<string name="tab_task_answer">Answer</string>
+
+	<string name="format_date" translatable="false">%d %s %d</string>
+	<string name="format_date_time" translatable="false">%d %s %d %d:%d</string>
 
 	<string-array name="weeks">
 		<item>Upper</item>

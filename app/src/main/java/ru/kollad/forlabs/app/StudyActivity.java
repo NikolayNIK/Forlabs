@@ -82,7 +82,7 @@ public class StudyActivity extends AppCompatActivity implements Observer<Study> 
 				new StudyTasksFragment(),
 				new StudyExamsFragment(),
 				new StudyAttendanceFragment(),
-				new StudyFragment()
+				new StudyPerformanceFragment()
 		};
 
 		private PagerAdapter(FragmentManager fm) {
