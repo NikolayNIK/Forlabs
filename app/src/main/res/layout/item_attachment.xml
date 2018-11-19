@@ -28,6 +28,7 @@
 		android:ellipsize="marquee"
 		android:singleLine="true"
 		android:textColor="@color/accent"
+		android:textStyle="bold"
 		app:layout_constraintBottom_toTopOf="@+id/text_size"
 		app:layout_constraintEnd_toEndOf="parent"
 		app:layout_constraintStart_toEndOf="@+id/image_thumbnail"
