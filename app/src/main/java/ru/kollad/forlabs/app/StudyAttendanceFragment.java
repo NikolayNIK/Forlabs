@@ -56,7 +56,7 @@ public class StudyAttendanceFragment extends StudyFragment {
 				((ImageView) viewAttendance.findViewById(R.id.image_status))
 						.setImageResource(attendance.isPresent() ?
 								R.drawable.ic_done_daynight_24dp :
-								R.drawable.ic_close_accent_24dp);
+								R.drawable.ic_close_daynight_24dp);
 
 				layoutAttendance.addView(viewAttendance);
 			}
