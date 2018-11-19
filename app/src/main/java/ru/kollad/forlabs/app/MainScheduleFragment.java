@@ -118,7 +118,7 @@ public class MainScheduleFragment extends MainFragment implements Observer<JSONA
 									((TextView) viewItem.findViewById(R.id.text_time_end)).setText(key.substring(6));
 									((TextView) viewItem.findViewById(R.id.text_name)).setText(name);
 									((TextView) viewItem.findViewById(R.id.text_room)).setText(itemJson.optString("room"));
-									((TextView) viewItem.findViewById(R.id.text_lecturer)).setText(itemJson.optString("lecturer"));
+									((TextView) viewItem.findViewById(R.id.text_lecturer)).setText(formatTeacher(itemJson.optString("lecturer")));
 
 									if (day == currentDay &&
 											Integer.valueOf(key.substring(0, 2)) <= currentHour &&
@@ -272,6 +272,18 @@ public class MainScheduleFragment extends MainFragment implements Observer<JSONA
 
 			containerSchedule.addView(cardSelector);
 		}
+	}
+
+	private String formatTeacher(String teacher) {
+		String[] array = teacher.split(" ");
+		StringBuilder sb = new StringBuilder(array[0]);
+		sb.append(' ');
+		for (int i = 1; i < array.length; i++) {
+			sb.append(array[i].charAt(0));
+			sb.append(". ");
+		}
+
+		return sb.toString();
 	}
 
 	private void clearSchedule() {
