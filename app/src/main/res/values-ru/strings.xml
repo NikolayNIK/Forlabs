@@ -17,6 +17,7 @@
 	<string name="button_auth_log_in">Войти</string>
 	<string name="button_auth_forgot_password">Забыли пароль?</string>
 	<string name="button_task_attach">Прикрепить файл</string>
+	<string name="button_study_exams_website">Перейти к сайту</string>
 	<string name="button_task_send">Отправить</string>
 	<string name="button_report_send">Отправить</string>
 
@@ -50,6 +51,7 @@
 	<string name="text_study_tasks_status_teacher_answered">Получен ответ</string>
 	<string name="text_study_tasks_status_teacher_questions">Устный вопрос</string>
 	<string name="text_study_tasks_status_debt">Долг</string>
+	<string name="text_study_exams_empty">Не поддерживается</string>
 	<string name="text_study_attendance_empty">Преподаватель не ведёт учёт посещаемости</string>
 	<string name="text_task_title">Задание №%d. %s</string>
 	<string name="text_task_attachments">Прикреплённые файлы</string>
@@ -78,7 +80,7 @@
 
 	<string name="tab_study_overview">Обзор</string>
 	<string name="tab_study_tasks">Задания</string>
-	<string name="tab_study_tests">Тесты</string>
+	<string name="tab_study_exams">Тесты</string>
 	<string name="tab_study_attendance">Посещаемость</string>
 	<string name="tab_study_performance">Успеваемость</string>
 	<string name="tab_task_description">Описание</string>

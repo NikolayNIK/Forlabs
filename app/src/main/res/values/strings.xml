@@ -18,6 +18,7 @@
 
 	<string name="button_auth_log_in">Log In</string>
 	<string name="button_auth_forgot_password">Forgot password?</string>
+	<string name="button_study_exams_website">Go to website</string>
 	<string name="button_task_attach">Attach file</string>
 	<string name="button_task_send">Send</string>
 	<string name="button_report_send">Send</string>
@@ -57,6 +58,7 @@
 	<string name="text_study_tasks_status_teacher_answered">Answered</string>
 	<string name="text_study_tasks_status_teacher_questions">Questions</string>
 	<string name="text_study_tasks_status_debt">Debt</string>
+	<string name="text_study_exams_empty">Unimplemented</string>
 	<string name="text_study_attendance_empty">Teacher does not log attendance</string>
 	<string name="text_study_attendance_date" translatable="false">%d %s %d</string>
 	<string name="text_task_title">Task #%d. %s</string>
@@ -88,7 +90,7 @@
 
 	<string name="tab_study_overview">Overview</string>
 	<string name="tab_study_tasks">Tasks></string>
-	<string name="tab_study_tests">Tests</string>
+	<string name="tab_study_exams">Exams</string>
 	<string name="tab_study_attendance">Attendance</string>
 	<string name="tab_study_performance">Performance</string>
 	<string name="tab_task_description">Description</string>
