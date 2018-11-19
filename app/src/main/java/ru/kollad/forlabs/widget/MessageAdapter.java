@@ -23,6 +23,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import ru.kollad.forlabs.R;
 import ru.kollad.forlabs.model.Attachment;
 import ru.kollad.forlabs.model.Message;
+import ru.kollad.forlabs.util.FancyDateFormat;
 
 /**
  * Created by NikolayNIK on 18.11.2018.
@@ -71,17 +72,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
 	public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
 		Message item = messages.get(position);
 		holder.textName.setText(item.getUserName());
-
-		Calendar kostil = Calendar.getInstance();
-		kostil.setTime(item.getCreatedAt());
-
-		holder.textTime.setText(
-				context.getString(R.string.text_task_message_date,
-						kostil.get(Calendar.DAY_OF_MONTH),
-						context.getResources().getStringArray(R.array.months)[kostil.get(Calendar.MONTH)],
-						kostil.get(Calendar.YEAR),
-						kostil.get(Calendar.HOUR_OF_DAY),
-						kostil.get(Calendar.MINUTE)));
+		holder.textTime.setText(FancyDateFormat.datetime(context, item.getCreatedAt()));
 		holder.textMessage.setText(item.getMessage());
 		holder.textMessage.setVisibility(TextUtils.isEmpty(item.getMessage()) ? View.GONE : View.VISIBLE);
 		Glide.with(context).load(item.getAvatarURL()).apply(new RequestOptions().circleCrop())

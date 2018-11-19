@@ -7,13 +7,12 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import java.util.Calendar;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import ru.kollad.forlabs.R;
 import ru.kollad.forlabs.model.Attendance;
 import ru.kollad.forlabs.model.Study;
+import ru.kollad.forlabs.util.FancyDateFormat;
 
 /**
  * Created by NikolayNIK on 17.11.2018.
@@ -42,15 +41,9 @@ public class StudyAttendanceFragment extends StudyFragment {
 
 			ViewGroup layoutAttendance = cardAttendance.findViewById(R.id.layout_attendance);
 			for (Attendance attendance : study.getAttendances()) {
-				Calendar kostil = Calendar.getInstance();
-				kostil.setTime(attendance.getDate());
-
 				View viewAttendance = getLayoutInflater().inflate(R.layout.fragment_study_attendance_item, layoutAttendance, false);
-				((TextView) viewAttendance.findViewById(R.id.text_date)).setText(
-						getString(R.string.text_study_attendance_date,
-								kostil.get(Calendar.DAY_OF_MONTH),
-								getResources().getStringArray(R.array.months)[kostil.get(Calendar.MONTH)],
-								kostil.get(Calendar.YEAR)));
+				((TextView) viewAttendance.findViewById(R.id.text_date))
+						.setText(FancyDateFormat.date(view.getContext(), attendance.getDate()));
 
 				((ImageView) viewAttendance.findViewById(R.id.image_status))
 						.setImageResource(attendance.isPresent() ?
