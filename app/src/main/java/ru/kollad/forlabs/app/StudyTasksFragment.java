@@ -83,20 +83,20 @@ public class StudyTasksFragment extends StudyFragment {
 
 	@Override
 	protected void onStudyChanged(@NonNull View view, @Nullable Study study) {
-		View cardTasks = view.findViewById(R.id.card_tasks);
+		View scrollTasks = view.findViewById(R.id.scroll_tasks);
 		View textEmpty = view.findViewById(R.id.text_empty);
 		if (study == null) {
-			cardTasks.setVisibility(View.GONE);
+			scrollTasks.setVisibility(View.GONE);
 			textEmpty.setVisibility(View.GONE);
 		} else {
 			if (study.getTasks().isEmpty()) {
-				cardTasks.setVisibility(View.GONE);
+				scrollTasks.setVisibility(View.GONE);
 				textEmpty.setVisibility(View.VISIBLE);
 			} else {
-				cardTasks.setVisibility(View.VISIBLE);
+				scrollTasks.setVisibility(View.VISIBLE);
 				textEmpty.setVisibility(View.GONE);
 
-				ViewGroup layoutTasks = cardTasks.findViewById(R.id.layout_tasks);
+				ViewGroup layoutTasks = scrollTasks.findViewById(R.id.layout_tasks);
 				for (Task task : study.getTasks()) {
 					View viewTask = getLayoutInflater().inflate(R.layout.fragment_study_tasks_item, layoutTasks, false);
 					viewTask.setOnClickListener(new OnTaskClickListener(task));
