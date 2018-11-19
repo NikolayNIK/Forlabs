@@ -60,7 +60,7 @@ public class StudyOverviewFragment extends StudyFragment {
 				((ImageView) cardOverview.findViewById(R.id.image_status)).setImageResource(R.drawable.ic_warning_accent_24dp);
 			}
 
-			((TextView) view.findViewById(R.id.text_teacher)).setText(study.getSimpleTeacherName());
+			((TextView) view.findViewById(R.id.text_teacher)).setText(study.getTeacherName());
 
 
 			cardSchedule.setVisibility(View.VISIBLE);
