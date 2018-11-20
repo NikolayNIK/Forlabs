@@ -102,7 +102,7 @@
 	<string name="format_date_time" translatable="false">%d %s %d %d:%d</string>
 
 	<string name="pref_theme_title">Application theme</string>
-	<string name="pref_theme_subtitle">Choose between light and dark theme (needs restart)</string>
+	<string name="pref_theme_subtitle">Choose between light and dark theme</string>
 	<string name="pref_default_title">Default section</string>
 	<string name="pref_default_subtitle">Default section to open when app launches (does not affect shortcuts)</string>
 

@@ -11,9 +11,11 @@ import android.widget.TextView;
 
 import androidx.annotation.ArrayRes;
 import androidx.annotation.LayoutRes;
+import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 import ru.kollad.forlabs.R;
 import ru.kollad.forlabs.util.Keys;
 
@@ -35,8 +37,14 @@ public class SettingsActivity extends AppCompatActivity {
 			getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_back_daynight_24dp);
 		}
 
-		inflateListSelectorItem(Keys.THEME, R.string.pref_theme_title, R.string.pref_theme_subtitle, R.array.pref_theme, -1);
-		inflateListSelectorItem(Keys.DEFAULT_SECTION, R.string.pref_default_title, R.string.pref_default_subtitle, R.array.pref_default, 0);
+		inflateListSelectorItem(Keys.THEME, R.string.pref_theme_title, R.string.pref_theme_subtitle, R.array.pref_theme, -1, new DialogInterface.OnClickListener() {
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				AppCompatDelegate.setDefaultNightMode(which - 1);
+			}
+		});
+
+		inflateListSelectorItem(Keys.DEFAULT_SECTION, R.string.pref_default_title, R.string.pref_default_subtitle, R.array.pref_default, 0, null);
 	}
 
 	@Override
@@ -61,7 +69,7 @@ public class SettingsActivity extends AppCompatActivity {
 		return inflateItem(R.layout.activity_settings_item, title, subtitle);
 	}
 
-	private void inflateListSelectorItem(final String key, final @StringRes int title, @StringRes int subtitle, final @ArrayRes int list, final int defValue) {
+	private void inflateListSelectorItem(final String key, final @StringRes int title, @StringRes int subtitle, final @ArrayRes int list, final int defValue, @Nullable final DialogInterface.OnClickListener listener) {
 		View view = inflateSimpleItem(title, subtitle);
 		view.setOnClickListener(new View.OnClickListener() {
 			@Override
@@ -71,6 +79,7 @@ public class SettingsActivity extends AppCompatActivity {
 				adb.setSingleChoiceItems(list, prefs.getInt(key, defValue), new DialogInterface.OnClickListener() {
 					@Override
 					public void onClick(DialogInterface dialog, int which) {
+						if (listener != null) listener.onClick(dialog, which);
 						prefs.edit().putInt(key, which).apply();
 						dialog.dismiss();
 					}
