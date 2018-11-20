@@ -1,7 +1,10 @@
 package ru.kollad.forlabs.app;
 
+import android.Manifest;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.view.MenuItem;
@@ -41,6 +44,9 @@ public class SettingsActivity extends AppCompatActivity {
 			@Override
 			public void onClick(DialogInterface dialog, int which) {
 				AppCompatDelegate.setDefaultNightMode(which - 1);
+				if (which == 1 && Build.VERSION.SDK_INT >= 23 &&
+						checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED)
+					requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 69);
 			}
 		});
 
