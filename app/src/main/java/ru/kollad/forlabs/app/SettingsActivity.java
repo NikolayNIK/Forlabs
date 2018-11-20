@@ -50,7 +50,9 @@ public class SettingsActivity extends AppCompatActivity {
 			}
 		});
 
+		inflateDivider();
 		inflateListSelectorItem(Keys.DEFAULT_SECTION, R.string.pref_default_title, R.string.pref_default_subtitle, R.array.pref_default, 0, null);
+		inflateDivider();
 	}
 
 	@Override
@@ -61,6 +63,10 @@ public class SettingsActivity extends AppCompatActivity {
 		}
 
 		return super.onOptionsItemSelected(item);
+	}
+
+	private void inflateDivider() {
+		getLayoutInflater().inflate(R.layout.divider, layoutSettings);
 	}
 
 	@SuppressWarnings("SameParameterValue")
