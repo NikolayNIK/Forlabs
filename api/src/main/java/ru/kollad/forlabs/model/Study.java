@@ -117,7 +117,8 @@ public class Study implements Serializable {
 		Elements elements = doc.getElementsByClass("dl-horizontal");
 		if (elements.size() == 0)
 			throw new UnsupportedForlabsException();
-		teacherName = elements.get(0).child(6).text();
+		Elements childs = elements.get(0).children();
+		teacherName = childs.last().text();
 
 		// get secret container
 		elements = doc.getElementsByClass("container-fluid");
