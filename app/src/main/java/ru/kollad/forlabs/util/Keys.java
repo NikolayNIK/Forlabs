@@ -11,7 +11,8 @@ import java.io.File;
  */
 public class Keys {
 
-	// TODO Put SharedPreferences keys here
+	public static final String THEME = "theme";
+	public static final String DEFAULT_SECTION = "default";
 
 	private static File getDataDir(Context context) {
 		return Build.VERSION.SDK_INT >= 21 ? context.getNoBackupFilesDir() : context.getFilesDir();

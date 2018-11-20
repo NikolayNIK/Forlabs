@@ -4,6 +4,7 @@
 
 	<string name="title_schedule">Schedule</string>
 	<string name="title_studies">Studies</string>
+	<string name="title_settings">Settings</string>
 	<string name="title_report">Report problem</string>
 
 	<string name="hint_auth_email">E-mail Address</string>
@@ -100,6 +101,11 @@
 	<string name="format_date" translatable="false">%d %s %d</string>
 	<string name="format_date_time" translatable="false">%d %s %d %d:%d</string>
 
+	<string name="pref_theme_title">Application theme</string>
+	<string name="pref_theme_subtitle">Choose between light and dark theme (needs restart)</string>
+	<string name="pref_default_title">Default section</string>
+	<string name="pref_default_subtitle">Default section to open when app launches (does not affect shortcuts)</string>
+
 	<string-array name="weeks">
 		<item>Upper</item>
 		<item>Lower</item>
@@ -134,6 +140,19 @@
 		<item>B</item>
 		<item>KB</item>
 		<item>MB</item>
+	</string-array>
+
+	<string-array name="pref_theme">
+		<item>Follow system</item>
+		<item>Auto</item>
+		<item>Light</item>
+		<item>Dark</item>
+	</string-array>
+
+	<string-array name="pref_default">
+		<item>Dashboard</item>
+		<item>Schedule</item>
+		<item>Studies</item>
 	</string-array>
 
 </resources>

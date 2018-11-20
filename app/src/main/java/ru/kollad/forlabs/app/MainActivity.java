@@ -3,6 +3,7 @@ package ru.kollad.forlabs.app;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
@@ -21,6 +22,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import ru.kollad.forlabs.R;
 import ru.kollad.forlabs.model.StudentInfo;
+import ru.kollad.forlabs.util.Keys;
 
 public class MainActivity extends AppCompatActivity implements
 		NavigationView.OnNavigationItemSelectedListener {
@@ -53,7 +55,7 @@ public class MainActivity extends AppCompatActivity implements
 		((TextView) header.findViewById(R.id.text_name)).setText(studentInfo.getStudentName());
 
 		if (savedInstanceState == null) {
-			state = getIntent().getIntExtra(EXTRA_START_STATE, 0);
+			state = getIntent().getIntExtra(EXTRA_START_STATE, PreferenceManager.getDefaultSharedPreferences(this).getInt(Keys.DEFAULT_SECTION, 0));
 			FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
 			switch (state) {
 				case 0:
@@ -132,7 +134,7 @@ public class MainActivity extends AppCompatActivity implements
 				closeDrawer();
 				return true;
 			case R.id.item_other_settings:
-				// TODO Account settings
+				startActivity(new Intent(this, SettingsActivity.class));
 				closeDrawer();
 				return true;
 			case R.id.item_other_about:

@@ -2,6 +2,7 @@
 
 	<string name="title_schedule">Расписание</string>
 	<string name="title_studies">Моя учёба</string>
+	<string name="title_settings">Настройки</string>
 	<string name="title_report">Сообщить о проблеме</string>
 
 	<string name="hint_auth_email">Адрес E-mail</string>
@@ -89,6 +90,11 @@
 	<string name="tab_task_description">Описание</string>
 	<string name="tab_task_answer">Отклик</string>
 
+	<string name="pref_theme_title">Тема приложения</string>
+	<string name="pref_theme_subtitle">Выбирайте между темной и светлой темой приложения (требуется перезапуск)</string>
+	<string name="pref_default_title">Раздел по умолчанию</string>
+	<string name="pref_default_subtitle">Раздел, открывающийся при запуске приложения (не влияет на ярлыки)</string>
+
 	<string-array name="weeks">
 		<item>Верхняя</item>
 		<item>Нижняя</item>
@@ -123,6 +129,19 @@
 		<item>Б</item>
 		<item>КБ</item>
 		<item>МБ</item>
+	</string-array>
+
+	<string-array name="pref_theme">
+		<item>Система</item>
+		<item>Автоматически</item>
+		<item>Светлая</item>
+		<item>Тёмная</item>
+	</string-array>
+
+	<string-array name="pref_default">
+		<item>Обзор</item>
+		<item>Расписание</item>
+		<item>Моя учёба</item>
 	</string-array>
 
 </resources>
