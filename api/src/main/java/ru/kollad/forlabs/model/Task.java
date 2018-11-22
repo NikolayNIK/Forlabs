@@ -8,6 +8,7 @@ import org.jsoup.parser.Parser;
 import org.jsoup.select.Elements;
 
 import ru.kollad.forlabs.api.API;
+import ru.kollad.forlabs.api.exceptions.CaptchaException;
 import ru.kollad.forlabs.api.exceptions.OldCookiesException;
 import ru.kollad.forlabs.api.exceptions.UnsupportedForlabsException;
 
@@ -118,7 +119,7 @@ public class Task implements Serializable {
 	 * @return List of attachments.
 	 */
 	public List<Attachment> fetchAttachments(Parser p, Cookies cookies) throws IOException,
-			UnsupportedForlabsException, JSONException, OldCookiesException {
+			UnsupportedForlabsException, JSONException, OldCookiesException, CaptchaException {
 		// setup connection
 		HttpURLConnection con = (HttpURLConnection)
 				new URL(createAttachmentUrl()).openConnection();
@@ -128,7 +129,10 @@ public class Task implements Serializable {
 		cookies.putTo(con);
 
 		// if it's redirection, throw exception
-		if (con.getResponseCode() == 302)
+		int code = con.getResponseCode();
+		if (code == 404)
+			throw new CaptchaException();
+		if (code == 302)
 			throw new OldCookiesException();
 
 		// read the page
@@ -175,7 +179,7 @@ public class Task implements Serializable {
 	 * @return List of messages.
 	 */
 	public List<Message> fetchMessages(Cookies cookies) throws IOException, ParseException,
-			JSONException, OldCookiesException {
+			JSONException, OldCookiesException, CaptchaException {
 		// setup connection
 		HttpURLConnection con = (HttpURLConnection)
 				new URL(MESSAGES_URL.replace("${studyId}", Integer.toString(studyId))
@@ -186,7 +190,10 @@ public class Task implements Serializable {
 		cookies.putTo(con);
 
 		// if it's redirection, throw exception
-		if (con.getResponseCode() == 302)
+		int code = con.getResponseCode();
+		if (code == 404)
+			throw new CaptchaException();
+		if (code == 302)
 			throw new OldCookiesException();
 
 		// read the page

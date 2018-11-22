@@ -6,6 +6,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import ru.kollad.forlabs.api.exceptions.CaptchaException;
 import ru.kollad.forlabs.api.exceptions.IncorrectCredentialsException;
 import ru.kollad.forlabs.api.exceptions.OldCookiesException;
 import ru.kollad.forlabs.api.exceptions.UnsupportedForlabsException;
@@ -29,7 +30,7 @@ import java.util.Scanner;
  */
 public class API {
 	/** Cloudflare hack. */
-	public static final String USER_AGENT = "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:63.0) Gecko/20100101 Firefox/63.0";
+	public static final String USER_AGENT = "Mozilla/5.0 (Linux; Android 8.1.0; Mi A1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.80 Mobile Safari/537.36";
 	/** URL - Login. */
 	private static final String LOGIN_URL = "https://forlabs.ru/login";
 	/** Mask - Login. */
@@ -88,11 +89,14 @@ public class API {
 	 * @param email E-mail.
 	 * @param password Password.
 	 */
-	public StudentInfo login(String email, String password) throws IOException, UnsupportedForlabsException, IncorrectCredentialsException {
+	public StudentInfo login(String email, String password) throws IOException, UnsupportedForlabsException, IncorrectCredentialsException, CaptchaException {
 		// setup connection
 		HttpURLConnection con = (HttpURLConnection) new URL(LOGIN_URL).openConnection();
 		con.setDoInput(true);
 		con.addRequestProperty("User-Agent", USER_AGENT);
+
+		if (con.getResponseCode() == 404)
+			throw new CaptchaException();
 
 		// download login page
 		Scanner sc = new Scanner(con.getInputStream(), "utf-8");
@@ -134,7 +138,10 @@ public class API {
 		os.close();
 
 		// if redirection wasn't occurred, throw some exceptions
-		if (con.getResponseCode() != 302)
+		int code = con.getResponseCode();
+		if (code == 404)
+			throw new CaptchaException();
+		if (code != 302)
 			throw new UnsupportedForlabsException();
 
 		// get redirection
@@ -170,7 +177,7 @@ public class API {
 	/**
 	 * Logs out.
 	 */
-	public void logout() throws IOException, UnsupportedForlabsException {
+	public void logout() throws IOException, UnsupportedForlabsException, CaptchaException {
 		// setup connection
 		HttpURLConnection con = (HttpURLConnection) new URL(DASHBOARD_URL).openConnection();
 		con.setInstanceFollowRedirects(false);
@@ -179,7 +186,10 @@ public class API {
 		cookies.putTo(con);
 
 		// if it's redirection, that means we already logged out
-		if (con.getResponseCode() == 302)
+		int code = con.getResponseCode();
+		if (code == 404)
+			throw new CaptchaException();
+		if (code == 302)
 			return;
 
 		// download dashboard
@@ -216,7 +226,10 @@ public class API {
 		os.close();
 
 		// if redirection wasn't occurred, throw some exceptions
-		if (con.getResponseCode() != 302)
+		code = con.getResponseCode();
+		if (code == 404)
+			throw new CaptchaException();
+		if (code != 302)
 			throw new UnsupportedForlabsException();
 
 		// clear cookies
@@ -227,7 +240,7 @@ public class API {
 	 * Fetch some info from dashboard.
 	 * @return Student info.
 	 */
-	public StudentInfo fetchDashboard() throws IOException, OldCookiesException, UnsupportedForlabsException {
+	public StudentInfo fetchDashboard() throws IOException, OldCookiesException, UnsupportedForlabsException, CaptchaException {
 		// setup connection
 		HttpURLConnection con = (HttpURLConnection) new URL(DASHBOARD_URL).openConnection();
 		con.setInstanceFollowRedirects(false);
@@ -236,7 +249,10 @@ public class API {
 		cookies.putTo(con);
 
 		// if it's redirection, throw exception
-		if (con.getResponseCode() == 302)
+		int code = con.getResponseCode();
+		if (code == 404)
+			throw new CaptchaException();
+		if (code == 302)
 			throw new OldCookiesException();
 
 		// download dashboard
@@ -269,7 +285,7 @@ public class API {
 	 * Fetch some studies.
 	 * @return Studies.
 	 */
-	public Studies getStudies() throws IOException, UnsupportedForlabsException, OldCookiesException {
+	public Studies getStudies() throws IOException, UnsupportedForlabsException, OldCookiesException, CaptchaException {
 		// if we already have some studies, return these
 		if (studies != null) return studies;
 
@@ -281,7 +297,10 @@ public class API {
 		cookies.putTo(con);
 
 		// if it's redirection, throw exception
-		if (con.getResponseCode() == 302)
+		int code = con.getResponseCode();
+		if (code == 404)
+			throw new CaptchaException();
+		if (code == 302)
 			throw new OldCookiesException();
 
 		// read the page
@@ -320,7 +339,7 @@ public class API {
 	 * @param study Study.
 	 * @return Same study, but with info inside!
 	 */
-	public Study fetchStudy(Study study) throws IOException, UnsupportedForlabsException, ParseException, JSONException, OldCookiesException {
+	public Study fetchStudy(Study study) throws IOException, UnsupportedForlabsException, ParseException, JSONException, OldCookiesException, CaptchaException {
 		return study.fetch(p, cookies);
 	}
 
@@ -329,7 +348,7 @@ public class API {
 	 * @param task Task.
 	 * @return Attachments
 	 */
-	public List<Attachment> getTaskAttachments(Task task) throws IOException, UnsupportedForlabsException, JSONException, OldCookiesException {
+	public List<Attachment> getTaskAttachments(Task task) throws IOException, UnsupportedForlabsException, JSONException, OldCookiesException, CaptchaException {
 		return task.fetchAttachments(p, cookies);
 	}
 
@@ -339,7 +358,7 @@ public class API {
 	 * @return List of messages.
 	 */
 	public List<Message> getTaskMessages(Task task) throws IOException, ParseException,
-			JSONException, OldCookiesException {
+			JSONException, OldCookiesException, CaptchaException {
 		return task.fetchMessages(cookies);
 	}
 
@@ -349,7 +368,7 @@ public class API {
 	 * @param f File.
 	 * @return Attachment object.
 	 */
-	public Attachment uploadAttachment(Task t, File f) throws IOException, UnsupportedForlabsException, JSONException, OldCookiesException {
+	public Attachment uploadAttachment(Task t, File f) throws IOException, UnsupportedForlabsException, JSONException, OldCookiesException, CaptchaException {
 		return uploadAttachment(t, f.getName(), f.length(), getMimeType(f.toURI().toString()), new FileInputStream(f));
 	}
 
@@ -363,7 +382,7 @@ public class API {
 	 * @return Attachment object.
 	 */
 	public Attachment uploadAttachment(Task t, String fileName, long fileLength, String mimeType, InputStream is)
-			throws IOException, UnsupportedForlabsException, JSONException, OldCookiesException {
+			throws IOException, UnsupportedForlabsException, JSONException, OldCookiesException, CaptchaException {
 		// setup connection
 		HttpURLConnection con = (HttpURLConnection) new URL(t.createAttachmentUrl()).openConnection();
 		con.setInstanceFollowRedirects(false);
@@ -372,7 +391,10 @@ public class API {
 		cookies.putTo(con);
 
 		// if it's redirection, throw exception
-		if (con.getResponseCode() == 302)
+		int code = con.getResponseCode();
+		if (code == 404)
+			throw new CaptchaException();
+		if (code == 302)
 			throw new OldCookiesException();
 
 		// read the page
@@ -413,7 +435,10 @@ public class API {
 		cookies.putTo(con);
 
 		// if it's redirection, throw exception
-		if (con.getResponseCode() == 302)
+		code = con.getResponseCode();
+		if (code == 404)
+			throw new CaptchaException();
+		if (code == 302)
 			throw new OldCookiesException();
 
 		// get some fresh cookies
@@ -508,7 +533,10 @@ public class API {
 		ps.close();
 
 		// if it's redirection, throw exception
-		if (con.getResponseCode() == 302)
+		code = con.getResponseCode();
+		if (code == 404)
+			throw new CaptchaException();
+		if (code == 302)
 			throw new OldCookiesException();
 
 		// get answer
@@ -527,7 +555,7 @@ public class API {
 		return new Attachment(new JSONObject(response.toString()).getJSONObject("attachment"));
 	}
 
-	public void sendMessageToTask(Task t, String message, List<Attachment> attachments) throws IOException, UnsupportedForlabsException, JSONException, OldCookiesException {
+	public void sendMessageToTask(Task t, String message, List<Attachment> attachments) throws IOException, UnsupportedForlabsException, JSONException, OldCookiesException, CaptchaException {
 		// setup connection
 		HttpURLConnection con = (HttpURLConnection) new URL(t.createAttachmentUrl()).openConnection();
 		con.setInstanceFollowRedirects(false);
@@ -536,7 +564,8 @@ public class API {
 		cookies.putTo(con);
 
 		// if it's redirection, throw exception
-		if (con.getResponseCode() == 302)
+		int code = con.getResponseCode();
+		if (code == 302)
 			throw new OldCookiesException();
 
 		// read the page
@@ -587,7 +616,10 @@ public class API {
 		os.close();
 
 		// if it's redirection, throw exception
-		if (con.getResponseCode() == 302)
+		code = con.getResponseCode();
+		if (code == 404)
+			throw new CaptchaException();
+		if (code == 302)
 			throw new OldCookiesException();
 
 		// get some fresh cookies

@@ -19,6 +19,7 @@ import java.util.List;
 import java.util.Scanner;
 
 import ru.kollad.forlabs.api.API;
+import ru.kollad.forlabs.api.exceptions.CaptchaException;
 import ru.kollad.forlabs.api.exceptions.OldCookiesException;
 import ru.kollad.forlabs.api.exceptions.UnsupportedForlabsException;
 
@@ -86,7 +87,7 @@ public class Study implements Serializable {
 	 * @param cookies Cookies for updating.
 	 * @return Study, but with more info!
 	 */
-	public Study fetch(Parser p, Cookies cookies) throws IOException, UnsupportedForlabsException, ParseException, JSONException, OldCookiesException {
+	public Study fetch(Parser p, Cookies cookies) throws IOException, UnsupportedForlabsException, ParseException, JSONException, OldCookiesException, CaptchaException {
 		// setup connection
 		HttpURLConnection con = (HttpURLConnection) new URL(FETCH_URL.replace("${id}", Integer.toString(id))).openConnection();
 		con.setInstanceFollowRedirects(false);
@@ -95,7 +96,10 @@ public class Study implements Serializable {
 		cookies.putTo(con);
 
 		// if it's redirection, throw exception
-		if (con.getResponseCode() == 302)
+		int code = con.getResponseCode();
+		if (code == 404)
+			throw new CaptchaException();
+		if (code == 302)
 			throw new OldCookiesException();
 
 		// read the page
