@@ -204,7 +204,7 @@ public class Study implements Serializable {
 			isPresentCount += a.isPresent() ? 1 : 0;
 			attendances.add(a);
 		}
-		attendPercent = (int) (isPresentCount / jsonArr.length() * 100);
+		attendPercent = isPresentCount / jsonArr.length() * 100;
 
 		// get schedule items
 		jsonStr = sc.nextLine();
