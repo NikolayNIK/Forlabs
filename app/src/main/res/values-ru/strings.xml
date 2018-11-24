@@ -59,6 +59,7 @@
 	<string name="text_study_performance_score">Баллы: %.2f</string>
 	<string name="text_task_title">Задание №%d. %s</string>
 	<string name="text_task_attachments">Прикреплённые файлы</string>
+	<string name="text_task_answer_empty">С помошью этой формы можно отправить выполненную работу на проверку преподавателю, прикрепив файлы по необходимости.</string>
 	<string name="text_report_crash">Похоже, в приложении произошла непредвиденная ошибка. Не могли бы вы помочь нам решить эту проблему?</string>
 	<string name="text_report_crash_title">Ошибка приложения</string>
 

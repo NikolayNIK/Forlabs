@@ -67,6 +67,7 @@
 	<string name="text_task_title">Task #%d. %s</string>
 	<string name="text_task_attachments">Attached files</string>
 	<string name="text_task_attachment_size" translatable="false">%.2f %s</string>
+	<string name="text_task_answer_empty">With that form you can send work you have done for teacher to check, attaching files if necessary.</string>
 	<string name="text_report_crash">Looks like unexpected error has occurred in the application. Could you help us to resolve this issue?</string>
 	<string name="text_report_crash_title">Application crash</string>
 

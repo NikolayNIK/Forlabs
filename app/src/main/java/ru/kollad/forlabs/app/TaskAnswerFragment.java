@@ -44,7 +44,7 @@ public class TaskAnswerFragment extends Fragment implements Observer<List<Messag
 	private ArrayList<Uri> attachedUris;
 	private ViewGroup layoutAttachments;
 	private MessageAdapter adapter;
-	private View buttonAttach, buttonSend;
+	private View buttonAttach, buttonSend, textEmpty;
 	private EditText editMessage;
 
 	static TaskAnswerFragment newInstance(Task task) {
@@ -75,6 +75,7 @@ public class TaskAnswerFragment extends Fragment implements Observer<List<Messag
 		buttonAttach = view.findViewById(R.id.button_attach);
 		buttonSend = view.findViewById(R.id.button_send);
 		editMessage = view.findViewById(R.id.edit_message);
+		textEmpty = view.findViewById(R.id.text_empty);
 
 		adapter = new MessageAdapter(getContext());
 
@@ -146,6 +147,7 @@ public class TaskAnswerFragment extends Fragment implements Observer<List<Messag
 	@Override
 	public void onChanged(List<Message> messages) {
 		adapter.setMessages(messages);
+		textEmpty.setVisibility(messages != null && messages.isEmpty() ? View.VISIBLE : View.GONE);
 	}
 
 	@Override
