@@ -30,7 +30,7 @@ public class MainActivity extends AppCompatActivity implements
 	static final String EXTRA_STUDENT_INFO = "studentInfo";
 	static final String EXTRA_START_STATE = "state";
 
-	private static final Uri URI_ABOUT = Uri.parse("https://kollad.ru");
+	private static final Uri URI_ABOUT = Uri.parse("https://kollad.ru/products/forlabs/");
 
 	@Nullable
 	private DrawerLayout drawerLayout;
