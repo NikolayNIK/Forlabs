@@ -28,6 +28,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import ru.kollad.forlabs.R;
 import ru.kollad.forlabs.model.Message;
 import ru.kollad.forlabs.model.Task;
+import ru.kollad.forlabs.util.DocumentFileUtil;
 import ru.kollad.forlabs.viewmodel.TaskAnswerFragmentViewModel;
 import ru.kollad.forlabs.widget.MessageAdapter;
 
@@ -167,7 +168,7 @@ public class TaskAnswerFragment extends Fragment implements Observer<List<Messag
 
 	private void inflateAttachment(final Uri uri) {
 		assert getContext() != null;
-		DocumentFile file = DocumentFile.fromSingleUri(getContext(), uri);
+		DocumentFile file = DocumentFileUtil.fromUri(getContext(), uri);
 		if (file != null) {
 			String name = file.getName();
 			double length = file.length();

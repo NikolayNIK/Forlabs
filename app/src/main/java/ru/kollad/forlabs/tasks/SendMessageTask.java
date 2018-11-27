@@ -18,6 +18,7 @@ import ru.kollad.forlabs.model.Attachment;
 import ru.kollad.forlabs.model.Cookies;
 import ru.kollad.forlabs.model.Message;
 import ru.kollad.forlabs.model.Task;
+import ru.kollad.forlabs.util.DocumentFileUtil;
 import ru.kollad.forlabs.util.Keys;
 import ru.kollad.forlabs.util.SerializableUtil;
 
@@ -46,7 +47,7 @@ public class SendMessageTask extends AsyncTask<Object, Void, List<Message>> {
 			List<Attachment> attachments = new ArrayList<>(uris.size());
 			for (int i = 0; i < uris.size(); i++) {
 				Uri uri = uris.get(i);
-				DocumentFile documentFile = DocumentFile.fromSingleUri(applicationContext, uri);
+				DocumentFile documentFile = DocumentFileUtil.fromUri(applicationContext, uri);
 				if (documentFile != null) {
 					String name = documentFile.getName();
 					if (name != null) {
