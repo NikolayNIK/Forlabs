@@ -22,7 +22,6 @@ public abstract class DownloadTextTask<T> extends AsyncTask<Object, Void, T> {
 	protected T doInBackground(Object... args) {
 		try {
 			File file = (File) args[1];
-			StringBuilder sb = new StringBuilder();
 
 			if (System.currentTimeMillis() - file.lastModified() >= CACHE_INVALIDATION_TIME_MILLIS) {
 				try {
@@ -32,10 +31,8 @@ public abstract class DownloadTextTask<T> extends AsyncTask<Object, Void, T> {
 					try {
 						OutputStream output = new FileOutputStream(file);
 						try {
-							while ((length = input.read(buffer)) > 0) {
+							while ((length = input.read(buffer)) > 0)
 								output.write(buffer, 0, length);
-								sb.append(new String(buffer, 0, length));
-							}
 						} catch (Exception e) {
 							output.close();
 							throw e;
@@ -51,13 +48,12 @@ public abstract class DownloadTextTask<T> extends AsyncTask<Object, Void, T> {
 				}
 			}
 
-			if (sb.length() == 0) {
-				String line;
-				BufferedReader reader = new BufferedReader(new FileReader(file));
-				while ((line = reader.readLine()) != null)
-					sb.append(line);
-				reader.close();
-			}
+			StringBuilder sb = new StringBuilder();
+			String line;
+			BufferedReader reader = new BufferedReader(new FileReader(file));
+			while ((line = reader.readLine()) != null)
+				sb.append(line);
+			reader.close();
 
 			return handle(sb.toString());
 		} catch (Exception e) {
