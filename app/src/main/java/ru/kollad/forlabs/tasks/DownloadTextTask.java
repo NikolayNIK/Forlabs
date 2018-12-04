@@ -23,7 +23,8 @@ public abstract class DownloadTextTask<T> extends AsyncTask<Object, Void, T> {
 		try {
 			File file = (File) args[1];
 
-			if (System.currentTimeMillis() - file.lastModified() >= CACHE_INVALIDATION_TIME_MILLIS) {
+			T result;
+			if (System.currentTimeMillis() - file.lastModified() >= CACHE_INVALIDATION_TIME_MILLIS || (result = tryHandle(file)) == null) {
 				try {
 					int length;
 					byte[] buffer = new byte[(int) (Runtime.getRuntime().freeMemory() / 16)];
@@ -46,20 +47,35 @@ public abstract class DownloadTextTask<T> extends AsyncTask<Object, Void, T> {
 				} catch (Exception e) {
 					Log.i("Forlabs", "Unable to download " + args[0], e);
 				}
+
+				result = handle(file);
 			}
 
-			StringBuilder sb = new StringBuilder();
-			String line;
-			BufferedReader reader = new BufferedReader(new FileReader(file));
-			while ((line = reader.readLine()) != null)
-				sb.append(line);
-			reader.close();
-
-			return handle(sb.toString());
+			return result;
 		} catch (Exception e) {
 			Log.e("Forlabs", "Unable to fetch " + args[0], e);
 			return null;
 		}
+	}
+
+	private T tryHandle(File file) {
+		try {
+			return handle(file);
+		} catch (Exception e) {
+			Log.e("Forlabs", "Got some crap into the cached " + file, e);
+			return null;
+		}
+	}
+
+	private T handle(File file) throws Exception {
+		StringBuilder sb = new StringBuilder();
+		String line;
+		BufferedReader reader = new BufferedReader(new FileReader(file));
+		while ((line = reader.readLine()) != null)
+			sb.append(line);
+		reader.close();
+
+		return handle(sb.toString());
 	}
 
 	protected abstract T handle(String string) throws Exception;
