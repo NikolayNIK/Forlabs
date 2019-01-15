@@ -40,6 +40,7 @@ public class Study implements Serializable {
 	public static final int STATUS_NORMAL = 0;
 	public static final int STATUS_DEBT = -1;
 	public static final int STATUS_CERTIFIED = 1;
+	public static final int STATUS_COMPLETE = 2;
 
 	private final int id;
 	private List<Integer> lecturersId;
@@ -77,7 +78,7 @@ public class Study implements Serializable {
 		simpleTeacherName = elements.get(1).text();
 		block = elements.get(1).children();
 		if (block.size() == 2)
-			status = "аттестован".equals(block.get(1).attr("title")) ? STATUS_CERTIFIED : STATUS_DEBT;
+			status = statusByName(block.get(1).attr("title"));
 	}
 
 	/**
@@ -219,6 +220,17 @@ public class Study implements Serializable {
 		sc.close();
 
 		return this;
+	}
+
+	private int statusByName(String status) {
+		switch (status) {
+			case "аттестован":
+				return STATUS_CERTIFIED;
+			case "завершен":
+				return STATUS_COMPLETE;
+			default:
+				return STATUS_DEBT;
+		}
 	}
 
 	public int getId() {
