@@ -36,6 +36,6 @@ public class MainActivityViewModel extends ViewModel implements CheckUpdatesTask
 	}
 
 	public void checkForUpdates(Context context) {
-		new CheckUpdatesTask(this).execute(URL, new File(context.getCacheDir(), "update.json"));
+		new CheckUpdatesTask(this).execute(URL, new File(context.getExternalCacheDir(), "update.json"));
 	}
 }
