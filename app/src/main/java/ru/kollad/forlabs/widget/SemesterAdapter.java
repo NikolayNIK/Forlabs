@@ -68,6 +68,10 @@ public class SemesterAdapter extends RecyclerView.Adapter<SemesterAdapter.ViewHo
 				holder.imageStatus.setVisibility(View.VISIBLE);
 				holder.imageStatus.setImageResource(R.drawable.ic_warning_accent_24dp);
 				break;
+			case Study.STATUS_COMPLETE:
+				holder.imageStatus.setVisibility(View.VISIBLE);
+				holder.imageStatus.setImageResource(R.drawable.ic_check_circle_accent_24dp);
+				break;
 		}
 	}
 
