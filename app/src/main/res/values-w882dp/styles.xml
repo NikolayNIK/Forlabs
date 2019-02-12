@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-	<style name="Toolbar" parent="Widget.AppCompat.ActionBar" />
+	<style name="Toolbar" parent="Widget.AppCompat.ActionBar">
+		<item name="actionOverflowButtonStyle">@style/ToolbarOverflow</item>
+	</style>
 
 </resources>

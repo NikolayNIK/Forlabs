@@ -10,21 +10,21 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import ru.kollad.forlabs.R;
-import ru.kollad.forlabs.model.Studies;
+import ru.kollad.forlabs.model.Semester;
 import ru.kollad.forlabs.model.Study;
 
 /**
  * Created by NikolayNIK on 12.11.2018.
  */
-public class StudiesAdapter extends RecyclerView.Adapter<StudiesAdapter.ViewHolder> {
+public class SemesterAdapter extends RecyclerView.Adapter<SemesterAdapter.ViewHolder> {
 
 	private final Context context;
 
-	private Studies studies;
+	private Semester studies;
 
 	private OnItemClickListener onItemClickListener;
 
-	public StudiesAdapter(Context context) {
+	public SemesterAdapter(Context context) {
 		this.context = context;
 	}
 
@@ -33,7 +33,7 @@ public class StudiesAdapter extends RecyclerView.Adapter<StudiesAdapter.ViewHold
 		return studies == null ? 0 : studies.size();
 	}
 
-	public void setStudies(Studies studies) {
+	public void setSemester(Semester studies) {
 		if (this.studies != null) notifyItemRangeRemoved(0, this.studies.size());
 		this.studies = studies;
 		if (this.studies != null) notifyItemRangeInserted(0, this.studies.size());
@@ -73,7 +73,7 @@ public class StudiesAdapter extends RecyclerView.Adapter<StudiesAdapter.ViewHold
 
 	public interface OnItemClickListener {
 
-		void onClickItemStudy(StudiesAdapter adapter, Study item);
+		void onClickItemStudy(SemesterAdapter adapter, Study item);
 	}
 
 	class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
@@ -97,7 +97,7 @@ public class StudiesAdapter extends RecyclerView.Adapter<StudiesAdapter.ViewHold
 		@Override
 		public void onClick(View v) {
 			if (onItemClickListener != null)
-				onItemClickListener.onClickItemStudy(StudiesAdapter.this, item);
+				onItemClickListener.onClickItemStudy(SemesterAdapter.this, item);
 		}
 	}
 }

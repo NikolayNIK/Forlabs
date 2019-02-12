@@ -26,8 +26,8 @@ import androidx.annotation.Nullable;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import ru.kollad.forlabs.R;
+import ru.kollad.forlabs.model.Semesters;
 import ru.kollad.forlabs.model.StudentInfo;
-import ru.kollad.forlabs.model.Studies;
 import ru.kollad.forlabs.util.Keys;
 import ru.kollad.forlabs.util.SerializableUtil;
 import ru.kollad.forlabs.viewmodel.MainScheduleFragmentViewModel;
@@ -301,7 +301,7 @@ public class MainScheduleFragment extends MainFragment implements Observer<JSONA
 		@Override
 		public void onClick(View v) {
 			try { // Hope for the best
-				startActivity(new Intent(getContext(), StudyActivity.class).putExtra(StudyActivity.EXTRA_STUDY, ((Studies) SerializableUtil.read(Keys.getStudiesFile(getContext()))).find(name)));
+				startActivity(new Intent(getContext(), StudyActivity.class).putExtra(StudyActivity.EXTRA_STUDY, ((Semesters) SerializableUtil.read(Keys.getStudiesFile(getContext()))).findStudy(name)));
 			} catch (Exception e) {
 				Log.w("Forlabs", "Unable to open StudyActivity", e);
 			}

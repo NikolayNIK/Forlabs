@@ -4,7 +4,7 @@ import android.content.Context;
 
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
-import ru.kollad.forlabs.model.Studies;
+import ru.kollad.forlabs.model.Semesters;
 import ru.kollad.forlabs.tasks.GetStudiesTask;
 import ru.kollad.forlabs.util.Keys;
 
@@ -13,10 +13,20 @@ import ru.kollad.forlabs.util.Keys;
  */
 public class MainStudiesFragmentViewModel extends ViewModel implements GetStudiesTask.OnPostExecuteListener {
 
-	private final MutableLiveData<Studies> studies = new MutableLiveData<>();
+	private final MutableLiveData<Semesters> semesters = new MutableLiveData<>();
 
-	public MutableLiveData<Studies> getStudies() {
-		return studies;
+	private int selectedSemester;
+
+	public MutableLiveData<Semesters> getStudies() {
+		return semesters;
+	}
+
+	public int getSelectedSemester() {
+		return selectedSemester;
+	}
+
+	public void setSelectedSemester(int selectedSemester) {
+		this.selectedSemester = selectedSemester;
 	}
 
 	public void fetchStudies(Context context) {
@@ -24,7 +34,7 @@ public class MainStudiesFragmentViewModel extends ViewModel implements GetStudie
 	}
 
 	@Override
-	public void onPostExecute(GetStudiesTask task, Studies studies) {
-		this.studies.setValue(studies);
+	public void onPostExecute(GetStudiesTask task, Semesters semesters) {
+		this.semesters.setValue(semesters);
 	}
 }

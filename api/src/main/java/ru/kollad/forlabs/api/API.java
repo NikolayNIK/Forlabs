@@ -5,18 +5,17 @@ import android.webkit.MimeTypeMap;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import ru.kollad.forlabs.api.exceptions.CaptchaException;
-import ru.kollad.forlabs.api.exceptions.IncorrectCredentialsException;
-import ru.kollad.forlabs.api.exceptions.OldCookiesException;
-import ru.kollad.forlabs.api.exceptions.UnsupportedForlabsException;
-import ru.kollad.forlabs.model.*;
-
 import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
 import org.jsoup.parser.Parser;
 import org.jsoup.select.Elements;
 
-import java.io.*;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.io.PrintStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
@@ -24,6 +23,19 @@ import java.text.ParseException;
 import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
+
+import ru.kollad.forlabs.api.exceptions.CaptchaException;
+import ru.kollad.forlabs.api.exceptions.IncorrectCredentialsException;
+import ru.kollad.forlabs.api.exceptions.OldCookiesException;
+import ru.kollad.forlabs.api.exceptions.UnsupportedForlabsException;
+import ru.kollad.forlabs.model.Attachment;
+import ru.kollad.forlabs.model.Cookies;
+import ru.kollad.forlabs.model.Message;
+import ru.kollad.forlabs.model.Semester;
+import ru.kollad.forlabs.model.Semesters;
+import ru.kollad.forlabs.model.StudentInfo;
+import ru.kollad.forlabs.model.Study;
+import ru.kollad.forlabs.model.Task;
 
 /**
  * Provides some methods for working with Forlabs.
@@ -55,7 +67,7 @@ public class API {
 	/** Object for student info. */
 	private StudentInfo studentInfo;
 	/** Object for studies. */
-	private Studies studies;
+	private Semesters semesters;
 
 	/** Empty constructor. */
 	public API() {
@@ -285,9 +297,9 @@ public class API {
 	 * Fetch some studies.
 	 * @return Studies.
 	 */
-	public Studies getStudies() throws IOException, UnsupportedForlabsException, OldCookiesException, CaptchaException {
+	public Semesters getSemesters() throws IOException, UnsupportedForlabsException, OldCookiesException, CaptchaException {
 		// if we already have some studies, return these
-		if (studies != null) return studies;
+		if (semesters != null) return semesters;
 
 		// setup connection
 		HttpURLConnection con = (HttpURLConnection) new URL(STUDIES_URL).openConnection();
@@ -320,10 +332,18 @@ public class API {
 		if (elements.size() == 0)
 			throw new UnsupportedForlabsException();
 
-		// fill studies
-		studies = new Studies(elements);
+		// create list of semesters
+		Semesters semesters = new Semesters();
 
-		return studies;
+		// for each element...
+		for (Element e: elements) {
+			Element sibling = e.parent().previousElementSibling();
+			String semesterName = sibling.tagName().equals("h4") ? sibling.text() : null;
+			Semester semester = semesters.findSemester(semesterName);
+			semester.add(new Study(e));
+		}
+
+		return semesters;
 	}
 
 	/**

@@ -10,7 +10,6 @@ import android.preference.PreferenceManager;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.TextView;
 
@@ -28,7 +27,6 @@ public class SettingsActivity extends AppCompatActivity implements CompoundButto
 
 	private SharedPreferences prefs;
 	private ViewGroup layoutSettings;
-	private View viewNotificationConstant, viewNotificationWhen;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -55,18 +53,6 @@ public class SettingsActivity extends AppCompatActivity implements CompoundButto
 
 		inflateDivider();
 		inflateListSelectorItem(Keys.DEFAULT_SECTION, R.string.pref_default_title, R.string.pref_default_subtitle, R.array.pref_default, 0, null);
-		inflateDivider();
-		inflateCheck(R.string.pref_notification_title, R.string.pref_notification_subtitle, Keys.NOTIFICATION, false, this);
-		inflateDivider();
-		viewNotificationConstant = inflateCheck(R.string.pref_notification_constant_title, R.string.pref_notification_constant_subtitle, Keys.NOTIFICATION_CONSTANT, true, null);
-		inflateDivider();
-		viewNotificationWhen = inflateSimpleItem(R.string.pref_notification_when_title, R.string.pref_notification_when_subtitle);
-		inflateDivider();
-
-		if (!prefs.getBoolean(Keys.NOTIFICATION, false)) {
-			recursiveSetEnabled(viewNotificationConstant, false);
-			recursiveSetEnabled(viewNotificationWhen, false);
-		}
 	}
 
 	@Override
@@ -81,8 +67,7 @@ public class SettingsActivity extends AppCompatActivity implements CompoundButto
 
 	@Override
 	public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-		recursiveSetEnabled(viewNotificationConstant, isChecked);
-		recursiveSetEnabled(viewNotificationWhen, isChecked);
+
 	}
 
 	private void inflateDivider() {
@@ -122,23 +107,6 @@ public class SettingsActivity extends AppCompatActivity implements CompoundButto
 				adb.show();
 			}
 		});
-	}
-
-	private View inflateCheck(@StringRes int title, @StringRes int subtitle, final String key, boolean defValue, final @Nullable CompoundButton.OnCheckedChangeListener listener) {
-		View view = inflateItem(R.layout.activity_settings_check, title, subtitle);
-
-		final CheckBox check = view.findViewById(R.id.check);
-		check.setChecked(prefs.getBoolean(key, defValue));
-		view.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				check.setChecked(!check.isChecked());
-				prefs.edit().putBoolean(key, check.isChecked()).apply();
-				if (listener != null) listener.onCheckedChanged(check, check.isChecked());
-			}
-		});
-
-		return view;
 	}
 
 	private void recursiveSetEnabled(View view, boolean isEnabled) {
