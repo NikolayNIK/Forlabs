@@ -13,6 +13,10 @@
 	<string name="hint_report_message">Сообщение</string>
 	<string name="hint_report_message_unnecessary">Сообщение (необязательно)</string>
 
+	<string name="dialog_update_available_title">Новая версия %s доступна</string>
+	<string name="dialog_update_available_positive">Скачать</string>
+	<string name="dialog_update_available_negative">Позже</string>
+
 	<string name="error_auth_incorrect_credentials">Имя пользователя и пароль не совпадают</string>
 
 	<string name="item_semester_current">Текущий</string>
