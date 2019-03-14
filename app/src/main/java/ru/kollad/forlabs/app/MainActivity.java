@@ -1,11 +1,9 @@
 package ru.kollad.forlabs.app;
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
@@ -15,27 +13,19 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.google.android.material.navigation.NavigationView;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProviders;
 import ru.kollad.forlabs.R;
 import ru.kollad.forlabs.model.StudentInfo;
 import ru.kollad.forlabs.util.Keys;
-import ru.kollad.forlabs.viewmodel.MainActivityViewModel;
 
 public class MainActivity extends AppCompatActivity implements
-		NavigationView.OnNavigationItemSelectedListener,
-		Observer<String> {
+		NavigationView.OnNavigationItemSelectedListener {
 
 	static final String EXTRA_STUDENT_INFO = "studentInfo";
 	static final String EXTRA_START_STATE = "state";
@@ -44,7 +34,6 @@ public class MainActivity extends AppCompatActivity implements
 
 	@Nullable
 	private DrawerLayout drawerLayout;
-	private MainActivityViewModel model;
 	private StudentInfo studentInfo;
 	private int state;
 
@@ -65,11 +54,7 @@ public class MainActivity extends AppCompatActivity implements
 				.into((ImageView) header.findViewById(R.id.image_avatar));
 		((TextView) header.findViewById(R.id.text_name)).setText(studentInfo.getStudentName());
 
-		model = ViewModelProviders.of(this).get(MainActivityViewModel.class);
-		model.getUpdateChangelog().observe(this, this);
 		if (savedInstanceState == null) {
-			model.checkForUpdates(this);
-
 			state = getIntent().getIntExtra(EXTRA_START_STATE, PreferenceManager.getDefaultSharedPreferences(this).getInt(Keys.DEFAULT_SECTION, 0));
 			FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
 			switch (state) {
@@ -112,34 +97,6 @@ public class MainActivity extends AppCompatActivity implements
 			default:
 				return super.onOptionsItemSelected(item);
 		}
-	}
-
-	@Override
-	public void onChanged(String s) {
-		if (s == null) return;
-
-		try {
-			final JSONObject json = model.getUpdateJson();
-			AlertDialog.Builder adb = new AlertDialog.Builder(this);
-			adb.setTitle(getString(R.string.dialog_update_available_title, json.getString("versionName")));
-			adb.setMessage(s);
-			adb.setPositiveButton(R.string.dialog_update_available_positive, new DialogInterface.OnClickListener() {
-				@Override
-				public void onClick(DialogInterface dialog, int which) {
-					try {
-						startActivity(new Intent(Intent.ACTION_VIEW).setData(Uri.parse(json.getString("url"))));
-					} catch (Exception e) {
-						Log.e("Forlabs", "Unable to download update", e);
-					}
-				}
-			});
-			adb.setNegativeButton(R.string.dialog_update_available_negative, null);
-			adb.show();
-		} catch (JSONException e) {
-			Log.e("Forlabs", "Unable to handle update json", e);
-		}
-
-		model.getUpdateChangelog().setValue(null);
 	}
 
 	@Override
