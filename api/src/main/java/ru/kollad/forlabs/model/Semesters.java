@@ -34,7 +34,7 @@ public class Semesters extends ArrayList<Semester> implements Serializable {
 			if (study != null) return study;
 		}
 
-		return null;
+		throw new IllegalStateException("Study not found");
 	}
 
 	private static boolean equals(Object a, Object b) {
