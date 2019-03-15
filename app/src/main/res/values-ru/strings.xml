@@ -103,6 +103,8 @@
 	<string name="pref_default_title">Раздел по умолчанию</string>
 	<string name="pref_default_subtitle">Раздел, открывающийся при запуске приложения (не влияет на ярлыки)</string>
 
+	<string name="snack_schedule_index_empty">Невозможно получить расписание</string>
+
 	<string-array name="weeks">
 		<item>Верхняя</item>
 		<item>Нижняя</item>

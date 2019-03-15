@@ -115,6 +115,8 @@
 	<string name="pref_default_title">Default section</string>
 	<string name="pref_default_subtitle">Default section to open when app launches (does not affect shortcuts)</string>
 
+	<string name="snack_schedule_index_empty">Unable to retrieve schedule</string>
+
 	<string-array name="weeks">
 		<item>Upper</item>
 		<item>Lower</item>

@@ -156,7 +156,7 @@ public class MainScheduleFragment extends MainFragment implements Observer<JSONA
 		if (indexArray == null) {
 			model.fetchIndex(getContext());
 		} else if (indexArray.length() == 0) {
-			Snackbar.make(coordinator, "Empty", Snackbar.LENGTH_INDEFINITE).show();
+			Snackbar.make(coordinator, R.string.snack_schedule_index_empty, Snackbar.LENGTH_INDEFINITE).show();
 		} else if (getActivity() != null) {
 			cardSelector = getActivity().getLayoutInflater().inflate(R.layout.fragment_main_schedule_selector, containerSchedule, false);
 
