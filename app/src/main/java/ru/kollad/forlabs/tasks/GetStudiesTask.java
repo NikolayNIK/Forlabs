@@ -17,7 +17,7 @@ import ru.kollad.forlabs.util.SerializableUtil;
 /**
  * Created by NikolayNIK on 12.11.2018.
  */
-public class GetStudiesTask extends AsyncTask<File, Void, Semesters> implements Comparator<Study> {
+public class GetStudiesTask extends AsyncTask<Object, Void, Semesters> implements Comparator<Study> {
 
 	private static final long CACHE_INVALIDATION_TIME_MILLIS = 5 * 60 * 1000;
 
@@ -28,12 +28,12 @@ public class GetStudiesTask extends AsyncTask<File, Void, Semesters> implements 
 	}
 
 	@Override
-	protected Semesters doInBackground(File... files) {
+	protected Semesters doInBackground(Object... args) {
 		try {
-			File cacheFile = files[1];
-			if (System.currentTimeMillis() - cacheFile.lastModified() > CACHE_INVALIDATION_TIME_MILLIS) {
+			File cacheFile = (File) args[1];
+			if ((boolean) args[2] || System.currentTimeMillis() - cacheFile.lastModified() > CACHE_INVALIDATION_TIME_MILLIS) {
 				try {
-					File cookiesFile = files[0];
+					File cookiesFile = (File) args[0];
 					API api = new API((Cookies) SerializableUtil.read(cookiesFile));
 					Semesters semesters = api.getSemesters();
 					for (Semester semester : semesters)

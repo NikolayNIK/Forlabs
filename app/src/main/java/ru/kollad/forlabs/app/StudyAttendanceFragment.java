@@ -35,6 +35,9 @@ public class StudyAttendanceFragment extends StudyFragment {
 			cardOverview.setVisibility(View.GONE);
 			cardAttendance.setVisibility(View.GONE);
 			textEmpty.setVisibility(View.GONE);
+
+			ViewGroup layoutAttendance = cardAttendance.findViewById(R.id.layout_attendance);
+			layoutAttendance.removeAllViews();
 		} else if (study.getAttendances().isEmpty()) {
 			cardOverview.setVisibility(View.GONE);
 			cardAttendance.setVisibility(View.GONE);

@@ -13,9 +13,14 @@ import ru.kollad.forlabs.util.Keys;
  */
 public class MainStudiesFragmentViewModel extends ViewModel implements GetStudiesTask.OnPostExecuteListener {
 
+	private final MutableLiveData<Boolean> refreshing = new MutableLiveData<>();
 	private final MutableLiveData<Semesters> semesters = new MutableLiveData<>();
 
 	private int selectedSemester;
+
+	public MutableLiveData<Boolean> getRefreshing() {
+		return refreshing;
+	}
 
 	public MutableLiveData<Semesters> getStudies() {
 		return semesters;
@@ -29,12 +34,14 @@ public class MainStudiesFragmentViewModel extends ViewModel implements GetStudie
 		this.selectedSemester = selectedSemester;
 	}
 
-	public void fetchStudies(Context context) {
-		new GetStudiesTask(this).execute(Keys.getCookiesFile(context), Keys.getStudiesFile(context));
+	public void fetchStudies(Context context, boolean ignoreCache) {
+		refreshing.setValue(true);
+		new GetStudiesTask(this).execute(Keys.getCookiesFile(context), Keys.getStudiesFile(context), ignoreCache);
 	}
 
 	@Override
 	public void onPostExecute(GetStudiesTask task, Semesters semesters) {
+		refreshing.setValue(false);
 		this.semesters.setValue(semesters);
 	}
 }

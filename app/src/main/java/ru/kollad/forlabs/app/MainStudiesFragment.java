@@ -17,6 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import ru.kollad.forlabs.R;
 import ru.kollad.forlabs.model.Semesters;
 import ru.kollad.forlabs.model.Study;
+import ru.kollad.forlabs.util.RefreshUtil;
 import ru.kollad.forlabs.viewmodel.MainStudiesFragmentViewModel;
 import ru.kollad.forlabs.widget.SemesterAdapter;
 
@@ -51,8 +52,12 @@ public class MainStudiesFragment extends MainFragment implements Observer<Semest
 		adapter.setOnItemClickListener(this);
 
 		model.getStudies().observe(this, this);
-		if (model.getStudies().getValue() == null) model.fetchStudies(getContext());
+		if (model.getStudies().getValue() == null) model.fetchStudies(getContext(), false);
 		else onChanged(model.getStudies().getValue());
+
+		View buttonRefresh = view.findViewById(R.id.button_refresh);
+		RefreshUtil.observeRefresh(buttonRefresh, this, model.getRefreshing());
+		buttonRefresh.setOnClickListener((v) -> model.fetchStudies(requireContext(), true));
 	}
 
 	@Override

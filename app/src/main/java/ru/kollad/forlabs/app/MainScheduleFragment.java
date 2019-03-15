@@ -29,6 +29,7 @@ import ru.kollad.forlabs.R;
 import ru.kollad.forlabs.model.Semesters;
 import ru.kollad.forlabs.model.StudentInfo;
 import ru.kollad.forlabs.util.Keys;
+import ru.kollad.forlabs.util.RefreshUtil;
 import ru.kollad.forlabs.util.SerializableUtil;
 import ru.kollad.forlabs.viewmodel.MainScheduleFragmentViewModel;
 
@@ -137,6 +138,16 @@ public class MainScheduleFragment extends MainFragment implements Observer<JSONA
 				}
 			}
 		});
+
+		View buttonRefresh = view.findViewById(R.id.button_refresh);
+		RefreshUtil.observeRefresh(buttonRefresh, this, model.getRefreshing());
+		buttonRefresh.setOnClickListener((v) -> {
+			try {
+				model.fetchSchedule(requireContext(), model.getIndex().getValue().getJSONObject(spinnerCourse.getSelectedItemPosition()).getJSONArray("streams").getJSONObject(spinnerStream.getSelectedItemPosition() - 1).getString("link"), true);
+			} catch (Exception e) {
+				Log.e("Forlabs", "Unable to refresh schedule", e);
+			}
+		});
 	}
 
 	@Override
@@ -189,7 +200,7 @@ public class MainScheduleFragment extends MainFragment implements Observer<JSONA
 					} else {
 						model.setStream(position);
 						try {
-							model.fetchSchedule(getContext(), indexArray.getJSONObject(spinnerCourse.getSelectedItemPosition()).getJSONArray("streams").getJSONObject(position - 1).getString("link"));
+							model.fetchSchedule(getContext(), indexArray.getJSONObject(spinnerCourse.getSelectedItemPosition()).getJSONArray("streams").getJSONObject(position - 1).getString("link"), false);
 						} catch (JSONException e) {
 							Log.e("Forlabs", "So kostil", e);
 						}

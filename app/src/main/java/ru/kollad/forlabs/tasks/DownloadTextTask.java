@@ -22,9 +22,10 @@ public abstract class DownloadTextTask<T> extends AsyncTask<Object, Void, T> {
 	protected T doInBackground(Object... args) {
 		try {
 			File file = (File) args[1];
+			boolean ignoreCache = args.length > 2 && (boolean) args[2];
 
 			T result;
-			if (System.currentTimeMillis() - file.lastModified() >= CACHE_INVALIDATION_TIME_MILLIS || (result = tryHandle(file)) == null) {
+			if (ignoreCache || System.currentTimeMillis() - file.lastModified() >= CACHE_INVALIDATION_TIME_MILLIS || (result = tryHandle(file)) == null) {
 				try {
 					int length;
 					byte[] buffer = new byte[(int) (Runtime.getRuntime().freeMemory() / 16)];

@@ -2,6 +2,7 @@ package ru.kollad.forlabs.app;
 
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
 
 import com.google.android.material.tabs.TabLayout;
 
@@ -14,6 +15,7 @@ import androidx.lifecycle.ViewModelProviders;
 import androidx.viewpager.widget.ViewPager;
 import ru.kollad.forlabs.R;
 import ru.kollad.forlabs.model.Study;
+import ru.kollad.forlabs.util.RefreshUtil;
 import ru.kollad.forlabs.viewmodel.StudyActivityViewModel;
 
 public class StudyActivity extends AppCompatActivity implements Observer<Study> {
@@ -46,6 +48,10 @@ public class StudyActivity extends AppCompatActivity implements Observer<Study> 
 		}
 
 		setTitle(study.getName());
+
+		View buttonRefresh = findViewById(R.id.button_refresh);
+		RefreshUtil.observeRefresh(buttonRefresh, this, model.getRefreshing());
+		buttonRefresh.setOnClickListener((v) -> model.fetchStudy(this, study));
 	}
 
 	@Override
@@ -60,8 +66,10 @@ public class StudyActivity extends AppCompatActivity implements Observer<Study> 
 
 	@Override
 	public void onChanged(Study study) {
-		for (StudyFragment fragment : adapter.fragments)
+		for (StudyFragment fragment : adapter.fragments) {
+			fragment.setStudy(null);
 			fragment.setStudy(study);
+		}
 	}
 
 	private void setupTabs() {

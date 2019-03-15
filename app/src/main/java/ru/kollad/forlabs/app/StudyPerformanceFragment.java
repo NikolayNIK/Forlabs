@@ -33,6 +33,9 @@ public class StudyPerformanceFragment extends StudyFragment {
 			cardScore.setVisibility(View.GONE);
 			cardAssessments.setVisibility(View.GONE);
 			view.findViewById(R.id.text_empty).setVisibility(View.GONE);
+
+			ViewGroup layoutAssessments = cardAssessments.findViewById(R.id.layout_assessments);
+			layoutAssessments.removeAllViews();
 		} else if (study.getAssessments().isEmpty()) {
 			cardScore.setVisibility(View.GONE);
 			cardAssessments.setVisibility(View.GONE);

@@ -21,6 +21,7 @@
 
 	<string name="item_semester_current">Текущий</string>
 
+	<string name="button_refresh">Обновить</string>
 	<string name="button_auth_log_in">Войти</string>
 	<string name="button_auth_forgot_password">Забыли пароль?</string>
 	<string name="button_task_attach">Прикрепить файл</string>

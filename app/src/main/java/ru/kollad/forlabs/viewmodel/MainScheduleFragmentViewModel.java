@@ -20,12 +20,17 @@ import ru.kollad.forlabs.util.Keys;
  */
 public class MainScheduleFragmentViewModel extends ViewModel implements DownloadJsonArrayTask.OnPostExecuteListener, DownloadJsonObjectTask.OnPostExecuteListener {
 
+	private final MutableLiveData<Boolean> refreshing = new MutableLiveData<>();
 	private final MutableLiveData<JSONArray> index = new MutableLiveData<>();
 	private final MutableLiveData<JSONObject> schedule = new MutableLiveData<>();
 
 	private int course = -1, stream = -1, week = -1;
 
 	private String scheduleLink;
+
+	public MutableLiveData<Boolean> getRefreshing() {
+		return refreshing;
+	}
 
 	public LiveData<JSONArray> getIndex() {
 		return index;
@@ -61,23 +66,27 @@ public class MainScheduleFragmentViewModel extends ViewModel implements Download
 
 	@Override
 	public void onPostExecute(DownloadJsonArrayTask task, @Nullable JSONArray result) {
+		refreshing.setValue(false);
 		index.setValue(result == null ? new JSONArray() : result);
 	}
 
 	@Override
 	public void onPostExecute(DownloadJsonObjectTask task, @Nullable JSONObject result) {
+		refreshing.setValue(false);
 		schedule.setValue(result);
 	}
 
 	public void fetchIndex(Context context) {
+		refreshing.setValue(true);
 		new DownloadJsonArrayTask(this).execute("https://forlabs.ru/api/v1/rasp", Keys.getScheduleIndexFile(context));
 	}
 
-	public void fetchSchedule(Context context, String link) {
-		if (scheduleLink == null || !scheduleLink.equals(link)) {
+	public void fetchSchedule(Context context, String link, boolean ignoreCache) {
+		if (ignoreCache || scheduleLink == null || !scheduleLink.equals(link)) {
 			scheduleLink = link;
 			schedule.setValue(null);
-			new DownloadJsonObjectTask(this).execute(link, new File(Keys.getScheduleDirectory(context), link.substring(link.lastIndexOf("/") + 1) + ".json"));
+			refreshing.setValue(true);
+			new DownloadJsonObjectTask(this).execute(link, new File(Keys.getScheduleDirectory(context), link.substring(link.lastIndexOf("/") + 1) + ".json"), ignoreCache);
 		} else {
 			schedule.setValue(schedule.getValue());
 		}

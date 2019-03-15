@@ -32,6 +32,10 @@ public class StudyOverviewFragment extends StudyFragment {
 		if (study == null) {
 			cardOverview.setVisibility(View.GONE);
 			cardSchedule.setVisibility(View.GONE);
+
+			ViewGroup layoutSchedule = cardSchedule.findViewById(R.id.layout_schedule);
+			while (layoutSchedule.getChildCount() > 1)
+				layoutSchedule.removeViewAt(1);
 		} else {
 			int attendance = Math.round(study.getAttendPercent());
 

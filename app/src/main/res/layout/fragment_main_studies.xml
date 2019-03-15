@@ -13,11 +13,15 @@
 		<androidx.appcompat.widget.Toolbar
 			android:id="@+id/toolbar"
 			style="@style/Toolbar"
-			android:animateLayoutChanges="true"
 			android:layout_width="match_parent"
 			android:layout_height="match_parent"
+			android:animateLayoutChanges="true"
 			android:theme="@style/Toolbar"
-			app:title="@string/title_studies" />
+			app:title="@string/title_studies">
+
+			<include layout="@layout/button_refresh" />
+
+		</androidx.appcompat.widget.Toolbar>
 
 	</com.google.android.material.appbar.AppBarLayout>
 

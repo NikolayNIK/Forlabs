@@ -16,7 +16,13 @@
 			style="@style/Toolbar"
 			android:layout_width="match_parent"
 			android:layout_height="match_parent"
-			app:title="@string/title_schedule" />
+			app:contentInsetEnd="0dp"
+			app:contentInsetRight="0dp"
+			app:title="@string/title_schedule">
+
+			<include layout="@layout/button_refresh" />
+
+		</androidx.appcompat.widget.Toolbar>
 
 	</com.google.android.material.appbar.AppBarLayout>
 

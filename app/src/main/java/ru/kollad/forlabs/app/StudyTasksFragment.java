@@ -88,6 +88,9 @@ public class StudyTasksFragment extends StudyFragment {
 		if (study == null) {
 			scrollTasks.setVisibility(View.GONE);
 			textEmpty.setVisibility(View.GONE);
+
+			ViewGroup layoutTasks = scrollTasks.findViewById(R.id.layout_tasks);
+			layoutTasks.removeAllViews();
 		} else {
 			if (study.getTasks().isEmpty()) {
 				scrollTasks.setVisibility(View.GONE);
