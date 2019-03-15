@@ -64,6 +64,9 @@ public class MainStudiesFragment extends MainFragment implements Observer<Semest
 	public void onChanged(Semesters semesters) {
 		Menu menu = getToolbar().getMenu();
 		menu.clear();
+
+		if (semesters == null) return;
+
 		for (int i = 0; i < semesters.size(); i++) {
 			String name = semesters.get(i).getName();
 			if (name == null) name = getString(R.string.item_semester_current);

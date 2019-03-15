@@ -17,6 +17,8 @@
 			android:layout_height="match_parent"
 			android:animateLayoutChanges="true"
 			android:theme="@style/Toolbar"
+			app:contentInsetEnd="0dp"
+			app:contentInsetRight="0dp"
 			app:title="@string/title_studies">
 
 			<include layout="@layout/button_refresh" />
