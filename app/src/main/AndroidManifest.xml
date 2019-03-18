@@ -20,17 +20,34 @@
 		<activity
 			android:name=".app.AuthActivity"
 			android:theme="@style/AppTheme.NoActionBar.Logo">
+
 			<intent-filter>
 				<action android:name="android.intent.action.MAIN" />
 
 				<category android:name="android.intent.category.LAUNCHER" />
 			</intent-filter>
+
 			<intent-filter>
 				<action android:name="ru.kollad.forlabs.OPEN_DASHBOARD" />
 				<action android:name="ru.kollad.forlabs.OPEN_SCHEDULE" />
 				<action android:name="ru.kollad.forlabs.OPEN_STUDIES" />
 
 				<category android:name="android.intent.category.DEFAULT" />
+			</intent-filter>
+
+			<intent-filter>
+				<action android:name="android.intent.action.VIEW" />
+
+				<category android:name="android.intent.category.DEFAULT" />
+				<category android:name="android.intent.category.BROWSABLE" />
+
+				<data
+					android:host="forlabs.ru"
+					android:scheme="http" />
+
+				<data
+					android:host="forlabs.ru"
+					android:scheme="https" />
 			</intent-filter>
 
 			<meta-data
