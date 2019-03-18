@@ -7,6 +7,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
+import androidx.lifecycle.MutableLiveData;
 import ru.kollad.forlabs.model.Cookies;
 import ru.kollad.forlabs.model.Message;
 import ru.kollad.forlabs.model.Messages;
@@ -21,9 +22,16 @@ public class FetchMessagesTask extends AsyncTask<Object, Void, Messages> {
 	private static final long CACHE_INVALIDATION_TIME_MILLIS = 1000;
 
 	private final OnPostExecuteListener listener;
+	private final MutableLiveData<Integer> counter;
 
-	public FetchMessagesTask(OnPostExecuteListener listener) {
+	public FetchMessagesTask(OnPostExecuteListener listener, MutableLiveData<Integer> counter) {
 		this.listener = listener;
+		this.counter = counter;
+	}
+
+	@Override
+	protected void onPreExecute() {
+		counter.setValue(counter.getValue() == null ? 1 : counter.getValue() + 1);
 	}
 
 	@Override
@@ -59,6 +67,7 @@ public class FetchMessagesTask extends AsyncTask<Object, Void, Messages> {
 	@Override
 	protected void onPostExecute(Messages messages) {
 		listener.onPostExecute(this, messages);
+		counter.setValue(counter.getValue() == null ? 0 : counter.getValue() - 1);
 	}
 
 	public interface OnPostExecuteListener {

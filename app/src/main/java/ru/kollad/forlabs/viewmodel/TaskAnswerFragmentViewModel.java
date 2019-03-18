@@ -27,21 +27,23 @@ public class TaskAnswerFragmentViewModel extends ViewModel implements
 		return messages;
 	}
 
-	public void fetchMessages(Context context, Task task, boolean ignoreCache) {
-		new FetchMessagesTask(this).execute(Keys.getCookiesFile(context), new File(context.getExternalCacheDir(), "messages/" + task.getId()), task, ignoreCache);
+	public void fetchMessages(Context context, MutableLiveData<Integer> counter, Task task, boolean ignoreCache) {
+		new FetchMessagesTask(this, counter).execute(Keys.getCookiesFile(context), new File(context.getExternalCacheDir(), "messages/" + task.getId()), task, ignoreCache);
 	}
 
-	public void sendMessage(Context context, Task task, String text, List<Uri> attachments) {
-		new SendMessageTask(this).execute(context.getApplicationContext(), task, text, attachments);
+	public void sendMessage(Context context, MutableLiveData<Integer> counter, Task task, String text, List<Uri> attachments) {
+		new SendMessageTask(this, counter).execute(context.getApplicationContext(), task, text, attachments);
 	}
 
 	@Override
 	public void onPostExecute(FetchMessagesTask task, List<Message> messages) {
+		this.messages.setValue(null);
 		this.messages.setValue(messages);
 	}
 
 	@Override
 	public void onPostExecute(SendMessageTask task, List<Message> messages) {
+		this.messages.setValue(null);
 		this.messages.setValue(messages);
 	}
 }

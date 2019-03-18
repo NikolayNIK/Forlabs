@@ -18,7 +18,6 @@ import java.util.List;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
-import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import ru.kollad.forlabs.R;
@@ -29,12 +28,13 @@ import ru.kollad.forlabs.viewmodel.TaskDescriptionFragmentViewModel;
 /**
  * Created by NikolayNIK on 17.11.2018.
  */
-public class TaskDescriptionFragment extends Fragment implements Observer<List<Attachment>> {
+public class TaskDescriptionFragment extends TaskFragment implements Observer<List<Attachment>> {
 
 	private static final String KEY_TASK = "task";
 
 	private static final String CONTENT = "<html><head><style>body{color:#%s;background-color:#%s;}</style></head><body>%s</body></html>";
 
+	private TaskDescriptionFragmentViewModel model;
 	private Task task;
 
 	static TaskDescriptionFragment newInstance(Task task) {
@@ -68,10 +68,10 @@ public class TaskDescriptionFragment extends Fragment implements Observer<List<A
 						Integer.toHexString(ContextCompat.getColor(getContext(), R.color.background)).substring(2),
 						task.getContent())), "text/html", null);
 
-		TaskDescriptionFragmentViewModel model = ViewModelProviders.of(this).get(TaskDescriptionFragmentViewModel.class);
+		model = ViewModelProviders.of(this).get(TaskDescriptionFragmentViewModel.class);
 		model.getAttachments().observe(this, this);
 		if (model.getAttachments().getValue() == null)
-			model.fetchAttachments(getContext(), task, false);
+			model.fetchAttachments(getContext(), getCounter(), task, false);
 	}
 
 	@Override
@@ -80,6 +80,9 @@ public class TaskDescriptionFragment extends Fragment implements Observer<List<A
 			if (attachments == null) {
 				getView().findViewById(R.id.card_attachments).setVisibility(View.GONE);
 				getView().findViewById(R.id.card_title).setVisibility(View.GONE);
+				ViewGroup layoutAttachments = getView().findViewById(R.id.layout_attachments);
+				while (layoutAttachments.getChildCount() > 1)
+					layoutAttachments.removeViewAt(1);
 			} else {
 				if (attachments.isEmpty()) {
 					getView().findViewById(R.id.card_attachments).setVisibility(View.GONE);
@@ -106,6 +109,14 @@ public class TaskDescriptionFragment extends Fragment implements Observer<List<A
 				((TextView) cardTitle.findViewById(R.id.text_title))
 						.setText(getString(R.string.text_task_title, task.getSort(), task.getName()));
 			}
+		}
+	}
+
+	@Override
+	void refresh() {
+		if (model != null && getContext() != null) {
+			assert getArguments() != null;
+			model.fetchAttachments(getContext(), getCounter(), task, true);
 		}
 	}
 

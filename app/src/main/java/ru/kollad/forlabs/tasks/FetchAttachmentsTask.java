@@ -7,6 +7,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
+import androidx.lifecycle.MutableLiveData;
 import ru.kollad.forlabs.api.API;
 import ru.kollad.forlabs.model.Attachment;
 import ru.kollad.forlabs.model.Attachments;
@@ -22,9 +23,16 @@ public class FetchAttachmentsTask extends AsyncTask<Object, Void, List<Attachmen
 	private static final long CACHE_INVALIDATION_TIME_MILLIS = 5 * 60 * 1000;
 
 	private final OnPostExecuteListener listener;
+	private final MutableLiveData<Integer> counter;
 
-	public FetchAttachmentsTask(OnPostExecuteListener listener) {
+	public FetchAttachmentsTask(OnPostExecuteListener listener, MutableLiveData<Integer> counter) {
 		this.listener = listener;
+		this.counter = counter;
+	}
+
+	@Override
+	protected void onPreExecute() {
+		counter.setValue(counter.getValue() == null ? 1 : counter.getValue() + 1);
 	}
 
 	@Override
@@ -64,6 +72,7 @@ public class FetchAttachmentsTask extends AsyncTask<Object, Void, List<Attachmen
 	@Override
 	protected void onPostExecute(List<Attachment> attachments) {
 		listener.onPostExecute(this, attachments);
+		counter.setValue(counter.getValue() == null ? 0 : counter.getValue() - 1);
 	}
 
 	public interface OnPostExecuteListener {

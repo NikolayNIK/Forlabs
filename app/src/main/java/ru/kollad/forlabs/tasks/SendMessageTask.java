@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import androidx.documentfile.provider.DocumentFile;
+import androidx.lifecycle.MutableLiveData;
 import ru.kollad.forlabs.api.API;
 import ru.kollad.forlabs.model.Attachment;
 import ru.kollad.forlabs.model.Cookies;
@@ -28,9 +29,16 @@ import ru.kollad.forlabs.util.SerializableUtil;
 public class SendMessageTask extends AsyncTask<Object, Void, List<Message>> {
 
 	private final OnPostExecuteListener listener;
+	private final MutableLiveData<Integer> counter;
 
-	public SendMessageTask(OnPostExecuteListener listener) {
+	public SendMessageTask(OnPostExecuteListener listener, MutableLiveData<Integer> counter) {
 		this.listener = listener;
+		this.counter = counter;
+	}
+
+	@Override
+	protected void onPreExecute() {
+		counter.setValue(counter.getValue() == null ? 1 : counter.getValue() + 1);
 	}
 
 	@Override
@@ -76,6 +84,7 @@ public class SendMessageTask extends AsyncTask<Object, Void, List<Message>> {
 	@Override
 	protected void onPostExecute(List<Message> messages) {
 		listener.onPostExecute(this, messages);
+		counter.setValue(counter.getValue() == null ? 0 : counter.getValue() - 1);
 	}
 
 	public interface OnPostExecuteListener {

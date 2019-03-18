@@ -20,7 +20,6 @@ import java.util.List;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.documentfile.provider.DocumentFile;
-import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -35,13 +34,14 @@ import ru.kollad.forlabs.widget.MessageAdapter;
 /**
  * Created by NikolayNIK on 18.11.2018.
  */
-public class TaskAnswerFragment extends Fragment implements Observer<List<Message>>, TextWatcher {
+public class TaskAnswerFragment extends TaskFragment implements Observer<List<Message>>, TextWatcher {
 
 	private static final String KEY_TASK = "task";
 	private static final String KEY_ATTACHED_URIS = "attached_uris";
 
 	private static final int REQUEST_CHOOSE_ATTACHMENT = 69;
 
+	private TaskAnswerFragmentViewModel model;
 	private ArrayList<Uri> attachedUris;
 	private ViewGroup layoutAttachments;
 	private MessageAdapter adapter;
@@ -84,10 +84,10 @@ public class TaskAnswerFragment extends Fragment implements Observer<List<Messag
 		recycler.setLayoutManager(new LinearLayoutManager(getContext()));
 		recycler.setAdapter(adapter);
 
-		final TaskAnswerFragmentViewModel model = ViewModelProviders.of(this).get(TaskAnswerFragmentViewModel.class);
+		model = ViewModelProviders.of(this).get(TaskAnswerFragmentViewModel.class);
 		model.getMessages().observe(this, this);
 		if (model.getMessages().getValue() == null) {
-			model.fetchMessages(getContext(), task, false);
+			model.fetchMessages(getContext(), getCounter(), task, false);
 		}
 
 		if (savedInstanceState == null) attachedUris = new ArrayList<>();
@@ -106,7 +106,7 @@ public class TaskAnswerFragment extends Fragment implements Observer<List<Messag
 
 		checkSendButton();
 		buttonSend.setOnClickListener(v -> {
-			model.sendMessage(getContext(), task, editMessage.getText().toString(), attachedUris);
+			model.sendMessage(getContext(), getCounter(), task, editMessage.getText().toString(), attachedUris);
 			editMessage.setText(null);
 			layoutAttachments.removeAllViews();
 			attachedUris.clear();
@@ -156,6 +156,14 @@ public class TaskAnswerFragment extends Fragment implements Observer<List<Messag
 	@Override
 	public void afterTextChanged(Editable s) {
 		checkSendButton();
+	}
+
+	@Override
+	void refresh() {
+		if (model != null && getContext() != null) {
+			assert getArguments() != null;
+			model.fetchMessages(getContext(), getCounter(), (Task) getArguments().getSerializable(KEY_TASK), true);
+		}
 	}
 
 	private void inflateAttachment(final Uri uri) {

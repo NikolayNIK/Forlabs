@@ -25,10 +25,11 @@ public class TaskDescriptionFragmentViewModel extends ViewModel implements Fetch
 
 	@Override
 	public void onPostExecute(FetchAttachmentsTask task, List<Attachment> attachments) {
+		this.attachments.setValue(null);
 		this.attachments.setValue(attachments);
 	}
 
-	public void fetchAttachments(Context context, Task task, boolean ignoreCache) {
-		new FetchAttachmentsTask(this).execute(Keys.getCookiesFile(context), new File(context.getExternalCacheDir(), "attachments/" + task.getId()), task, ignoreCache);
+	public void fetchAttachments(Context context, MutableLiveData<Integer> counter, Task task, boolean ignoreCache) {
+		new FetchAttachmentsTask(this, counter).execute(Keys.getCookiesFile(context), new File(context.getExternalCacheDir(), "attachments/" + task.getId()), task, ignoreCache);
 	}
 }
