@@ -6,8 +6,8 @@ android {
 		applicationId "ru.kollad.forlabs"
 		minSdkVersion 17
 		targetSdkVersion 28
-		versionCode 4
-		versionName "0.4"
+		versionCode 5
+		versionName "1.0"
 		testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 	}
 	buildTypes {
