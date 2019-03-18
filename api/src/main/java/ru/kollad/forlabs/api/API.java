@@ -29,6 +29,7 @@ import ru.kollad.forlabs.api.exceptions.IncorrectCredentialsException;
 import ru.kollad.forlabs.api.exceptions.OldCookiesException;
 import ru.kollad.forlabs.api.exceptions.UnsupportedForlabsException;
 import ru.kollad.forlabs.model.Attachment;
+import ru.kollad.forlabs.model.Attachments;
 import ru.kollad.forlabs.model.Cookies;
 import ru.kollad.forlabs.model.Message;
 import ru.kollad.forlabs.model.Semester;
@@ -382,7 +383,7 @@ public class API {
 	 * @param task Task.
 	 * @return Attachments
 	 */
-	public List<Attachment> getTaskAttachments(Task task) throws IOException, UnsupportedForlabsException, JSONException, OldCookiesException, CaptchaException {
+	public Attachments getTaskAttachments(Task task) throws IOException, UnsupportedForlabsException, JSONException, OldCookiesException, CaptchaException {
 		return task.fetchAttachments(p, cookies);
 	}
 

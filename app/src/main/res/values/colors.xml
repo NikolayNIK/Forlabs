@@ -6,5 +6,6 @@
 	<color name="accent">#0F8DAD</color>
 	<color name="accent12">#1E0F8DAD</color>
 	<color name="background">#FAFAFA</color>
+	<color name="text">#000000</color>
 
 </resources>

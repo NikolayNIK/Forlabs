@@ -1,7 +1,6 @@
 package ru.kollad.forlabs.app;
 
 import android.content.Intent;
-import android.content.res.TypedArray;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -34,8 +33,7 @@ public class TaskDescriptionFragment extends Fragment implements Observer<List<A
 
 	private static final String KEY_TASK = "task";
 
-	private static final String CONTENT_PREFIX = "<style>body{color:#%s;background-color:#%s;}</style><body>";
-	private static final String CONTENT_SUFFIX = "</body>";
+	private static final String CONTENT = "<html><head><style>body{color:#%s;background-color:#%s;}</style></head><body>%s</body></html>";
 
 	private Task task;
 
@@ -64,20 +62,16 @@ public class TaskDescriptionFragment extends Fragment implements Observer<List<A
 		assert getContext() != null;
 		assert task != null;
 
-		TypedArray ta = getContext().obtainStyledAttributes(new int[]{android.R.attr.textColorPrimary});
-		int color = ContextCompat.getColor(getContext(), ta.getResourceId(0, R.color.accent));
-		ta.recycle();
-
 		((WebView) view.findViewById(R.id.web)).loadData(
-				Uri.encode(String.format(CONTENT_PREFIX,
-						Integer.toHexString(color).substring(2),
-						Integer.toHexString(ContextCompat.getColor(getContext(), R.color.background)).substring(2))
-						+ task.getContent() + CONTENT_SUFFIX), "text/html", null);
+				Uri.encode(String.format(CONTENT,
+						Integer.toHexString(ContextCompat.getColor(getContext(), R.color.text)).substring(2),
+						Integer.toHexString(ContextCompat.getColor(getContext(), R.color.background)).substring(2),
+						task.getContent())), "text/html", null);
 
 		TaskDescriptionFragmentViewModel model = ViewModelProviders.of(this).get(TaskDescriptionFragmentViewModel.class);
 		model.getAttachments().observe(this, this);
 		if (model.getAttachments().getValue() == null)
-			model.fetchAttachments(getContext(), task);
+			model.fetchAttachments(getContext(), task, false);
 	}
 
 	@Override

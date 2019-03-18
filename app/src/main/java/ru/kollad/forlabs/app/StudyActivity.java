@@ -7,7 +7,6 @@ import android.view.View;
 import com.google.android.material.tabs.TabLayout;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 import androidx.lifecycle.Observer;
@@ -28,7 +27,7 @@ public class StudyActivity extends AppCompatActivity implements Observer<Study> 
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_study);
-		setSupportActionBar((Toolbar) findViewById(R.id.toolbar));
+		setSupportActionBar(findViewById(R.id.toolbar));
 
 		assert getSupportActionBar() != null;
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -41,7 +40,7 @@ public class StudyActivity extends AppCompatActivity implements Observer<Study> 
 		Study study;
 		if (model.getStudy().getValue() == null) {
 			study = (Study) getIntent().getSerializableExtra(EXTRA_STUDY);
-			model.fetchStudy(this, study);
+			model.fetchStudy(this, study, false);
 		} else {
 			study = model.getStudy().getValue();
 			onChanged(study);
@@ -51,7 +50,7 @@ public class StudyActivity extends AppCompatActivity implements Observer<Study> 
 
 		View buttonRefresh = findViewById(R.id.button_refresh);
 		RefreshUtil.observeRefresh(buttonRefresh, this, model.getRefreshing());
-		buttonRefresh.setOnClickListener((v) -> model.fetchStudy(this, study));
+		buttonRefresh.setOnClickListener((v) -> model.fetchStudy(this, study, true));
 	}
 
 	@Override

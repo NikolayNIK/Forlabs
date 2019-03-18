@@ -87,7 +87,7 @@ public class TaskAnswerFragment extends Fragment implements Observer<List<Messag
 		final TaskAnswerFragmentViewModel model = ViewModelProviders.of(this).get(TaskAnswerFragmentViewModel.class);
 		model.getMessages().observe(this, this);
 		if (model.getMessages().getValue() == null) {
-			model.fetchMessages(getContext(), task);
+			model.fetchMessages(getContext(), task, false);
 		}
 
 		if (savedInstanceState == null) attachedUris = new ArrayList<>();
