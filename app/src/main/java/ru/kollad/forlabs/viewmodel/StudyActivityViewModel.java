@@ -2,6 +2,8 @@ package ru.kollad.forlabs.viewmodel;
 
 import android.content.Context;
 
+import java.io.File;
+
 import androidx.annotation.Nullable;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
@@ -26,9 +28,9 @@ public class StudyActivityViewModel extends ViewModel implements FetchStudyTask.
 		return study;
 	}
 
-	public void fetchStudy(Context context, Study emptyStudy) {
+	public void fetchStudy(Context context, Study emptyStudy, boolean ignoreCache) {
 		refreshing.setValue(true);
-		new FetchStudyTask(this).execute(Keys.getCookiesFile(context), emptyStudy);
+		new FetchStudyTask(this).execute(Keys.getCookiesFile(context), new File(context.getExternalCacheDir(), "study/" + emptyStudy.getId()), emptyStudy, ignoreCache);
 	}
 
 	@Override

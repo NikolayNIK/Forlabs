@@ -1,5 +1,7 @@
 package ru.kollad.forlabs.util;
 
+import android.util.Log;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -8,10 +10,22 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 
+import androidx.annotation.Nullable;
+
 /**
  * Created by NikolayNIK on 08.11.2018.
  */
 public class SerializableUtil {
+
+	@Nullable
+	public static Serializable tryRead(File file) {
+		try {
+			return read(file);
+		} catch (Exception e) {
+			Log.e("Forlabs", "Unable to read serializable: " + file, e);
+			return null;
+		}
+	}
 
 	public static Serializable read(File file) throws IOException {
 		ObjectInputStream input = new ObjectInputStream(new FileInputStream(file));
