@@ -7,11 +7,6 @@ import org.jsoup.nodes.Document;
 import org.jsoup.parser.Parser;
 import org.jsoup.select.Elements;
 
-import ru.kollad.forlabs.api.API;
-import ru.kollad.forlabs.api.exceptions.CaptchaException;
-import ru.kollad.forlabs.api.exceptions.OldCookiesException;
-import ru.kollad.forlabs.api.exceptions.UnsupportedForlabsException;
-
 import java.io.IOException;
 import java.io.Serializable;
 import java.net.HttpURLConnection;
@@ -23,6 +18,11 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import java.util.Scanner;
+
+import ru.kollad.forlabs.api.API;
+import ru.kollad.forlabs.api.exceptions.CaptchaException;
+import ru.kollad.forlabs.api.exceptions.OldCookiesException;
+import ru.kollad.forlabs.api.exceptions.UnsupportedForlabsException;
 
 /**
  * Represents a task.
@@ -47,7 +47,7 @@ public class Task implements Serializable {
 
 	private Assignment assignment;
 	private List<Attachment> attachments;
-	private List<Message> messages;
+	private Messages messages;
 
 	/**
 	 * Constructor for JSON.
@@ -178,7 +178,7 @@ public class Task implements Serializable {
 	 * @param cookies Cookies for getting new one.
 	 * @return List of messages.
 	 */
-	public List<Message> fetchMessages(Cookies cookies) throws IOException, ParseException,
+	public Messages fetchMessages(Cookies cookies) throws IOException, ParseException,
 			JSONException, OldCookiesException, CaptchaException {
 		// setup connection
 		HttpURLConnection con = (HttpURLConnection)
@@ -208,7 +208,7 @@ public class Task implements Serializable {
 
 		// read all messages
 		JSONArray mesArr = new JSONArray(response.toString());
-		messages = new ArrayList<>();
+		messages = new Messages();
 		for (int i = 0; i < mesArr.length(); i++)
 			messages.add(new Message(mesArr.getJSONObject(i)));
 

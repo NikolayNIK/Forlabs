@@ -3,6 +3,7 @@ package ru.kollad.forlabs.viewmodel;
 import android.content.Context;
 import android.net.Uri;
 
+import java.io.File;
 import java.util.List;
 
 import androidx.lifecycle.MutableLiveData;
@@ -26,8 +27,8 @@ public class TaskAnswerFragmentViewModel extends ViewModel implements
 		return messages;
 	}
 
-	public void fetchMessages(Context context, Task task) {
-		new FetchMessagesTask(this).execute(Keys.getCookiesFile(context), task);
+	public void fetchMessages(Context context, Task task, boolean ignoreCache) {
+		new FetchMessagesTask(this).execute(Keys.getCookiesFile(context), new File(context.getExternalCacheDir(), "messages/" + task.getId()), task, ignoreCache);
 	}
 
 	public void sendMessage(Context context, Task task, String text, List<Uri> attachments) {

@@ -4,17 +4,21 @@ import android.os.AsyncTask;
 import android.util.Log;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.List;
 
 import ru.kollad.forlabs.model.Cookies;
 import ru.kollad.forlabs.model.Message;
+import ru.kollad.forlabs.model.Messages;
 import ru.kollad.forlabs.model.Task;
 import ru.kollad.forlabs.util.SerializableUtil;
 
 /**
  * Created by NikolayNIK on 18.11.2018.
  */
-public class FetchMessagesTask extends AsyncTask<Object, Void, List<Message>> {
+public class FetchMessagesTask extends AsyncTask<Object, Void, Messages> {
+
+	private static final long CACHE_INVALIDATION_TIME_MILLIS = 1000;
 
 	private final OnPostExecuteListener listener;
 
@@ -23,23 +27,37 @@ public class FetchMessagesTask extends AsyncTask<Object, Void, List<Message>> {
 	}
 
 	@Override
-	protected List<Message> doInBackground(Object... args) {
-		File file = (File) args[0];
-		Task task = (Task) args[1];
+	protected Messages doInBackground(Object... args) {
+		File fileCookies = (File) args[0];
+		File fileMessages = (File) args[1];
+		Task task = (Task) args[2];
+		boolean ignoreCache = (boolean) args[3];
 		try {
-			Cookies cookies = (Cookies) SerializableUtil.read(file);
+			if (ignoreCache || System.currentTimeMillis() - fileMessages.lastModified() > CACHE_INVALIDATION_TIME_MILLIS) {
+				try {
+					File parent = fileMessages.getParentFile();
+					if (!parent.isDirectory() && !parent.mkdirs())
+						throw new IOException("Unable to mkdirs: " + parent);
 
-			List<Message> messages = task.fetchMessages(cookies);
-			SerializableUtil.write(file, cookies);
-			return messages;
+					Cookies cookies = (Cookies) SerializableUtil.read(fileCookies);
+
+					Messages messages = task.fetchMessages(cookies);
+					SerializableUtil.write(fileCookies, cookies);
+					SerializableUtil.write(fileMessages, messages);
+				} catch (Exception e) {
+					Log.e("Forlabs", "Unable to fetch messages", e);
+				}
+			}
+
+			return (Messages) SerializableUtil.read(fileMessages);
 		} catch (Exception e) {
-			Log.w("Forlabs", "Unable to fetch messages", e);
+			Log.w("Forlabs", "Unable to acquire messages", e);
 			return null;
 		}
 	}
 
 	@Override
-	protected void onPostExecute(List<Message> messages) {
+	protected void onPostExecute(Messages messages) {
 		listener.onPostExecute(this, messages);
 	}
 
