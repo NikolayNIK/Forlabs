@@ -31,13 +31,8 @@ public class StudyExamsFragment extends StudyFragment {
 			buttonWebsite.setOnClickListener(null);
 		} else {
 			buttonWebsite.setVisibility(View.VISIBLE);
-			buttonWebsite.setOnClickListener(new View.OnClickListener() {
-				@Override
-				public void onClick(View v) {
-					startActivity(new Intent(Intent.ACTION_VIEW,
-							Uri.parse("https://forlabs.ru/studies/" + study.getId() + "#exams")));
-				}
-			});
+			buttonWebsite.setOnClickListener(v -> startActivity(new Intent(Intent.ACTION_VIEW,
+					Uri.parse("https://forlabs.ru/studies/" + study.getId() + "#exams"))));
 		}
 	}
 }

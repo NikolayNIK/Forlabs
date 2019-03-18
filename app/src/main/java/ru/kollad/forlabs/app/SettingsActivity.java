@@ -41,14 +41,11 @@ public class SettingsActivity extends AppCompatActivity implements CompoundButto
 			getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_back_daynight_24dp);
 		}
 
-		inflateListSelectorItem(Keys.THEME, R.string.pref_theme_title, R.string.pref_theme_subtitle, R.array.pref_theme, -1, new DialogInterface.OnClickListener() {
-			@Override
-			public void onClick(DialogInterface dialog, int which) {
-				AppCompatDelegate.setDefaultNightMode(which - 1);
-				if (which == 1 && Build.VERSION.SDK_INT >= 23 &&
-						checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED)
-					requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 69);
-			}
+		inflateListSelectorItem(Keys.THEME, R.string.pref_theme_title, R.string.pref_theme_subtitle, R.array.pref_theme, -1, (dialog, which) -> {
+			AppCompatDelegate.setDefaultNightMode(which - 1);
+			if (which == 1 && Build.VERSION.SDK_INT >= 23 &&
+					checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED)
+				requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 69);
 		});
 
 		inflateDivider();
@@ -90,22 +87,16 @@ public class SettingsActivity extends AppCompatActivity implements CompoundButto
 
 	private void inflateListSelectorItem(final String key, final @StringRes int title, @StringRes int subtitle, final @ArrayRes int list, final int defValue, @Nullable final DialogInterface.OnClickListener listener) {
 		View view = inflateSimpleItem(title, subtitle);
-		view.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				AlertDialog.Builder adb = new AlertDialog.Builder(SettingsActivity.this);
-				adb.setTitle(title);
-				adb.setSingleChoiceItems(list, prefs.getInt(key, defValue), new DialogInterface.OnClickListener() {
-					@Override
-					public void onClick(DialogInterface dialog, int which) {
-						if (listener != null) listener.onClick(dialog, which);
-						prefs.edit().putInt(key, which).apply();
-						dialog.dismiss();
-					}
-				});
+		view.setOnClickListener(v -> {
+			AlertDialog.Builder adb = new AlertDialog.Builder(SettingsActivity.this);
+			adb.setTitle(title);
+			adb.setSingleChoiceItems(list, prefs.getInt(key, defValue), (dialog, which) -> {
+				if (listener != null) listener.onClick(dialog, which);
+				prefs.edit().putInt(key, which).apply();
+				dialog.dismiss();
+			});
 
-				adb.show();
-			}
+			adb.show();
 		});
 	}
 

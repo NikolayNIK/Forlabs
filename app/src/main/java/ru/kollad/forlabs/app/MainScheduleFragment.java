@@ -81,59 +81,56 @@ public class MainScheduleFragment extends MainFragment implements Observer<JSONA
 		model.getIndex().observe(this, this);
 		onChanged(model.getIndex().getValue());
 
-		model.getSchedule().observe(this, new Observer<JSONObject>() {
-			@Override
-			public void onChanged(JSONObject jsonObject) {
-				clearSchedule();
-				if (jsonObject != null && getActivity() != null) {
-					Calendar calendar = Calendar.getInstance();
+		model.getSchedule().observe(this, jsonObject -> {
+			clearSchedule();
+			if (jsonObject != null && getActivity() != null) {
+				Calendar calendar = Calendar.getInstance();
 
-					int week = spinnerWeek.getSelectedItemPosition();
-					int currentWeek = calendar.get(Calendar.WEEK_OF_MONTH) % 2;
-					int currentDay = currentWeek == week ? calendar.get(Calendar.DAY_OF_WEEK) - 1 : -1;
-					int currentHour = calendar.get(Calendar.HOUR_OF_DAY);
-					int currentMinute = calendar.get(Calendar.MINUTE);
-					if (currentDay == 0) currentDay = 7;
+				int week = spinnerWeek.getSelectedItemPosition();
+				int currentWeek = calendar.get(Calendar.WEEK_OF_MONTH) % 2;
+				int currentDay = currentWeek == week ? calendar.get(Calendar.DAY_OF_WEEK) - 1 : -1;
+				int currentHour = calendar.get(Calendar.HOUR_OF_DAY);
+				int currentMinute = calendar.get(Calendar.MINUTE);
+				if (currentDay == 0) currentDay = 7;
 
-					for (int day = 1; day <= 7; day++) {
-						JSONObject dayJson = jsonObject.optJSONObject("day" + (7 * week + day));
-						if (dayJson != null) {
-							View viewDay = getActivity().getLayoutInflater().inflate(R.layout.fragment_main_schedule_day, containerSchedule, false);
+				for (int day = 1; day <= 7; day++) {
+					JSONObject dayJson = jsonObject.optJSONObject("day" + (7 * week + day));
+					if (dayJson != null) {
+						View viewDay = getActivity().getLayoutInflater().inflate(R.layout.fragment_main_schedule_day, containerSchedule, false);
 
-							ViewGroup groupItems = viewDay.findViewById(R.id.layout_schedule_items);
-							TextView textTitle = groupItems.findViewById(R.id.text_title);
-							textTitle.setText(getResources().getStringArray(R.array.days)[day - 1]);
-							if (day == currentDay)
-								textTitle.setTypeface(textTitle.getTypeface(), Typeface.BOLD);
+						ViewGroup groupItems = viewDay.findViewById(R.id.layout_schedule_items);
+						TextView textTitle = groupItems.findViewById(R.id.text_title);
+						textTitle.setText(getResources().getStringArray(R.array.days)[day - 1]);
+						if (day == currentDay)
+							textTitle.setTypeface(textTitle.getTypeface(), Typeface.BOLD);
 
-							Iterator<String> keys = dayJson.keys();
-							while (keys.hasNext()) {
-								String key = keys.next();
-								JSONObject itemJson = dayJson.optJSONObject(key);
-								if (itemJson != null) {
-									String name = itemJson.optString("study");
+						Iterator<String> keys = dayJson.keys();
+						while (keys.hasNext()) {
+							String key = keys.next();
+							JSONObject itemJson = dayJson.optJSONObject(key);
+							if (itemJson != null) {
+								String name = itemJson.optString("study");
 
-									View viewItem = getActivity().getLayoutInflater().inflate(R.layout.fragment_main_schedule_day_item, groupItems, false);
-									viewItem.setOnClickListener(new OnStudyClickListener(name));
-									((TextView) viewItem.findViewById(R.id.text_time_start)).setText(key.substring(0, 5));
-									((TextView) viewItem.findViewById(R.id.text_time_end)).setText(key.substring(6));
-									((TextView) viewItem.findViewById(R.id.text_name)).setText(name);
-									((TextView) viewItem.findViewById(R.id.text_room)).setText(itemJson.optString("room"));
-									((TextView) viewItem.findViewById(R.id.text_lecturer)).setText(formatTeacher(itemJson.optString("lecturer")));
+								View viewItem = getActivity().getLayoutInflater().inflate(R.layout.fragment_main_schedule_day_item, groupItems, false);
+								viewItem.setOnClickListener(new OnStudyClickListener(name));
+								((TextView) viewItem.findViewById(R.id.text_time_start)).setText(key.substring(0, 5));
+								((TextView) viewItem.findViewById(R.id.text_time_end)).setText(key.substring(6));
+								((TextView) viewItem.findViewById(R.id.text_name)).setText(name);
+								((TextView) viewItem.findViewById(R.id.text_room)).setText(itemJson.optString("room"));
+								((TextView) viewItem.findViewById(R.id.text_lecturer)).setText(formatTeacher(itemJson.optString("lecturer")));
 
-									if (day == currentDay &&
-											Integer.valueOf(key.substring(0, 2)) <= currentHour &&
-											Integer.valueOf(key.substring(3, 5)) <= currentMinute &&
-											Integer.valueOf(key.substring(6, 8)) >= currentHour &&
-											Integer.valueOf(key.substring(9, 11)) >= currentMinute)
-										viewItem.setBackgroundResource(R.color.accent12);
+								if (day == currentDay &&
+										Integer.valueOf(key.substring(0, 2)) <= currentHour &&
+										Integer.valueOf(key.substring(3, 5)) <= currentMinute &&
+										Integer.valueOf(key.substring(6, 8)) >= currentHour &&
+										Integer.valueOf(key.substring(9, 11)) >= currentMinute)
+									viewItem.setBackgroundResource(R.color.accent12);
 
-									groupItems.addView(viewItem);
-								}
+								groupItems.addView(viewItem);
 							}
-
-							containerSchedule.addView(viewDay);
 						}
+
+						containerSchedule.addView(viewDay);
 					}
 				}
 			}

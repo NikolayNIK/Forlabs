@@ -56,14 +56,9 @@ public class ReportActivity extends AppCompatActivity implements TextWatcher {
 			checkStacktrace.setChecked(true);
 		}
 
-		buttonSend.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				getSupportFragmentManager().beginTransaction()
-						.add(ReportFragment.newInstance(formReport()), null)
-						.commit();
-			}
-		});
+		buttonSend.setOnClickListener(v -> getSupportFragmentManager().beginTransaction()
+				.add(ReportFragment.newInstance(formReport()), null)
+				.commit());
 	}
 
 	@Override

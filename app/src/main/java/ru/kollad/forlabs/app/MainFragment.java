@@ -46,12 +46,9 @@ abstract class MainFragment extends Fragment implements Toolbar.OnMenuItemClickL
 		if (toolbar != null && getActivity() != null) {
 			onCreateOptionsMenu(toolbar.getMenu(), getActivity().getMenuInflater());
 			toolbar.setOnMenuItemClickListener(this);
-			toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-				@Override
-				public void onClick(View v) {
-					MainActivity activity = getMainActivity();
-					if (activity != null) activity.openDrawer();
-				}
+			toolbar.setNavigationOnClickListener(v -> {
+				MainActivity activity = getMainActivity();
+				if (activity != null) activity.openDrawer();
 			});
 		}
 	}

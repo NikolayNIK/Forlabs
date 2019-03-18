@@ -18,7 +18,6 @@ import ru.kollad.forlabs.model.StudentInfo;
 import ru.kollad.forlabs.viewmodel.AuthActivityViewModel;
 
 import static android.view.View.GONE;
-import static android.view.View.OnClickListener;
 import static android.view.View.VISIBLE;
 
 public class AuthActivity extends AppCompatActivity implements Observer<Integer> {
@@ -49,30 +48,15 @@ public class AuthActivity extends AppCompatActivity implements Observer<Integer>
 		if (model.getState().getValue() == null) model.checkCookies(this);
 		else handleState(model.getState().getValue());
 
-		buttonLogIn.setOnClickListener(new OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				model.checkCredentials(AuthActivity.this, editEmail.getText().toString(), editPassword.getText().toString());
-			}
-		});
+		buttonLogIn.setOnClickListener(v -> model.checkCredentials(AuthActivity.this, editEmail.getText().toString(), editPassword.getText().toString()));
 
-		buttonForgotPassword.setOnClickListener(new OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				startActivity(new Intent(Intent.ACTION_VIEW, URI_FORGOT_PASSWORD));
-			}
-		});
+		buttonForgotPassword.setOnClickListener(v -> startActivity(new Intent(Intent.ACTION_VIEW, URI_FORGOT_PASSWORD)));
 	}
 
 	@Override
 	public void onChanged(final @Nullable Integer state) {
 		if (state != null) {
-			progress.post(new Runnable() {
-				@Override
-				public void run() {
-					handleState(state);
-				}
-			});
+			progress.post(() -> handleState(state));
 		}
 	}
 

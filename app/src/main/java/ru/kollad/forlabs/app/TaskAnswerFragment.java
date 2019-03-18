@@ -100,24 +100,16 @@ public class TaskAnswerFragment extends Fragment implements Observer<List<Messag
 		if (attachedUris.size() >= 4)
 			buttonAttach.setVisibility(View.GONE);
 
-		buttonAttach.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				startActivityForResult(new Intent(Intent.ACTION_GET_CONTENT).setType("*/*")
-								.addCategory(Intent.CATEGORY_OPENABLE),
-						REQUEST_CHOOSE_ATTACHMENT);
-			}
-		});
+		buttonAttach.setOnClickListener(v -> startActivityForResult(new Intent(Intent.ACTION_GET_CONTENT).setType("*/*")
+						.addCategory(Intent.CATEGORY_OPENABLE),
+				REQUEST_CHOOSE_ATTACHMENT));
 
 		checkSendButton();
-		buttonSend.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				model.sendMessage(getContext(), task, editMessage.getText().toString(), attachedUris);
-				editMessage.setText(null);
-				layoutAttachments.removeAllViews();
-				attachedUris.clear();
-			}
+		buttonSend.setOnClickListener(v -> {
+			model.sendMessage(getContext(), task, editMessage.getText().toString(), attachedUris);
+			editMessage.setText(null);
+			layoutAttachments.removeAllViews();
+			attachedUris.clear();
 		});
 
 		editMessage.addTextChangedListener(this);
@@ -187,14 +179,11 @@ public class TaskAnswerFragment extends Fragment implements Observer<List<Messag
 
 			((TextView) view.findViewById(R.id.text_size)).setText(getString(R.string.text_task_attachment_size, length, units[i]));
 
-			view.setOnClickListener(new View.OnClickListener() {
-				@Override
-				public void onClick(View v) {
-					attachedUris.remove(uri);
-					layoutAttachments.removeView(view);
-					buttonAttach.setVisibility(View.VISIBLE);
-					checkSendButton();
-				}
+			view.setOnClickListener(v -> {
+				attachedUris.remove(uri);
+				layoutAttachments.removeView(view);
+				buttonAttach.setVisibility(View.VISIBLE);
+				checkSendButton();
 			});
 
 			layoutAttachments.addView(view);

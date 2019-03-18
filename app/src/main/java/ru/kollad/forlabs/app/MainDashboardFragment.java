@@ -56,19 +56,9 @@ public class MainDashboardFragment extends MainFragment {
 
 		if(savedInstanceState == null) {
 			Handler handler = new Handler();
-			handler.post(new Runnable() {
-				@Override
-				public void run() {
-					createA(table, studentInfo);
-				}
-			});
+			handler.post(() -> createA(table, studentInfo));
 
-			handler.post(new Runnable() {
-				@Override
-				public void run() {
-					createB(table, studentInfo);
-				}
-			});
+			handler.post(() -> createB(table, studentInfo));
 		} else {
 			createA(table, studentInfo);
 			createB(table, studentInfo);

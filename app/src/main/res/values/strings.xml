@@ -15,10 +15,6 @@
 	<string name="hint_report_message">Message</string>
 	<string name="hint_report_message_unnecessary">Message (unnecessary)</string>
 
-	<string name="dialog_update_available_title">New version %s available</string>
-	<string name="dialog_update_available_positive">Download</string>
-	<string name="dialog_update_available_negative">Later</string>
-
 
 	<string name="error_auth_incorrect_credentials">Username and password do not match</string>
 
