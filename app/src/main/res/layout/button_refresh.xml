@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ImageButton xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:tools="http://schemas.android.com/tools"
 	android:id="@+id/button_refresh"
 	style="@style/Widget.AppCompat.ActionButton"
 	android:layout_width="48dp"
 	android:layout_height="match_parent"
 	android:layout_gravity="end"
 	android:contentDescription="@string/button_refresh"
-	android:src="@drawable/ic_refresh_daynight_24dp" />
+	android:src="@drawable/ic_refresh_daynight_24dp"
+	android:tooltipText="@string/button_refresh"
+	tools:ignore="UnusedAttribute" />
