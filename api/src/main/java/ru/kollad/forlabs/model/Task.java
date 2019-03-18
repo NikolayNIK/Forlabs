@@ -125,6 +125,8 @@ public class Task implements Serializable {
 				new URL(createAttachmentUrl()).openConnection();
 		con.setInstanceFollowRedirects(false);
 		con.setDoInput(true);
+		con.setConnectTimeout(10000);
+		con.setReadTimeout(10000);
 		con.addRequestProperty("User-Agent", API.USER_AGENT);
 		cookies.putTo(con);
 
@@ -186,6 +188,8 @@ public class Task implements Serializable {
 						.replace("${id}", Integer.toString(id))).openConnection();
 		con.setInstanceFollowRedirects(false);
 		con.setDoInput(true);
+		con.setConnectTimeout(10000);
+		con.setReadTimeout(10000);
 		con.addRequestProperty("User-Agent", API.USER_AGENT);
 		cookies.putTo(con);
 

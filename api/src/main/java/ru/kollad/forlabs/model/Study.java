@@ -93,6 +93,8 @@ public class Study implements Serializable {
 		HttpURLConnection con = (HttpURLConnection) new URL(FETCH_URL.replace("${id}", Integer.toString(id))).openConnection();
 		con.setInstanceFollowRedirects(false);
 		con.setDoInput(true);
+		con.setConnectTimeout(10000);
+		con.setReadTimeout(10000);
 		con.addRequestProperty("User-Agent", API.USER_AGENT);
 		cookies.putTo(con);
 

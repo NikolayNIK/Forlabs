@@ -106,6 +106,8 @@ public class API {
 		HttpURLConnection con = (HttpURLConnection) new URL(LOGIN_URL).openConnection();
 		con.setDoInput(true);
 		con.addRequestProperty("User-Agent", USER_AGENT);
+		con.setConnectTimeout(10000);
+		con.setReadTimeout(10000);
 
 		if (con.getResponseCode() == 404)
 			throw new CaptchaException();
@@ -138,6 +140,8 @@ public class API {
 		con.setRequestMethod("POST");
 		con.setDoInput(true);
 		con.setDoOutput(true);
+		con.setConnectTimeout(10000);
+		con.setReadTimeout(10000);
 		con.addRequestProperty("User-Agent", USER_AGENT);
 		cookies.putTo(con);
 
@@ -165,6 +169,8 @@ public class API {
 		// setup connection
 		con = (HttpURLConnection) new URL(redirection).openConnection();
 		con.setDoInput(true);
+		con.setConnectTimeout(10000);
+		con.setReadTimeout(10000);
 		con.addRequestProperty("User-Agent", USER_AGENT);
 		cookies.putTo(con);
 
@@ -194,6 +200,8 @@ public class API {
 		HttpURLConnection con = (HttpURLConnection) new URL(DASHBOARD_URL).openConnection();
 		con.setInstanceFollowRedirects(false);
 		con.setDoInput(true);
+		con.setConnectTimeout(10000);
+		con.setReadTimeout(10000);
 		con.addRequestProperty("User-Agent", USER_AGENT);
 		cookies.putTo(con);
 
@@ -229,6 +237,8 @@ public class API {
 		con.setRequestMethod("POST");
 		con.setDoInput(true);
 		con.setDoOutput(true);
+		con.setConnectTimeout(10000);
+		con.setReadTimeout(10000);
 		con.addRequestProperty("User-Agent", USER_AGENT);
 		cookies.putTo(con);
 
@@ -257,6 +267,8 @@ public class API {
 		HttpURLConnection con = (HttpURLConnection) new URL(DASHBOARD_URL).openConnection();
 		con.setInstanceFollowRedirects(false);
 		con.setDoInput(true);
+		con.setConnectTimeout(10000);
+		con.setReadTimeout(10000);
 		con.addRequestProperty("User-Agent", USER_AGENT);
 		cookies.putTo(con);
 
@@ -305,6 +317,8 @@ public class API {
 		HttpURLConnection con = (HttpURLConnection) new URL(STUDIES_URL).openConnection();
 		con.setInstanceFollowRedirects(false);
 		con.setDoInput(true);
+		con.setConnectTimeout(10000);
+		con.setReadTimeout(10000);
 		con.addRequestProperty("User-Agent", USER_AGENT);
 		cookies.putTo(con);
 
@@ -407,6 +421,8 @@ public class API {
 		HttpURLConnection con = (HttpURLConnection) new URL(t.createAttachmentUrl()).openConnection();
 		con.setInstanceFollowRedirects(false);
 		con.setDoInput(true);
+		con.setConnectTimeout(10000);
+		con.setReadTimeout(10000);
 		con.addRequestProperty("User-Agent", USER_AGENT);
 		cookies.putTo(con);
 
@@ -450,6 +466,8 @@ public class API {
 						URLEncoder.encode(filename2.toString(), "utf-8"))).openConnection();
 		con.setInstanceFollowRedirects(false);
 		con.setDoInput(true);
+		con.setConnectTimeout(10000);
+		con.setReadTimeout(10000);
 		con.addRequestProperty("User-Agent", USER_AGENT);
 		con.addRequestProperty("X-CSRF-Token", token);
 		cookies.putTo(con);
@@ -470,6 +488,8 @@ public class API {
 		con.setRequestMethod("POST");
 		con.setDoInput(true);
 		con.setDoOutput(true);
+		con.setConnectTimeout(10000);
+		con.setReadTimeout(10000);
 		con.addRequestProperty("User-Agent", USER_AGENT);
 		con.addRequestProperty("X-CSRF-Token", token);
 		cookies.putTo(con);
@@ -580,6 +600,8 @@ public class API {
 		HttpURLConnection con = (HttpURLConnection) new URL(t.createAttachmentUrl()).openConnection();
 		con.setInstanceFollowRedirects(false);
 		con.setDoInput(true);
+		con.setConnectTimeout(10000);
+		con.setReadTimeout(10000);
 		con.addRequestProperty("User-Agent", USER_AGENT);
 		cookies.putTo(con);
 
@@ -615,6 +637,8 @@ public class API {
 		con.setRequestMethod("POST");
 		con.setDoInput(true);
 		con.setDoOutput(true);
+		con.setConnectTimeout(10000);
+		con.setReadTimeout(10000);
 		con.addRequestProperty("Content-Type", "application/json;charset=utf-8");
 		con.addRequestProperty("User-Agent", USER_AGENT);
 		con.addRequestProperty("X-Requested-With", "XMLHttpRequest");

@@ -30,6 +30,8 @@ public class ReportTask extends AsyncTask<String, Void, Exception> {
 			HttpURLConnection connection = (HttpURLConnection) new URL(URL).openConnection();
 			connection.setDoOutput(true);
 			connection.setDoInput(false);
+			connection.setConnectTimeout(10000);
+			connection.setReadTimeout(10000);
 			connection.setFixedLengthStreamingMode(bytes.length);
 			connection.connect();
 
