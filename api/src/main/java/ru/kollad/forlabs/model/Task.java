@@ -13,7 +13,6 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -46,7 +45,7 @@ public class Task implements Serializable {
 	private Date deletedAt;
 
 	private Assignment assignment;
-	private List<Attachment> attachments;
+	private Attachments attachments;
 	private Messages messages;
 
 	/**
@@ -118,7 +117,7 @@ public class Task implements Serializable {
 	 * @param cookies Cookies for getting new one.
 	 * @return List of attachments.
 	 */
-	public List<Attachment> fetchAttachments(Parser p, Cookies cookies) throws IOException,
+	public Attachments fetchAttachments(Parser p, Cookies cookies) throws IOException,
 			UnsupportedForlabsException, JSONException, OldCookiesException, CaptchaException {
 		// setup connection
 		HttpURLConnection con = (HttpURLConnection)
@@ -166,7 +165,7 @@ public class Task implements Serializable {
 		JSONArray jsonArr = task.getJSONArray("attachments");
 
 		// parse json to array list
-		attachments = new ArrayList<>();
+		attachments = new Attachments();
 		for (int i = 0; i < jsonArr.length(); i++)
 			attachments.add(new Attachment(jsonArr.getJSONObject(i)));
 

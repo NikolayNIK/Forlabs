@@ -71,7 +71,7 @@ public class TaskDescriptionFragment extends Fragment implements Observer<List<A
 		TaskDescriptionFragmentViewModel model = ViewModelProviders.of(this).get(TaskDescriptionFragmentViewModel.class);
 		model.getAttachments().observe(this, this);
 		if (model.getAttachments().getValue() == null)
-			model.fetchAttachments(getContext(), task);
+			model.fetchAttachments(getContext(), task, false);
 	}
 
 	@Override

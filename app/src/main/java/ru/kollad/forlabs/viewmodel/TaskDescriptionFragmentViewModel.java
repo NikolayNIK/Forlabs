@@ -2,6 +2,7 @@ package ru.kollad.forlabs.viewmodel;
 
 import android.content.Context;
 
+import java.io.File;
 import java.util.List;
 
 import androidx.lifecycle.MutableLiveData;
@@ -27,7 +28,7 @@ public class TaskDescriptionFragmentViewModel extends ViewModel implements Fetch
 		this.attachments.setValue(attachments);
 	}
 
-	public void fetchAttachments(Context context, Task task) {
-		new FetchAttachmentsTask(this).execute(Keys.getCookiesFile(context), task);
+	public void fetchAttachments(Context context, Task task, boolean ignoreCache) {
+		new FetchAttachmentsTask(this).execute(Keys.getCookiesFile(context), new File(context.getExternalCacheDir(), "attachments/" + task.getId()), task, ignoreCache);
 	}
 }
