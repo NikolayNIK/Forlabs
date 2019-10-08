@@ -102,7 +102,7 @@ public class API {
 	 * @param email E-mail.
 	 * @param password Password.
 	 */
-	public StudentInfo login(String email, String password) throws IOException, UnsupportedForlabsException, IncorrectCredentialsException, CaptchaException {
+	public StudentInfo login(String email, String password) throws Exception {
 		// setup connection
 		HttpURLConnection con = (HttpURLConnection) new URL(LOGIN_URL).openConnection();
 		con.setDoInput(true);
@@ -263,7 +263,7 @@ public class API {
 	 * Fetch some info from dashboard.
 	 * @return Student info.
 	 */
-	public StudentInfo fetchDashboard() throws IOException, OldCookiesException, UnsupportedForlabsException, CaptchaException {
+	public StudentInfo fetchDashboard() throws Exception {
 		// setup connection
 		HttpURLConnection con = (HttpURLConnection) new URL(DASHBOARD_URL).openConnection();
 		con.setInstanceFollowRedirects(false);

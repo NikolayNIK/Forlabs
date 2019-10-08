@@ -1,6 +1,7 @@
 package ru.kollad.forlabs.model;
 
 import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import java.io.Serializable;
@@ -28,7 +29,7 @@ public class StudentInfo implements Serializable {
 	 * Constructor for document.
 	 * @param doc Document.
 	 */
-	public StudentInfo(Document doc) throws UnsupportedForlabsException {
+	public StudentInfo(Document doc) throws Exception {
 		// get needed elements
 		Elements elements = doc.getElementsByClass("dropup");
 		if (elements.size() == 0)
@@ -42,7 +43,15 @@ public class StudentInfo implements Serializable {
 		elements = doc.getElementsByClass("col-md-6").get(0).children();
 		groupName = elements.get(0).text();
 
-		Elements tableRows = elements.get(1).child(0).children();
+		Elements tableRows = null;
+		for (Element a : elements) {
+			if (a.tagName().equals("table")){
+				tableRows = a.child(0).children();
+				break;
+			}
+		}
+
+		if (tableRows == null) throw new Exception("Shit happens!");
 
 		directionName = tableRows.get(0).child(1).text();
 		profileName = tableRows.get(1).child(1).text();
