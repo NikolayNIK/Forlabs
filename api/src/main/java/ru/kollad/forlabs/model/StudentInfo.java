@@ -41,7 +41,12 @@ public class StudentInfo implements Serializable {
 		studentName = elements.get(1).text();
 
 		elements = doc.getElementsByClass("col-md-6").get(0).children();
-		groupName = elements.get(0).text();
+		for (Element el : elements) {
+			if (el.tagName().equals("h3")) {
+				groupName = el.text();
+				break;
+			}
+		}
 
 		Elements tableRows = null;
 		for (Element a : elements) {
